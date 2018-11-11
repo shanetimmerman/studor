@@ -1,0 +1,26 @@
+defmodule StudorWeb.Router do
+  use StudorWeb, :router
+
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
+
+  pipeline :api do
+    plug :accepts, ["json"]
+  end
+
+  scope "/", StudorWeb do
+    pipe_through :browser
+
+    get "/", PageController, :index
+  end
+
+  # Other scopes may use custom stacks.
+  # scope "/api", StudorWeb do
+  #   pipe_through :api
+  # end
+end
