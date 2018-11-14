@@ -4,7 +4,7 @@ defmodule Studor.Repo.Migrations.CreateSubjectAreas do
   def change do
     create table(:subject_areas) do
       add :subject_area, :string
-      add :subject_id, references(:subjects, on_delete: :nothing)
+      add :subject_id, references(:subjects, on_delete: :delete_all)
 
       timestamps()
     end

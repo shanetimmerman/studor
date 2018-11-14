@@ -9,7 +9,7 @@ defmodule Studor.Repo.Migrations.CreateTutors do
       add :paypal_token, :string
       add :profile_pic_url, :string
       add :gpa, :float
-      add :university_id, references(:universities, on_delete: :nothing)
+      add :university_id, references(:universities, on_delete: :nilify_all)
 
       timestamps()
     end
