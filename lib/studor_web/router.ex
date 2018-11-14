@@ -19,8 +19,8 @@ defmodule StudorWeb.Router do
     get "/", PageController, :index
   end
 
-  scope "/ajax", StudorWeb do
-    pipe_through :ajax
+  scope "/api/v1", StudorWeb do
+    pipe_through :api
     resources "/subjects", SubjectController, except: [:new, :edit]
     resources "/universities", UniversityController, except: [:new, :edit]
     resources "/time_blocks", TimeBlockController, except: [:new, :edit]
