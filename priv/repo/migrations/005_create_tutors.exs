@@ -3,12 +3,12 @@ defmodule Studor.Repo.Migrations.CreateTutors do
 
   def change do
     create table(:tutors) do
-      add :email, :string
-      add :name, :string
-      add :password_hash, :string
-      add :paypal_token, :string
+      add :email, :string, null: false
+      add :name, :string, null: false
+      add :password_hash, :string, null: false
+      add :paypal_token, :string, null: false
       add :profile_pic_url, :string
-      add :gpa, :float
+      add :gpa, :float, null: false
       add :university_id, references(:universities, on_delete: :nilify_all)
 
       timestamps()

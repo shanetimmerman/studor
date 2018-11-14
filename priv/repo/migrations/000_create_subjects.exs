@@ -3,7 +3,7 @@ defmodule Studor.Repo.Migrations.CreateSubjects do
 
   def change do
     create table(:subjects) do
-      add :subject, :string
+      add :subject, :string, null: false
 
       timestamps()
     end

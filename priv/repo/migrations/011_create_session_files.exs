@@ -3,7 +3,7 @@ defmodule Studor.Repo.Migrations.CreateSessionFiles do
 
   def change do
     create table(:session_files) do
-      add :file_url, :string
+      add :file_url, :string, null: false
       add :tutoring_session_id, references(:tutoring_sessions, on_delete: :delete_all)
 
       timestamps()

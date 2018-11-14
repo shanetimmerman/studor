@@ -3,9 +3,9 @@ defmodule Studor.Repo.Migrations.CreateRatings do
 
   def change do
     create table(:ratings) do
-      add :stars, :integer
+      add :stars, :integer, null: false
       add :description, :text
-      add :date, :utc_datetime
+      add :date, :utc_datetime, null: false
       add :tutor_id, references(:tutors, on_delete: :delete_all)
       add :student_id, references(:students, on_delete: :delete_all)
 
