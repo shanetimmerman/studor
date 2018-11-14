@@ -30,9 +30,6 @@ defmodule StudorWeb.Router do
     resources "/subject_areas", SubjectAreaController, except: [:new, :edit]
     resources "/tutoring_sessions", TutoringSessionController, except: [:new, :edit]
     resources "/session_files", SessionFileController, except: [:new, :edit]
-    resources "/tutor_subject_areas", TutorSubjectAreaController, except: [:new, :edit]
-    resources "/availabilities", AvailabilityController, except: [:new, :edit]
-    resources "/tutor_courses", TutorCourseController, except: [:new, :edit]
     resources "/ratings", RatingController, except: [:new, :edit]
   end
 end
