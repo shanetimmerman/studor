@@ -5,6 +5,7 @@ defmodule Studor.Tutors.Tutor do
 
   schema "tutors" do
     field :email, :string
+    field :name, :string
     field :gpa, :float
     field :password_hash, :string
     field :paypal_token, :string
@@ -17,7 +18,7 @@ defmodule Studor.Tutors.Tutor do
   @doc false
   def changeset(tutor, attrs) do
     tutor
-    |> cast(attrs, [:email, :password_hash, :paypal_token, :profile_pic_url, :gpa])
-    |> validate_required([:email, :password_hash, :paypal_token, :profile_pic_url, :gpa])
+    |> cast(attrs, [:email, :name, :password_hash, :paypal_token, :profile_pic_url, :gpa])
+    |> validate_required([:email, :name, :password_hash, :paypal_token, :profile_pic_url, :gpa])
   end
 end

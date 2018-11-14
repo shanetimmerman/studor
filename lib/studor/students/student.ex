@@ -5,6 +5,7 @@ defmodule Studor.Students.Student do
 
   schema "students" do
     field :email, :string
+    field :name, :string
     field :password_hash, :string
     field :paypal_token, :string
     field :profile_pic_url, :string
@@ -15,7 +16,7 @@ defmodule Studor.Students.Student do
   @doc false
   def changeset(student, attrs) do
     student
-    |> cast(attrs, [:email, :password_hash, :paypal_token, :profile_pic_url])
-    |> validate_required([:email, :password_hash, :paypal_token, :profile_pic_url])
+    |> cast(attrs, [:email, :name, :password_hash, :paypal_token, :profile_pic_url])
+    |> validate_required([:email, :name, :password_hash, :paypal_token, :profile_pic_url])
   end
 end
