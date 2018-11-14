@@ -17,6 +17,6 @@ defmodule Studor.Students.Student do
   def changeset(student, attrs) do
     student
     |> cast(attrs, [:email, :name, :password_hash, :paypal_token, :profile_pic_url])
-    |> validate_required([:email, :name, :password_hash, :paypal_token, :profile_pic_url])
+    |> validate_required([:email, :name, :password_hash, :paypal_token])
   end
 end

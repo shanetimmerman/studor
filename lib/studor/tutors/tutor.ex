@@ -19,6 +19,6 @@ defmodule Studor.Tutors.Tutor do
   def changeset(tutor, attrs) do
     tutor
     |> cast(attrs, [:email, :name, :password_hash, :paypal_token, :profile_pic_url, :gpa])
-    |> validate_required([:email, :name, :password_hash, :paypal_token, :profile_pic_url, :gpa])
+    |> validate_required([:email, :name, :password_hash, :paypal_token, :gpa])
   end
 end
