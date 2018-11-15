@@ -6,7 +6,7 @@ defmodule Studor.Courses.Course do
   schema "courses" do
     field :course_name, :string
     field :course_no, :string
-    field :university_id, :id
+    belongs_to :university, Studor.Universities.University
 
     timestamps()
   end

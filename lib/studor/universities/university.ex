@@ -6,6 +6,9 @@ defmodule Studor.Universities.University do
   schema "universities" do
     field :name, :string
 
+    has_many :courses, Studor.Courses.Course
+    has_many :tutors, Studor.Tutors.Tutor
+
     timestamps()
   end
 

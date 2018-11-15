@@ -7,8 +7,8 @@ defmodule Studor.Ratings.Rating do
     field :date, :utc_datetime
     field :description, :string
     field :stars, :integer
-    field :tutor_id, :id
-    field :student_id, :id
+    belongs_to :tutor, Studor.Tutors.Tutor
+    belongs_to :student, Studor.Students.Student
 
     timestamps()
   end

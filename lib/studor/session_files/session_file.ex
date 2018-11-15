@@ -5,7 +5,7 @@ defmodule Studor.SessionFiles.SessionFile do
 
   schema "session_files" do
     field :file_url, :string
-    field :tutoring_session_id, :id
+    belongs_to :tutoring_session, Studor.TutoringSessions.TutoringSession
 
     timestamps()
   end

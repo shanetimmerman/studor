@@ -6,11 +6,14 @@ defmodule Studor.TutoringSessions.TutoringSession do
   schema "tutoring_sessions" do
     field :approved, :boolean, default: false
     field :description, :string
-    field :tutor_id, :id
-    field :student_id, :id
-    field :time_block_id, :id
-    field :course_id, :id
-    field :subject_area_id, :id
+
+    belongs_to :tutor, Studor.Tutors.Tutor
+    belongs_to :student, Studor.Students.Student
+    belongs_to :time_block, Studor.TimeBlocks.TimeBlock
+    belongs_to :course, Studor.Courses.Course
+    belongs_to :subject_area, Studor.SubjectAreas.SubjectArea
+
+    has_many :session_files, Studor.SessionFiles.SessionFile
 
     timestamps()
   end

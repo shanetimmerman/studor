@@ -5,7 +5,7 @@ defmodule Studor.SubjectAreas.SubjectArea do
 
   schema "subject_areas" do
     field :subject_area, :string
-    field :subject_id, :id
+    belongs_to :subject, Studor.Subjects.Subject
 
     timestamps()
   end
