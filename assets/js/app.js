@@ -9,20 +9,25 @@ import css from "../css/app.scss";
 //
 // Import dependencies
 //
-import "phoenix_html"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, browserHistory } from 'react-router-dom';
+import routes from './routes';
+import "phoenix_html";
 import jQuery from 'jquery';
 window.jQuery = window.$ = jQuery; // Bootstrap requires a global "$" object.
 import "bootstrap";
-import _ from "lodash";
 
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
-import root_init from "./root";
 import store from "./store";
-
-$(() => {
-  let node = $('#root')[0];
-  root_init(node, store);
-});
+console.log(document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={browserHistory} routes={routes}/>
+  </Provider>,
+  $('#root')[0]
+);
