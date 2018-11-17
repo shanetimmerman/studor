@@ -25,22 +25,14 @@ class TutorInfo extends React.Component {
     render() {
 
         return (
-            <div className="row padding">
-                <div className="col-md-2"></div>
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-body">
-                        <h5 className="card-title">Tutor Name</h5>
-                        <h6 className="card-subtitle mb-2 text-primary">tutor subject area</h6>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" className="card-link">Request Session</a>
-                        </div>
+                <div className="card padding">
+                    <div className="card-body">
+                    <h5 className="card-title">Tutor Name</h5>
+                    <h6 className="card-subtitle mb-2 text-primary">tutor subject area</h6>
+                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" className="card-link">Request Session</a>
                     </div>
-                </div>
-                <div className="col-md-2"></div>
-            </div>
-                
-                );
+                </div>);
         }
   }
 

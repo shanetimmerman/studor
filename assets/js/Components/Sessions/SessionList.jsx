@@ -22,10 +22,16 @@ class SessionInfo extends React.Component {
 
     render() {
 
-        return (<div>
-                    Session Info Card
-                 </div>);
+        return (
+            <div className="card padding">
+                <div className="card-body">
+                <h5 className="card-title">Tutor Name</h5>
+                <h6 className="card-subtitle mb-2 text-primary">date 11/25/2018 time 3:00pm-4:00pm</h6>
+                <p className="card-text">Your message to the tutor about what you want the session to be about.</p>
+                </div>
+            </div>);
         }
+  
   }
 
   function mapStateToProps(state) {
