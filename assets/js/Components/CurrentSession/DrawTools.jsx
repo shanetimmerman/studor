@@ -10,7 +10,10 @@ class DrawTools extends React.Component {
 
     render () {
     return (<div>
-               DrawTools
+               <button className="mb-3">Draw pen</button>
+               <button className="mb-3">Eraser</button>
+               <button className="mb-3">Image</button>
+               <button className="mb-3">Text</button>
             </div>);
     }
 }

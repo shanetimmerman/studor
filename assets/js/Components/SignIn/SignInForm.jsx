@@ -38,7 +38,7 @@ class SignInForm extends React.Component {
           handleChange,
           handleSubmit,
         }) => (
-            <form onSubmit={handleSubmit}>
+            <form>
             <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
             <label htmlFor="loginemail">Email:</label>
                 <input
@@ -68,6 +68,8 @@ class SignInForm extends React.Component {
                         <select 
                         id="studentTutorSelect"
                         name="user_type"
+                        onChange={handleChange}
+                        value={values.user_type}
                         className="form-control border-0 bg-light">
                             <option>Student</option>
                             <option>Tutor</option>
@@ -77,12 +79,10 @@ class SignInForm extends React.Component {
                 </div>
             </div>
     
-            <div className="row vertical-padding">
-                <div className="col-md-4">
-                <div className="row">
-                    <button type="submit" className="btn btn-primary">Log in</button>
-                    <button type="button" class="btn btn-outline-primary">Sign up</button>
-                </div>
+            <div className="row mb-3">
+                <div className="col-md-12">
+                    <button type="submit" className="btn rounded btn-primary" onClick={handleSubmit}>Log in</button>
+                    <button type="button" className="btn ml-2 rounded btn-outline-primary" onClick={handleSubmit}>Sign up</button>
                 </div>
             </div>
             </form>

@@ -13,23 +13,23 @@ class MainPage extends React.Component {
 
     render () {
     return (<div>
-                <div className="vertical-padding">
-                    <div className="vertical-padding">
+                <div className="mt-3 mb-3">
+                    <div className="mt-3 mb-3">
                         <h1>Render this if user is not logged in:</h1>
                         <LoginRegisterPage />
                     </div>
                 </div>
 
-                <div className="vertical-padding">
-                    <div className="vertical-padding">
+                <div className="mt-3 mb-3">
+                    <div className="mt-3 mb-3">
                         <h1>Render this if student is logged in:</h1>
                         <TutorSearchPage />
                     </div>
                 </div>
 
 
-                <div className="vertical-padding">
-                    <div className="vertical-padding">
+                <div className="mb-3 mt-3">
+                    <div className="mb-3 mt-3">
                         <h1>Render this if tutor is logged in:</h1>
                         <SessionsPage />
                     </div>

@@ -11,9 +11,7 @@ class Whiteboard extends React.Component {
     }
 
     render () {
-    return (<div>
-               Whiteboard
-            </div>);
+    return (<div className="card shadow p-3 mb-5 bg-white full-height border-0 rounded"></div>);
     }
 }
   

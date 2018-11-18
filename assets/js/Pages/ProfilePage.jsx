@@ -15,7 +15,7 @@ class ProfilePage extends React.Component {
     return (<div className="bg-light">
             <div className="row padding">
                 <div className="col-md-3"></div>
-                <div className="col-md-6">
+                <div className="col-md-6 mt-5 mb-3">
                     <h1 className="text-center"> My Profile</h1>
                 </div>
                 <div className="col-md-3"></div>

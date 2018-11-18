@@ -16,12 +16,12 @@ class PaymentForm extends React.Component {
         initialValues={{ paypal_email: '', paypal_password: '' }}
         validate={values => {
           let errors = {};
-          if (!values.email) {
-            errors.email = 'Required';
+          if (!values.paypal_email) {
+            errors.paypal_email = 'Required';
           } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.paypal_email)
           ) {
-            errors.email = 'Invalid email address';
+            errors.paypal_email = 'Invalid email address';
           }
           return errors;
         }}
@@ -39,44 +39,42 @@ class PaymentForm extends React.Component {
           handleChange,
           handleSubmit,
         }) => (
-            <form onSubmit={handleSubmit}>
-            <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
-            <div class="card-body">
-            <h3 class="card-title text-primary">Payment Information</h3>
+          <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
+            <div className="card-body">
+              <h3 className="card-title text-primary">Payment Information</h3>
+              <h5>Paypal Account</h5>
+              <p className="text-secondary">This is the Paypal account that will be used to pay for tutoring sessions</p>
+                <form>
+                  <div className="mb-1">
+                    <label htmlFor="paypalemail">Email:</label>
+                      <input
+                      type="email"
+                      name="paypal_email"
+                      id="paypalemail"
+                      className="form-control bg-light border-0"
+                      onChange={handleChange}
+                      value={values.paypal_email}
+                      />
+                  </div>
+                  {errors.email && touched.email && errors.email}
+                      
+                  <div className="mb-4">
+                      <label htmlFor="paypalpassword">Paypal Password:</label>
+                      <input
+                      type="password"
+                      name="paypal_password"
+                      id="paypalpassword"
+                      className="form-control bg-light border-0"
+                      onChange={handleChange}
+                      value={values.paypal_password}
+                      />
+                  </div>
+                  {errors.password && touched.password && errors.password}
 
-            <h5>Paypal Account</h5>
-            <p className="text-secondary">This is the Paypal account that will be used to pay for tutoring sessions</p>
-
-            <div className="vertical-padding">
-            <label htmlFor="paypalemail">Email:</label>
-                <input
-                type="email"
-                name="email"
-                id="paypalemail"
-                className="form-control bg-light border-0"
-                onChange={handleChange}
-                value={values.paypal_email}
-                />
+                  <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Change Account</button>
+                </form>
+              </div>
             </div>
-                {errors.email && touched.email && errors.email}
-                
-            <div className="vertical-padding">
-                <label htmlFor="paypalpassword">Paypal Password:</label>
-                <input
-                type="password"
-                name="password"
-                id="paypalpassword"
-                className="form-control bg-light border-0"
-                onChange={handleChange}
-                value={values.paypal_password}
-                />
-            </div>
-                {errors.password && touched.password && errors.password}
-
-                <button type="submit" className="btn btn-primary">Change Account</button>
-            </div>
-            </div>
-            </form>
         )}
       </Formik>);
     }

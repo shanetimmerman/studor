@@ -8,6 +8,7 @@ import SessionsPage from "../Pages/SessionsPage.jsx"
 import ProfilePage from "../Pages/ProfilePage.jsx"
 import HeaderContainer from '../Containers/HeaderContainer.jsx';
 import MainPage from '../Pages/MainPage.jsx';
+import CurrentSessionPage from '../Pages/CurrentSessionPage.jsx';
 
 export default function root_init(node, store) {
     ReactDOM.render(
@@ -37,6 +38,9 @@ class Root extends React.Component {
                   } />
                   <Route path="/profile" exact={true} render={() =>
                     <ProfilePage />
+                  } />
+                  <Route path="/currentSession" exact={true} render={() =>
+                    <CurrentSessionPage />
                   } />
                 </div>
               </div>

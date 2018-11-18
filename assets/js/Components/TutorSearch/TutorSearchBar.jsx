@@ -22,7 +22,7 @@ class TutorSearchBar extends React.Component {
                 </div>
                 <input type="text" className="form-control" aria-label="Text input with dropdown button"/>
                 <div className="input-group-append">
-                    <button className="btn btn-outline-warning" type="button">Search</button>
+                    <button className="btn rounded btn-outline-warning" type="button">Search</button>
                 </div>
             </div>);
     }

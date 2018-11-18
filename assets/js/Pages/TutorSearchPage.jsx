@@ -15,9 +15,12 @@ class TutorSearchPage extends React.Component {
     return ( <div className="bg-light">
                 <div className="row padding">
                     <div className="col-md-3"></div>
+
                     <div className="col-md-6">
-                        <h1 className="text-center"> Find Tutors</h1>
-                        <h3 className="text-center text-secondary">Search by course or subject.</h3>
+                        <div className="mt-5 mb-5">
+                            <h1 className="text-center"> Find Tutors</h1>
+                            <h5 className="text-center text-secondary">Search by course or subject.</h5>
+                        </div>
                         <TutorSearchBarContainer />
                     </div>
                     <div className="col-md-3"></div>
@@ -27,11 +30,11 @@ class TutorSearchPage extends React.Component {
                     <div className="col-md-2"></div>
                     <div className="col-md-8">
                         <TutorListContainer />
+                        <h3>Modal for when they make a request</h3>
+                        <SessionRequestFormContainer />
                     </div>
                     <div className="col-md-2"></div>
                 </div>
-
-                <SessionRequestFormContainer />
 
             </div>);
     }

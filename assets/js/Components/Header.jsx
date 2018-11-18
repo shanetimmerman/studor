@@ -5,16 +5,24 @@ import _ from 'lodash';
 
 function Header(props) {
         return (
-        <div className="row my-2">
-        <div className="col-8">
-        <h3><Link to={"/"} >Stutor</Link></h3>
-        </div>
-        <div className="col-2">
-        <p><Link to={"/sessions"}>My Sessions</Link></p>
-        </div>
-        <div className="col-2">
-        <p><Link to={"/profile"}>My Profile</Link></p>
-        </div>
+        <div className="row mb-2 mt-4 p-3 bg-primary">
+
+            <div className="col-6 pt-1">
+                  <h3><Link to={"/"} className="text-white">Stutor</Link></h3>
+            </div>
+
+            <div className="col-2 pt-2">
+                  <p><Link to={"/sessions"} className="text-white">My Sessions</Link></p>
+            </div>
+
+            <div className="col-2 pt-2">
+                  <p><Link to={"/profile"} className="text-white">My Profile</Link></p>
+            </div>
+
+            <div className="col-2 pt-2">
+                  <p><Link to={"/currentSession"} className="text-white">Current Session</Link></p>
+            </div>
+
         </div>);
   }
 

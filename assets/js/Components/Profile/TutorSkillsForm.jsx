@@ -24,70 +24,79 @@ class TutorSkillsForm extends React.Component {
       >
         {({
           values,
-          errors,
-          touched,
           handleChange,
           handleSubmit,
         }) => (
-            <form onSubmit={handleSubmit}>
-            <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
-            <div class="card-body">
-            <h3 class="card-title text-primary">Tutoring Profile</h3>
-            <label htmlFor="uni">University:</label>
-            <select 
-            id="uni"
-            name="user_type"
-            className="form-control border-0 bg-light">
-                <option>Northeastern</option>
-                <option>Boston University</option>
-                <option>Harvard University</option>
-                <option>Massachusetts Institute</option>
-            </select>
+            <form>
+                <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
+                    <div className="card-body">
+                        <h3 className="card-title text-primary">Tutoring Profile</h3>
+                        
+                        <label  className="mt-2" htmlFor="uni">University:</label>
+                        <select 
+                        id="uni"
+                        name="user_type"
+                        onChange={handleChange}
+                        value={values.university}
+                        className="form-control border-0 bg-light">
+                            <option>Northeastern</option>
+                            <option>Boston University</option>
+                            <option>Harvard University</option>
+                            <option>Massachusetts Institute</option>
+                        </select>
 
-            <div className="vertical-padding">
-            <label htmlFor="gpa">GPA:</label>
-                <input
-                type="text"
-                name="gpa"
-                id="gpa"
-                className="form-control bg-light border-0"
-                onChange={handleChange}
-                value={values.email}
-                />
-            </div>
+                        <div className="mb-1 mt-3">
+                            <label htmlFor="gpa">GPA:</label>
+                            <input
+                            type="text"
+                            name="gpa"
+                            id="gpa"
+                            className="form-control bg-light border-0"
+                            onChange={handleChange}
+                            value={values.gpa}
+                            />
+                        </div>
 
-            <div className="vertical-padding">
-            <label htmlFor="courses">Courses:</label>
-             <Typeahead
-             id="courses"
-             multiple
-            onChange={(selected) => {
-                this.setState({selected});
-            }}
-            options={["Course1", "Course2", "Course3", "Course4"]}
-            />
-            </div>
+                        <div className="mb-1 mt-3">
+                            <label htmlFor="courses">Courses:</label>
+                            <Typeahead
+                            id="courses"
+                            name="courses"
+                            multiple
+                            className="bg-light border-0"
+                            onChange={(selected) => {
+                                values.courses = selected;
+                              }}
+                            value={values.courses}
+                            options={["Course1", "Course2", "Course3", "Course4"]}
+                            />
+                        </div>
 
-            <div className="vertical-padding">
-                <label htmlFor="subject_areas">Subject Areas:</label>
-                <Typeahead
-                id="subject_areas"
-                multiple
-                onChange={(selected) => {
-                    this.setState({selected});
-                }}
-                options={["Anthropology", "Astrology", "Biology", "Calculus"]}
-                />
-            </div>
+                        <div className="mb-1 mt-3">
+                            <label htmlFor="subject_areas">Subject Areas:</label>
+                            <Typeahead
+                            id="subject_areas"
+                            name="subject_areas"
+                            multiple
+                            onChange={(selected) => {
+                                values.subject_areas = selected
+                              }}
+                            value={values.subject_areas}
+                            options={["Anthropology", "Astrology", "Biology", "Calculus"]}
+                            />
+                        </div>
 
-            <div className="vertical-padding">
-            <label htmlFor="avail">Availability:</label>
-            <input id="avail"></input>
-            </div>
+                        <div className="mb-3 mt-3">
+                            <label htmlFor="avail">Availability:</label>
+                            <input 
+                            onChange={handleChange}
+                            value={values.availability}
+                            id="avail"></input>
+                        </div>
 
-            <button type="submit" className="btn btn-primary">Save Changes</button>
-            </div>
-            </div>
+                        <button type="submit" className="btn rounded mt-3 btn-primary" onClick={handleSubmit}>Save Changes</button>
+                    </div>
+                </div>
             </form>
         )}
       </Formik>);

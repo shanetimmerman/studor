@@ -12,10 +12,16 @@ class CurrentSessionPage extends React.Component {
     }
 
     render () {
-    return (<div>
-                <DrawToolsContainer />
-                <WhiteBoardContainer />
-                <SessionInfoContainer />
+    return (<div className="row bg-light full-height">
+                <div className="col-md-1">
+                    <DrawToolsContainer />
+                </div>
+                <div className="col-md-8">
+                    <WhiteBoardContainer />
+                </div>
+                <div className="col-md-3">
+                    <SessionInfoContainer />
+                </div>                                
             </div>);
     }
 }

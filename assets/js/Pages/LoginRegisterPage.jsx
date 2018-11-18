@@ -9,9 +9,9 @@ class LoginRegisterPage extends React.Component {
     }
 
     render () {
-    return (<div className="row padding vertical-padding bg-light">
+    return (<div className="row padding mt-3 mb-3 bg-light">
                 <div className="col-md-6">
-                    <div className="vertical-padding">
+                    <div className="mt-2 mb-5">
                         <h1 className="text-primary">Hi there, welcome to Stutor</h1>
                         <h5 className="text-secondary"> This is a short description of the app</h5>
                     </div>
