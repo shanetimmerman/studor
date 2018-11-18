@@ -10,7 +10,7 @@ class SessionsPage extends React.Component {
     }
 
     render () {
-        return ( <div>
+        return ( <div className="bg-light">
             <div className="row padding">
                 <div className="col-md-3"></div>
                 <div className="col-md-6">

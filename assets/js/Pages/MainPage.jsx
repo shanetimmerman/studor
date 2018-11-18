@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 import LoginRegisterPage from './LoginRegisterPage'
 import TutorSearchPage from './TutorSearchPage'
+import SessionsPage from './SessionsPage'
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -12,8 +13,28 @@ class MainPage extends React.Component {
 
     render () {
     return (<div>
-                <LoginRegisterPage />
-                <TutorSearchPage />
+                <div className="vertical-padding">
+                    <div className="vertical-padding">
+                        <h1>Render this if user is not logged in:</h1>
+                        <LoginRegisterPage />
+                    </div>
+                </div>
+
+                <div className="vertical-padding">
+                    <div className="vertical-padding">
+                        <h1>Render this if student is logged in:</h1>
+                        <TutorSearchPage />
+                    </div>
+                </div>
+
+
+                <div className="vertical-padding">
+                    <div className="vertical-padding">
+                        <h1>Render this if tutor is logged in:</h1>
+                        <SessionsPage />
+                    </div>
+                </div>                                  
+
             </div>);
     }
 }
