@@ -4,7 +4,6 @@ import Whiteboard from '../../Components/CurrentSession/Whiteboard.jsx'
 
 function mapStateToProps(state) {
     return {
-
     }
 }
 

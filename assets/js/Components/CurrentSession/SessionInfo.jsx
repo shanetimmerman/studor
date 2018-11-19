@@ -50,8 +50,6 @@ class CurrentMembers extends React.Component {
         let uploadedFiles = _.map([{id: 0, file_name: "graph image"}, {id: 1, file_name: "hw3 assignment questions"}], 
         (file) => <p className="text-secondary" key={file.id}>{file.file_name}</p>)
 
-        console.log(uploadedFiles);
-
         return (<div className="card shadow mt-5 mb-5 bg-white border-0 ounded">
                     <div className="card-body">
                         <div className="row">
