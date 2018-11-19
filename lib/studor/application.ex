@@ -11,9 +11,10 @@ defmodule Studor.Application do
       # Start the Ecto repository
       Studor.Repo,
       # Start the endpoint when the application starts
-      StudorWeb.Endpoint
+      StudorWeb.Endpoint,
       # Starts a worker by calling: Studor.Worker.start_link(arg)
       # {Studor.Worker, arg},
+      Studor.BackupAgent,
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

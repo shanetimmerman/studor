@@ -11,6 +11,7 @@ class Whiteboard extends React.Component {
     constructor(props) {
       super(props);
       this.btn_down = false;
+      socket.connect();
       this.channel = socket.channel("whiteboards:1", {});;
       this.state = {
           whiteboard: { lines: [], points: [] }
