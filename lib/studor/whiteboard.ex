@@ -14,15 +14,15 @@ defmodule Studor.Whiteboard do
     end
 
     def add_point(whiteboard, x, y) do
-    %Studor.Whiteboard{ whiteboard | points: ([x, y] ++ whiteboard.points) }
+        %{ whiteboard | points: ([x, y] ++ whiteboard.points) }
     end
 
     def line_done(whiteboard) do
-    %Studor.Whiteboard{ whiteboard | lines: [whiteboard.points | whiteboard.lines], points: [] }
+        %{ whiteboard | lines: [whiteboard.points | whiteboard.lines], points: [] }
     end
 
     def clear(whiteboard) do
-    %Studor.Whiteboard{ whiteboard | lines: [], points: [] }
+        %{ whiteboard | lines: [], points: [] }
     end
 end
   
