@@ -5,18 +5,19 @@ defmodule Studor.BackupAgent do
   # TODO: Add timestamps and expiration.
 
   def start_link(_args) do
-    Agent.start_link(fn -> %{} end, id: __MODULE__)
+    Agent.start_link(fn -> %{} end, name: __MODULE__)
   end
 
-  def put(id, whiteboard) do
+  def put(name, whiteboard) do
     Agent.update __MODULE__, fn state ->
-      Map.put(state, id, whiteboard)
+      Map.put(state, name, whiteboard)
     end
   end
 
-  def get(id) do
+  def get(name) do
+    IO.puts(name)
     Agent.get __MODULE__, fn state ->
-      Map.get(state, id)
+      Map.get(state, name)
     end
   end
 end

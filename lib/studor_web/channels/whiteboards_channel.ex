@@ -6,7 +6,7 @@ defmodule StudorWeb.WhiteboardsChannel do
   
     def join("whiteboards:" <> session_id, payload, socket) do
       if authorized?(payload) do
-        whiteboard = BackupAgent.get(session_id) || Whiteboard.new()
+        whiteboard = BackupAgent.get(session_id) || BackupAgent.put(session_id, Whiteboard.new())
         socket = socket
         |> assign(:whiteboard, whiteboard)
         |> assign(:session_id, session_id)
@@ -17,12 +17,16 @@ defmodule StudorWeb.WhiteboardsChannel do
       end
     end
   
-    def handle_in("add_point", %{"x" => x, "y" => y}, socket) do
-      id = socket.assigns[:session_id]
-      whiteboard = Whiteboard.add_point(socket.assigns[:whiteboard], x, y)
-      socket = assign(socket, :whiteboard, whiteboard)
-      BackupAgent.put(id, whiteboard)
-      {:reply, {:ok, %{ "whiteboard" => Whiteboard.client_view(whiteboard)}}, socket}
+    def handle_in("draw", %{"id" => id, "x" => x, "y" => y}, socket) do
+      whiteboard = Studor.BackupAgent.get(id)
+
+      IO.puts("WHITEBOARD")
+      IO.puts(whiteboard)
+        Studor.BackupAgent.put(id, Studor.Whiteboard.add_point(whiteboard, x, y))
+
+        broadcast(socket, "draw", %{x: x, y: y})
+        IO.puts "draw broadcast"
+
     end
   
     def handle_in("line_done", %{}, socket) do

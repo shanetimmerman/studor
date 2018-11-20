@@ -3,14 +3,14 @@ import { Stage, Layer, Rect, Line } from 'react-konva';
 import deepFreeze from 'deep-freeze';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import socket from '../../socket.js'
-
+import {Socket} from "phoenix"
 
 
 class Whiteboard extends React.Component {
     constructor(props) {
       super(props);
       this.btn_down = false;
+      let socket = new Socket("/socket", {params: {token: window.userToken}})
       socket.connect();
       this.channel = socket.channel("whiteboards:1", {});;
       this.state = {
@@ -80,7 +80,7 @@ class Whiteboard extends React.Component {
             let x = ev.evt.layerX;
             let y = ev.evt.layerY;
             this.draw(x, y);
-            this.channel.push("draw", {x: x, y: y});
+            this.channel.push("draw", {id: 1, x: x, y: y});
           }
         }
         _.debounce(local_draw, 50)();
