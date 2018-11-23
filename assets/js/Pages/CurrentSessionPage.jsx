@@ -16,10 +16,10 @@ class CurrentSessionPage extends React.Component {
                 <div className="col-md-1">
                     <DrawToolsContainer />
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-9">
                     <WhiteBoardContainer />
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-2">
                     <SessionInfoContainer />
                 </div>                                
             </div>);
