@@ -1,11 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../Components/Header.jsx'
+import { logoutUser } from '../Actions/login.js';
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
-
+        user: state.currentUser
     }
 }
 
-export default connect(mapStateToProps)(Header);
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logoutUser: () => {
+            logoutUser();
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

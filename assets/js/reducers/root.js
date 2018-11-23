@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
+import searchPageReducer from './searchPageReducer';
+import sessionPageReducer from './sessionPageReducer';
+import currentUserReducer from './currentUserReducer';
+import apiReducer from './apiReducer';
 
 
-const rootreducer = combineReducers({
-    header: headerReducer,
-    login: loginReducer,
-    seachPage: searchPagereducer,
+export const root_reducer = combineReducers({
+    searchPage: searchPageReducer,
     sessionPage: sessionPageReducer,
-    profilePage: profilePageReducer,
-    currentSessionPage: currentSessionPageReducer,
+    apiData: apiReducer,
+    // currentSessionPage: currentSessionPageReducer,
     currentUser: currentUserReducer,
 })

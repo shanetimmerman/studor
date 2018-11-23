@@ -1,136 +1,150 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import {Formik} from 'formik';
-
+import { Formik } from 'formik';
+import ReactModal from 'react-modal';
+import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
-
-
 
 class SessionRequestForm extends React.Component {
     constructor(props) {
-      super(props);
-  
+        super(props);
+        this.state = { isOpen: false }
+        this.toggleModal = this.toggleModal.bind(this);
     }
 
-    render () {
-        return (<Formik
-            initialValues={{ message:'', date: '', start_time: '', end_time: '' }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
-            }}
-          >
-            {({
-              values,
-              handleChange,
-              handleSubmit,
-            }) => (
-                <form onSubmit={handleSubmit}>
-                <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
-                    <div className="card-body">
-                        <h3 className="card-title">Request a Session</h3>
-                        <p className="text-secondary">You are requesting a session with [Tutor]. You will be notified with their response.</p>
+    toggleModal() {
+        this.setState({ isOpen: !this.state.isOpen });
+    }
 
-                            <div className="form-group mb-4">
-                                <label htmlFor="requestmessage">Message to [Tutor]:</label>
-                                <textarea
-                                name="message"
-                                id="requestmessage"
-                                rows="3"
-                                className="form-control bg-light border-0"
-                                onChange={handleChange}
-                                value={values.message}
-                                />
-                            </div>
+    render() {
+        if (this.state.isOpen) {
+            let info = this.props.tutorInfo;
 
-                            <div className="form-inline mb-4">
-                                <div className="form-group mr-3">
-                                    <label htmlFor="date">Date:</label>
-                                    <select 
-                                    id="date"
-                                    name="date"
-                                    onChange={handleChange}
-                                    value={values.date}
-                                    className="form-control border-0 bg-light ml-2">
-                                        <option>Date Picker</option>
-                                    </select>
+            let availability = _.map(info.availability,
+                (availability) => {
+                    let start = new Date(availability.start).toLocaleString();
+                    let end = new Date(availability.end).toLocaleTimeString();
+                    return (<option key={availability.id} value={availability.id}>
+                        {start + " to " + end}
+                    </option>);
+                });
+
+            return (
+                <ReactModal
+                    isOpen={this.state.isOpen}
+                    ariaHideApp={false}
+                    contentLabel="Request Modal"
+                    shouldCloseOnOverlayClick={true}
+                    shouldCloseOnEsc={true}
+                    onRequestClose={() => { this.toggleModal() }}
+
+                    style={{
+                        overlay: {
+                            backgroundColor: '#96969680',
+                            zIndex: 1000, // fuck you,
+                            display: 'flex',
+                            alignItems: 'center',
+                        },
+                        content: {
+                            backgroundColor: '#96969600',
+                            border: 'none',
+                            zIndex: 1000,
+                            position: 'relative',
+                            overflow: 'auto',
+                            outline: 'none',
+                            margin: 'auto',
+                            top: '0px',
+                            left: '0px',
+                            right: '0px',
+                            bottom: '0px',
+                        }
+                    }}>
+                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: '', time_block: info.availability[0] ? info.availability[0].id : -1, session_files: [] }}
+                        onSubmit={(values, { setSubmitting }) => {
+                            this.props.requestSession(values);
+                            this.toggleModal();
+                        }}>
+                        {({ values, handleChange, handleSubmit, setValues }) => (
+                            <form onSubmit={handleSubmit}>
+                                <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
+                                    <div className="card-body">
+                                        <div className="d-flex ">
+
+                                            <div className="col pl-0 d-flex justify-content-start">
+                                                <h3 className="card-title">Request a Session</h3>
+                                            </div>
+
+                                            <div className="col pr-0 d-flex justify-content-end">
+                                                <button onClick={this.toggleModal} className="btn-sm  btn-outline-danger"> X </button>
+                                            </div>
+
+                                        </div>
+                                        <p className="text-secondary">You are requesting a session with {info.name}. You will be notified with their response.</p>
+
+                                        <div className="form-group mb-4">
+                                            <label htmlFor="requestmessage">Message to {info.name.substr(0, info.name.indexOf(' '))}:</label>
+                                            <textarea name="description" id="requestmessage" rows="3" className="form-control bg-light border-0" onChange={handleChange} value={values.message} />
+                                        </div>
+
+                                        <div className="form-inline mb-4">
+                                            <div className="form-group mr-3">
+                                                <label htmlFor="time_block">Session Time:</label>
+                                                <select id="time_block" name="time_block" onChange={handleChange} value={values.date} className="form-control border-0 bg-light ml-2"> {availability}
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group">
+                                            <div className="custom-file">
+                                                <label className="custom-file-label" htmlFor="File upload">Click to upload your problems</label>
+                                                <input type="file" className="custom-file-input" name="session_files"
+                                                    onChange={(event) => {
+                                                        setValues(_.assign(values, { session_files: _.concat(values.session_files, (event.currentTarget.files[0])) }));
+                                                    }}
+                                                />
+                                                <small className="text-muted">Supported formats: png</small>
+                                            </div>
+                                        </div>
+
+                                        <AttachmentList values={values} setValues={setValues} />
+                                        <button type="submit" className="btn rounded mt-3 btn-primary" onClick={handleSubmit}>Submit request</button>
+                                    </div>
                                 </div>
-                                <div className="form-group mr-3 ">
-                                    <label htmlFor="start">from</label>
-                                    <select 
-                                    id="start"
-                                    name="start_time"
-                                    onChange={handleChange}
-                                    value={values.start_time}
-                                    className="form-control border-0 bg-light ml-2">
-                                        <option>5:00am</option>
-                                        <option>6:00am</option>
-                                        <option>7:00am</option>
-                                        <option>8:00am</option>
-                                        <option>9:00am</option>
-                                        <option>10:00am</option>
-                                        <option>11:00am</option>
-                                        <option>12:00pm</option>
-                                        <option>1:00pm</option>
-                                        <option>2:00pm</option>
-                                        <option>3:00pm</option>
-                                        <option>4:00pm</option>
-                                        <option>5:00pm</option>
-                                        <option>6:00pm</option>
-                                        <option>7:00pm</option>
-                                        <option>8:00pm</option>                                        
-                                        <option>9:00pm</option>
-                                        <option>10:00pm</option>
-                                        <option>11:00pm</option>
-                                    </select>                                    
-                                </div>  
-                                <div className="form-group mr-3">
-                                    <label htmlFor="end">to</label>
-                                    <select 
-                                    id="end"
-                                    name="end_time"
-                                    onChange={handleChange}
-                                    value={values.end_time}
-                                    className="form-control border-0 bg-light ml-2">
-                                        <option>5:00am</option>
-                                        <option>6:00am</option>
-                                        <option>7:00am</option>
-                                        <option>8:00am</option>
-                                        <option>9:00am</option>
-                                        <option>10:00am</option>
-                                        <option>11:00am</option>
-                                        <option>12:00pm</option>
-                                        <option>1:00pm</option>
-                                        <option>2:00pm</option>
-                                        <option>3:00pm</option>
-                                        <option>4:00pm</option>
-                                        <option>5:00pm</option>
-                                        <option>6:00pm</option>
-                                        <option>7:00pm</option>
-                                        <option>8:00pm</option>                                        
-                                        <option>9:00pm</option>
-                                        <option>10:00pm</option>
-                                        <option>11:00pm</option>
-                                    </select>    
-                                </div>  
-                            </div>                            
-
-    
-                        <button type="submit" className="btn rounded mt-3 btn-primary" onClick={handleSubmit}>Submit request</button>
-                    </div>
-                </div>
-            </form>
-            )}
-          </Formik>);
+                            </form>
+                        )}
+                    </Formik>
+                </ReactModal>);
+        } else {
+            return (<button className="btn" onClick={this.toggleModal}> Request Session </button>);
+        }
     }
 }
 
-  function mapStateToProps(state) {
-      return {
+class AttachmentList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.removeAttachment = this.removeAttachment.bind(this);
+    }
 
-      }
-  }
+    removeAttachment(attachment) {
+        this.props.setValues(_.assign(this.props.values, { session_files: _.without(this.props.values.session_files, attachment) }));
+    }
 
-  export default connect(mapStateToProps)(SessionRequestForm);
+    render() {
+        let attachmentList = _.map(this.props.values.session_files,
+            (attachment) => {
+                return (<Attachment key={uuidv4()} removeAttachment={this.removeAttachment} attachment={attachment} />)
+            });
+
+        return (attachmentList);
+    }
+}
+
+function Attachment(props) {
+    return (
+        <div className="row">
+            <p> {props.attachment.name} </p>
+            <button type="button" onClick={() => { props.removeAttachment(props.attachment) }} className="btn btn-danger"> Remove attachment </button>
+        </div>
+    )
+}
+export default SessionRequestForm;

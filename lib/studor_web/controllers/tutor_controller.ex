@@ -11,6 +11,18 @@ defmodule StudorWeb.TutorController do
     render(conn, "index.json", tutors: tutors)
   end
 
+  def course_index(conn, %{ "university_id" => university_id, "query" => query}) do
+    tutors = Tutors.search_courses(university_id, query)
+
+    render(conn, "index.json", tutors: tutors)
+  end
+
+  def subject_index(conn, %{ "subject_area_id" => subject_area_id}) do
+    tutors = Tutors.search_subjects(subject_area_id)
+    render(conn, "index.json", tutors: tutors)
+  end
+
+
   def create(conn, %{"tutor" => tutor_params}) do
     with {:ok, %Tutor{} = tutor} <- Tutors.create_tutor(tutor_params) do
       conn
@@ -24,6 +36,7 @@ defmodule StudorWeb.TutorController do
     tutor = Tutors.get_tutor!(id)
     render(conn, "show.json", tutor: tutor)
   end
+
 
   def update(conn, %{"id" => id, "tutor" => tutor_params}) do
     tutor = Tutors.get_tutor!(id)

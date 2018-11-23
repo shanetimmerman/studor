@@ -20,6 +20,10 @@ defmodule StudorWeb.SessionFileController do
     end
   end
 
+  def post_files(conn, %{"files" => files}) do
+    IO.inspect files
+  end
+
   def show(conn, %{"id" => id}) do
     session_file = SessionFiles.get_session_file!(id)
     render(conn, "show.json", session_file: session_file)

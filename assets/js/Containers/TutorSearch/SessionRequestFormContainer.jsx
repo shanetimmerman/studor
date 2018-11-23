@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SessionRequestForm from '../../Components/TutorSearch/SessionRequestForm.jsx'
+import { requestSession } from '../../Actions/sessions'
 
 function mapStateToProps(state) {
     return {
-
+        currentUser: state.currentUser
     }
 }
 
-export default connect(mapStateToProps)(SessionRequestForm);
+function mapDispatchToProps(state) {
+    return {
+        requestSession: (info) => {
+            requestSession(info);
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SessionRequestForm);

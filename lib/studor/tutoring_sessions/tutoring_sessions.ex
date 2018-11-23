@@ -101,4 +101,15 @@ defmodule Studor.TutoringSessions do
   def change_tutoring_session(%TutoringSession{} = tutoring_session) do
     TutoringSession.changeset(tutoring_session, %{})
   end
+
+
+  def list_tutoring_sessions_by_id(id) do
+    query = from session in TutoringSession,
+    preload: [:student],
+    preload: [:tutor],
+    where: session.student_id == ^id,
+    select: session
+
+    Repo.all(query)
+  end
 end

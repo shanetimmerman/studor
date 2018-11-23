@@ -28,7 +28,6 @@ export function fetchSessions() {
     }
 }
 
-
 export function fetchSessionsSuccess(posts) {
     return {
         type: FETCH_SESSIONS_SUCCESS,
@@ -43,4 +42,20 @@ export function fetchSessionsFailure(error) {
     };
 }
 
+export function requestSession(request) {
+    console.log("requesting sessions")
+    console.log(request)
+    // Ajax request to create the tutoring session
+    $.ajax(
+        "/api/v1/tutoring_sessions/", {
+            method: "post",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({ tutoring_session: request })
+        }
+    ).done((resp) => {
+        console.log(resp)
+        // store.dispatch({ type: FETCH_SESSIONS_SUCCESS, payload: resp.data })
+    });
 
+}

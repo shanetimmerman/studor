@@ -9,43 +9,47 @@ import ProfilePage from "../Pages/ProfilePage.jsx"
 import HeaderContainer from '../Containers/HeaderContainer.jsx';
 import MainPage from '../Pages/MainPage.jsx';
 import CurrentSessionPage from '../Pages/CurrentSessionPage.jsx';
+import UserInformationForm from '../Components/Login/UserInformationForm';
 
 export default function root_init(node, store) {
-    ReactDOM.render(
-      <Provider store={store}>
-        <Root />
-      </Provider>, node);
+  ReactDOM.render(
+    <Provider store={store}>
+      <Root />
+    </Provider>, node);
 }
 
 
 class Root extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        return <div>
-          <Router>
-            <div>
-              <HeaderContainer />
-              <div className="row">
-                <div className="col-12">
-                  <Route path="/" exact={true} render={() =>
-                    <MainPage />
-                  } />
-                  <Route path="/sessions" exact={true} render={() =>
-                    <SessionsPage />
-                  } />
-                  <Route path="/profile" exact={true} render={() =>
-                    <ProfilePage />
-                  } />
-                  <Route path="/currentSession" exact={true} render={() =>
-                    <CurrentSessionPage />
-                  } />
-                </div>
-              </div>
+  render() {
+    return <div>
+      <Router>
+        <div>
+          <HeaderContainer />
+          <div className="row">
+            <div className="col-12">
+              <Route path="/" exact={true} render={() =>
+                <MainPage />
+              } />
+              <Route path="/sessions" exact={true} render={() =>
+                <SessionsPage />
+              } />
+              <Route path="/profile" exact={true} render={() =>
+                <ProfilePage />
+              } />
+              <Route path="/currentSession" exact={true} render={() =>
+                <CurrentSessionPage />
+              } />
+              <Route path="/signup" exact={true} render={() =>
+                <UserInformationForm />
+              } />
             </div>
-          </Router>
-        </div>;
-    }
+          </div>
+        </div>
+      </Router>
+    </div>;
+  }
 }

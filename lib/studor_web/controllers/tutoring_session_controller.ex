@@ -6,12 +6,13 @@ defmodule StudorWeb.TutoringSessionController do
 
   action_fallback StudorWeb.FallbackController
 
-  def index(conn, _params) do
-    tutoring_sessions = TutoringSessions.list_tutoring_sessions()
+  def index(conn, %{"user_id" => user_id}) do
+    tutoring_sessions = TutoringSessions.list_tutoring_sessions_by_id(user_id)
     render(conn, "index.json", tutoring_sessions: tutoring_sessions)
   end
 
   def create(conn, %{"tutoring_session" => tutoring_session_params}) do
+    IO.inspect tutoring_session_params
     with {:ok, %TutoringSession{} = tutoring_session} <- TutoringSessions.create_tutoring_session(tutoring_session_params) do
       conn
       |> put_status(:created)

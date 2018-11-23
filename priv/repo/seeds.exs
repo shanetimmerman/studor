@@ -155,7 +155,7 @@ pwhash2 = Argon2.hash_pwd_salt("pass123")
 Repo.insert!(%Student{email: "raquel@gmail.com", name: "Raquel Levy", password_hash: pwhash, paypal_token: "35THKXNSN3432", profile_pic_url: "https://goo.gl/KsfyN4"})
 Repo.insert!(%Student{email: "alice@student.com", name: "Alice Jones", password_hash: pwhash1, paypal_token: "35THKXNSN3432", profile_pic_url: "https://goo.gl/KsfyN4"})
 Repo.insert!(%Student{email: "bob@example.com", name: "Bob Smith", password_hash: pwhash, paypal_token: "35THKXNSN3432", profile_pic_url: "https://goo.gl/KsfyN4"})
-Repo.insert!(%Student{email: "joe@gmail.com", name: "Joe Annis", password_hash: pwhash2, paypal_token: "35THKXNSN3432", profile_pic_url: "https://goo.gl/KsfyN4"})
+Repo.insert!(%Student{email: "joe@gmail.com", name: "Joe Annis", password_hash: "$argon2i$v=19$m=65536,t=6,p=1$2qN+YyaHK41e38e0oGsBCA$FkNbH1IKmgrETzmixnDPLaFwyuy5gEJLzG0HmzhM89k", paypal_token: "35THKXNSN3432", profile_pic_url: "https://goo.gl/KsfyN4"})
 Repo.insert!(%Student{email: "shane@gmail.com", name: "Shane Timmerman", password_hash: pwhash2, paypal_token: "35THKXNSN3432", profile_pic_url: "https://goo.gl/KsfyN4"})
 
 #Time Blocks
