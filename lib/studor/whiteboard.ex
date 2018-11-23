@@ -5,8 +5,8 @@ defmodule Studor.Whiteboard do
 #  - lines: List<List<Num>> - Lines drawn so far.
 #  - points: List<Num> - Points added to current line.
 
-    def new do
-        %{points: [], lines: [],}
+    def new(active_user) do
+        %{active: active_user, lines: [], points: []}
     end
 
     def client_view(whiteboard) do

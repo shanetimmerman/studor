@@ -12,9 +12,11 @@ class Whiteboard extends React.Component {
       this.btn_down = false;
       let socket = new Socket("/socket", {params: {token: window.userToken}})
       socket.connect();
-      this.channel = socket.channel("whiteboards:1", {});;
+      this.channel = socket.channel("whiteboards:1", {active: 1});;
       this.state = {
-          whiteboard: { lines: [], points: [] }
+          whiteboard: { active: 1, //tutorid
+                        lines: [], 
+                        points: [] }
       };
 
     this.channel.join()
