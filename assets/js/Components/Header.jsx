@@ -22,7 +22,6 @@ function Header(props) {
                   </div>
 
                   <div className="col-2 pt-2">
-                        <p><Link to={"/currentSession"} className="text-white">Current Session</Link></p>
                         {props.user.token && <button className="btn btn-danger-outline" onClick={props.logoutUser}> Logout </button>}
                   </div>
             </div>);

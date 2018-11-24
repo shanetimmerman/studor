@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-
+import { Link } from 'react-router-dom';
 
 class SessionList extends React.Component {
     constructor(props) {
@@ -108,7 +108,7 @@ class ActiveSession extends React.Component {
                         </div>
 
                         <div className="col pr-0 d-flex justify-content-end">
-                            <button onClick={this.toggleMenu} className="btn-sm btn-outline-primary"> Join Session </button>
+                            <Link to={{ pathname: "/currentSession", state: info }} className="btn ml-2 rounded btn-outline-primary">Join Session</Link>
                         </div>
 
                     </div>
