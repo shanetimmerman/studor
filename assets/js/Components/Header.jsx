@@ -7,7 +7,7 @@ function Header(props) {
       console.log("rendering header")
       console.log(props)
       return (
-            <div className="row mb-2 mt-4 p-3 bg-primary">
+            <div className="row p-3 bg-primary">
 
                   <div className="col-6 pt-1">
                         <h3><Link to={"/"} className="text-white">Stutor</Link></h3>

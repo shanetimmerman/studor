@@ -14,12 +14,20 @@ defmodule Studor.Whiteboard do
     end
 
     def add_point(whiteboard, x, y) do
-        %{ whiteboard | points: ([x, y] ++ whiteboard.points) }
+        %{ whiteboard | points: ([%{x: x, y: y, color: "black"}] ++ whiteboard.points) }
+    end
+
+    def add_erase_point(whiteboard, x, y) do
+        %{ whiteboard | points: ([%{x: x, y: y, color: "white"}] ++ whiteboard.points) }
     end
 
     def line_done(whiteboard) do
-        %{ whiteboard | lines: [whiteboard.points | whiteboard.lines], points: [] }
+        %{ whiteboard | lines: [%{points: whiteboard.points, color: "black"} | whiteboard.lines], points: [] }
     end
+
+    def erase_line_done(whiteboard) do
+        %{ whiteboard | lines: [%{points: whiteboard.points, color: "white"} | whiteboard.lines], points: [] }
+    end    
 
     def clear(whiteboard) do
         %{ whiteboard | lines: [], points: [] }

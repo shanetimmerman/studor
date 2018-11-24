@@ -230,6 +230,15 @@ tb21e = DateTime.from_naive!(~N[2018-12-06T21:00:00], "Etc/UTC")
 #22 12-6 7-10
 tb22s = DateTime.from_naive!(~N[2018-12-06T19:00:00], "Etc/UTC")
 tb22e = DateTime.from_naive!(~N[2018-12-06T22:00:00], "Etc/UTC")
+#23 11/24 7am-10pm
+tb23s = DateTime.from_naive!(~N[2018-11-24T07:00:00], "Etc/UTC")
+tb23e = DateTime.from_naive!(~N[2018-11-24T22:00:00], "Etc/UTC")
+#24 11/25 7am-10pm
+tb24s = DateTime.from_naive!(~N[2018-11-25T07:00:00], "Etc/UTC")
+tb24e = DateTime.from_naive!(~N[2018-11-25T22:00:00], "Etc/UTC")
+#25 11/26 7am-10pm
+tb25s = DateTime.from_naive!(~N[2018-11-26T07:00:00], "Etc/UTC")
+tb25e = DateTime.from_naive!(~N[2018-11-26T22:00:00], "Etc/UTC")
 
 #Time Blocks
 Repo.insert!(%TimeBlock{start_time: tb1s, end_time: tb1e})
@@ -254,7 +263,7 @@ Repo.insert!(%TimeBlock{start_time: tb19s, end_time: tb19e})
 Repo.insert!(%TimeBlock{start_time: tb20s, end_time: tb20e})
 Repo.insert!(%TimeBlock{start_time: tb21s, end_time: tb21e})
 Repo.insert!(%TimeBlock{start_time: tb22s, end_time: tb22e})
-
+Repo.insert!(%TimeBlock{start_time: tb23s, end_time: tb23e})
 
 #Tutors
 Repo.insert!(%Tutor{email: "raquel@gmail.com", name: "Raquel Levy", password_hash: pwhash, paypal_token: "35THKXNSN3432", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.8, university_id: 1})
@@ -458,6 +467,7 @@ Repo.insert!(%TutoringSession{description: "Review my schema design for my datab
 Repo.insert!(%TutoringSession{description: "heellpp -_-", approved: false, tutor_id: 9, student_id: 5, time_block_id: 15, course_id: 1, subject_area_id: 1})
 Repo.insert!(%TutoringSession{description: "I would like help editing my article for my news and media studies class", approved: true, tutor_id: 10, student_id: 1, time_block_id: 19, course_id: 16, subject_area_id: 21})
 Repo.insert!(%TutoringSession{description: "I would like some advice on my paper for my lit class", approved: false, tutor_id: 10, student_id: 2, time_block_id: 4, course_id: 4, subject_area_id: nil})
+Repo.insert!(%TutoringSession{description: "I would like to review my orgo homework answers", approved: true, tutor_id: 3, student_id: 1, time_block_id: 23, course_id: 6, subject_area_id: nil})
 
 #SessionFiles
 Repo.insert!(%SessionFile{file_url: "http://archives.math.utk.edu/visual.calculus/3/graphing.4/microcalc3.gif", tutoring_session_id: 4})

@@ -38,6 +38,37 @@ defmodule StudorWeb.WhiteboardsChannel do
         {:reply, {:ok, %{ "whiteboard" => Whiteboard.client_view(whiteboard1)}}, socket}
       else
         broadcast(socket, "line_done", %{points: points})
+        IO.puts "line broadcast"
+      end
+      {:noreply, socket}
+    end
+    
+    def handle_in("erase", %{"x" => x, "y" => y}, socket) do
+      id = socket.assigns[:name]
+      whiteboard = BackupAgent.get(id)
+      if socket.assigns[:user] == whiteboard.active do
+        whiteboard1 = Whiteboard.add_erase_point(socket.assigns[:whiteboard], x, y)
+        socket = assign(socket, :whiteboard, whiteboard1)
+        BackupAgent.put(id, whiteboard1)
+        {:reply, {:ok, %{ "whiteboard" => Whiteboard.client_view(whiteboard1)}}, socket}
+      else
+        broadcast(socket, "erase", %{x: x, y: y})
+        IO.puts "erase broadcast"
+      end
+      {:noreply, socket}
+    end
+
+    def handle_in("erase_line_done", %{"erase_points" => erase_points}, socket) do
+      id = socket.assigns[:name]
+      whiteboard = BackupAgent.get(id)
+      if socket.assigns[:user] == whiteboard.active do
+        whiteboard1 = Whiteboard.erase_line_done(socket.assigns[:whiteboard])
+        socket = assign(socket, :whiteboard, whiteboard1)
+        BackupAgent.put(id, whiteboard1)
+        {:reply, {:ok, %{ "whiteboard" => Whiteboard.client_view(whiteboard1)}}, socket}
+      else
+        broadcast(socket, "erase_line_done", %{erase_points: erase_points})
+        IO.puts "erase line broadcast"
       end
       {:noreply, socket}
     end
