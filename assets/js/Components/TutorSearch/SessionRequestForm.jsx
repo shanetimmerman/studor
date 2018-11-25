@@ -58,9 +58,10 @@ class SessionRequestForm extends React.Component {
                             bottom: '0px',
                         }
                     }}>
-                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: '', time_block: info.availability[0] ? info.availability[0].id : -1, session_files: [] }}
+                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: 'description', time_block_id: info.availability[0] ? info.availability[0].id : -1, session_files: [] }}
                         onSubmit={(values, { setSubmitting }) => {
-                            this.props.requestSession(values);
+                            let session = {tutor_id : values.tutor_id, student_id: values.student_id, description: values.description, time_block_id: values.time_block_id, approved: false}
+                            this.props.requestSession(session);
                             this.toggleModal();
                         }}>
                         {({ values, handleChange, handleSubmit, setValues }) => (
