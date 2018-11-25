@@ -3,35 +3,49 @@ defmodule Paypal do
     require Jason
 
     def get_token() do
+
         HTTPoison.start
 
-        url = <<"https://api.sandbox.paypal.com/v1/oauth2/token">>
+        url = "https://api.sandbox.paypal.com/v1/oauth2/token"
+
         api_user = "Ad9n9s7seoBirJwOod2lM91dPD077QedgscyggyWPqY7JxY01_vTtF67ZlrjiQwlZ7QNxKdYo5HAEias"
         api_password = "EIMiv4tz9pkVBitXdLgzN5KRtgfaaNhfzG7blKLE3sV-d2cPcwD5O5QsrYMJtQzDgTaDkChhQqeEXNTC"
-        api_credentials = api_user <> ":" <> api_password
+
+
         headers = [
             {"Accept", "application/json"},
             {"Accept-Language", "en_US"},
-            # {"Authorization", "Basic #{Base.encode64(api_credentials)}"},
+            {"Content-Type", "application/x-www-form-urlencoded"},
         ]
-        # TODO user not authenicated properly (something about -u option of curl
-        # and how Poison handles it)
+
+        data = "grant_type=client_credentials"
+
         options = [
-            hackney: [basic_auth: {api_user, api_password}],
-            grant_type: "client_credentials"
+            hackney: [
+                basic_auth: {api_user, api_password},
+            ]
         ]
 
-        {:ok, resp} = HTTPoison.get(url, headers, options)
+        {:ok, resp} = HTTPoison.post(url, data, headers, options)
 
+        # Token in format of:
+        # %{
+        #     "access_token" => ...,
+        #     "app_id" => ...,
+        #     "expires_in" => 32333,
+        #     "nonce" => ...,
+        #     "scope" => ...,
+        #     "token_type" => "Bearer"
+        # }
         Jason.decode!(resp.body)
     end
 
-    def pay(api_token, payer_email, reciever_email) do
+    def pay(api_token, payer_email, reciever_email, amount) do
         HTTPoison.start
         url = "https://api.sandbox.paypal.com/v1/payments/payment"
         headers = [
+            {"Authorization", "Bearer #{api_token}"},
             {"Content-Type", "application/json"},
-            {"Authorization", "Bearer #{api_token}"}
         ]
         body = Jason.encode!(%{
             intent: "sale",
@@ -54,7 +68,7 @@ defmodule Paypal do
                     soft_descriptor: "ECHI5786786",
 
                     amount: %{
-                        total: "30.11",
+                        total: amount,
                         currency: "USD",
                     },
 
@@ -74,7 +88,8 @@ defmodule Paypal do
             },
         })
 
-        {tag, resp} = HTTPoison.post(url, body, headers, [])
+        {:ok, resp} = HTTPoison.post(url, body, headers, [])
+
         # TODO RETURN SALE ID or ERROR, handle in session controller
         Jason.decode!(resp.body)
     end
