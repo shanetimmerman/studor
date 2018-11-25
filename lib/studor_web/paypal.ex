@@ -40,7 +40,7 @@ defmodule Paypal do
         Jason.decode!(resp.body)
     end
 
-    def pay(api_token, payer_email, reciever_email, amount) do
+    def pay(api_token, reciever_email, amount) do
         HTTPoison.start
         url = "https://api.sandbox.paypal.com/v1/payments/payment"
         headers = [
@@ -51,9 +51,6 @@ defmodule Paypal do
             intent: "authorize",
             payer: %{
                 payment_method: "paypal",
-                payer_info: %{
-                    email: payer_email,
-                }
             },
 
             application_context: %{
@@ -87,12 +84,41 @@ defmodule Paypal do
             },
         })
 
-        {:ok, resp} = HTTPoison.post(url, body, headers, [])
+        {:ok, resp} = HTTPoison.post(url, body, headers)
 
-        # TODO RETURN SALE ID or ERROR, handle in session controller
-        Jason.decode!(resp.body)
+        case body = Jason.decode!(resp.body) do
+            %{"id" => _payment_id} -> {:ok, body}
+            _ -> {400, body} # Could be debug or error
+        end
     end
 
+    def update_price(access_token, payment_id, price) do
+        url = "https://api.sandbox.paypal.com/v1/payments/payment/#{payment_id}"
+
+        headers = [
+            {"Content-Type", "application/json"},
+            {"Authorization", "Bearer #{access_token}"}
+        ]
+
+        body = Jason.encode!([
+            %{
+                op: "replace",
+                path: "/transactions/0/amount",
+                value: %{
+                    total: price,
+                    currency: "USD",
+                }
+            }
+        ])
+
+        {:ok, resp} = HTTPoison.patch(url, body, headers)
+
+        case body = Jason.decode!(resp.body) do
+            %{"id" => _payment_id} -> {:ok, body}
+            _ -> {400, body} # Could be debug or error
+        end
+
+    end
 
     def refund(access_token, sale_id) do
         url = "https://api.sandbox.paypal.com/v1/payments/sale/#{sale_id}/refund"

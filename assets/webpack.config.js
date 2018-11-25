@@ -23,7 +23,7 @@ module.exports = (env, options) => ({
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: [/node_modules/, /\.ejs$/],
+        exclude: [/node_modules/, /\.ejs$/, /deps/],
         use: {
           loader: 'babel-loader',
           options: {
