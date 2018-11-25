@@ -21,7 +21,6 @@ class Root extends React.Component {
     }
 
     render() {
-        return <div>
-        </div>;
+        return <div>Hello World</div>;
     }
 }
