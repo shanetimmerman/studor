@@ -7,17 +7,36 @@ import _ from 'lodash';
 class SessionInfo extends React.Component {
     constructor(props) {
       super(props);
-  
     }
+
+    timeConversion(milliseconds){
+        //Get hours from milliseconds
+        var hours = milliseconds / (1000*60*60);
+        var absoluteHours = Math.floor(hours);
+        var h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
+      
+        //Get remainder from hours and convert to minutes
+        var minutes = (hours - absoluteHours) * 60;
+        var absoluteMinutes = Math.floor(minutes);
+        var m = absoluteMinutes > 9 ? absoluteMinutes : '0' +  absoluteMinutes;
+      
+        //Get remainder from minutes and convert to seconds
+        var seconds = (minutes - absoluteMinutes) * 60;
+        var absoluteSeconds = Math.floor(seconds);
+        var s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
+      
+      
+        return h + 'h:' + m + 'm:' + s + 's';
+      }
 
     render () {
         return (
             <div className="mt-5">
                 <h2 className="text-primary"> Session Details</h2>
-                <CurrentMembers />
+                <CurrentMembers session_info={this.props.session_info}/>
                 <h5 className="mt-3">Time Remaining:</h5>
-                <p className="text-secondary"> [00:00:00]</p>
-                <UploadedFiles />
+                <p className="text-secondary"> {this.timeConversion(new Date(this.props.session_info.end) - new Date())}</p>
+                {/*<UploadedFiles />*/}
             </div>
         );
     }
@@ -33,8 +52,8 @@ class CurrentMembers extends React.Component {
 
         return (<div className="mt-3">
                     <h5>Members:</h5>
-                    <div className="text-secondary">[Tutor]</div>
-                    <div className="text-secondary">[Student]</div>
+                    <div className="text-secondary">Tutor: {this.props.session_info.tutor}</div>
+                    <div className="text-secondary">Student: {this.props.session_info.student}</div>
                  </div>);
         }
   }

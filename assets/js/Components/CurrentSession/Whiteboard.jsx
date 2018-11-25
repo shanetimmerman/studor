@@ -4,8 +4,6 @@ import deepFreeze from 'deep-freeze';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import {Socket} from "phoenix"
-import { instanceOf } from 'prop-types';
-
 
 class Whiteboard extends React.Component {
     constructor(props) {

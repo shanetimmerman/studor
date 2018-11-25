@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 
 import Whiteboard from '../Components/CurrentSession/Whiteboard'
-import SessionInfoContainer from '../Containers/CurrentSession/SessionInfoContainer';
+import SessionInfo from '../Components/CurrentSession/SessionInfo'
 
 class CurrentSessionPage extends React.Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class CurrentSessionPage extends React.Component {
                     <Whiteboard session_info={this.state}/>
                 </div>
                 <div className="col-md-3">
-                    <SessionInfoContainer/>
+                    <SessionInfo session_info={this.state}/>
                 </div>                                
             </div>);
     }
