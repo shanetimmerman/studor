@@ -4,6 +4,7 @@ import $ from 'jquery'
 export const FETCH_SESSIONS = 'FETCH_SESSIONS';
 export const FETCH_SESSIONS_SUCCESS = 'FETCH_SESSIONS_SUCCESS';
 export const FETCH_SESSIONS_FAILURE = 'FETCH_SESSIONS_FAILURE';
+export const SESSION_DELET = 'SESSION_DELETE';
 
 
 // Fetches the sessions of the current user
@@ -56,7 +57,21 @@ export function requestSession(request) {
         }
     ).done((resp) => {
         console.log(resp)
+        alert("Session request made!")
         // store.dispatch({ type: FETCH_SESSIONS_SUCCESS, payload: resp.data })
     });
 
+}
+
+export function cancelSession(id) {
+    $.ajax(
+        "/api/v1/tutoring_sessions/" + id, {
+            method: "delete",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+        }
+    ).done((resp) => {
+        console.log("deleted session" + id)
+        fetchSessions();
+    });
 }
