@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import store from '../../store'
 
 class SessionList extends React.Component {
     constructor(props) {
@@ -12,11 +13,12 @@ class SessionList extends React.Component {
     }
 
     render() {
-        let sessions1 = _.map(this.props.sessionsList, (session) => <SessionInfo sessionInfo={session} key={session.id} />);
-
+        console.log(this.props.sessionsList);
+        let user = store.getState().currentUser;
+        let sessions1 = _.map(this.props.sessionsList, (session) => <SessionInfo currentUser={user} sessionInfo={session} key={session.id} />);
         let activeSessions = _.map(_.filter(this.props.sessionsList, (session) => {
             return new Date(session.start) <= new Date() && new Date(session.end) >= new Date();
-        }), (session) => <ActiveSession sessionInfo={session} key={session.id}/>);
+        }), (session) => <ActiveSession currentUser={user} sessionInfo={session} key={session.id}/>);
 
         let current = activeSessions.length > 0 ? activeSessions : <p>No active sessions</p>
 
@@ -60,17 +62,21 @@ class SessionInfo extends React.Component {
     }
 
     render() {
+        let currentUser = this.props.currentUser;
         let info = this.props.sessionInfo;
         let start = new Date(info.start);
         let end = new Date(info.end);
 
+        console.log("CURRENT USER");
+        console.log(currentUser.user_type);
+        let cardTitle = currentUser.user_type == "STUDENT" ? <h5 className="card-title">Tutor: {info.tutor}</h5> : <h5 className="card-title">Student: {info.student}</h5>
         return (
             <div className="card shadow p-3 mb-4 bg-white rounded padding border-0">
                 <div className="card-body">
                     <div className="d-flex ">
 
                         <div className="col pl-0 d-flex justify-content-start">
-                            <h5 className="card-title">{info.tutor}</h5>
+                            {cardTitle}
                         </div>
 
                         <div className="col pr-0 d-flex justify-content-end">
@@ -94,9 +100,12 @@ class ActiveSession extends React.Component {
     }
 
     render() {
+        let currentUser = this.props.currentUser;
         let info = this.props.sessionInfo;
         let start = new Date(info.start);
         let end = new Date(info.end);
+
+        let cardTitle = currentUser.user_type == "STUDENT" ? <h5 className="card-title">Tutor: {info.tutor}</h5> : <h5 className="card-title">Student: {info.student}</h5>
 
         return (
             <div className="card shadow p-3 mb-4 bg-white rounded padding border-0">
@@ -104,7 +113,7 @@ class ActiveSession extends React.Component {
                     <div className="d-flex ">
 
                         <div className="col pl-0 d-flex justify-content-start">
-                            <h5 className="card-title">{info.tutor}</h5>
+                            {cardTitle}
                         </div>
 
                         <div className="col pr-0 d-flex justify-content-end">

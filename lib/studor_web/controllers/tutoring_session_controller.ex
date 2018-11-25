@@ -6,9 +6,15 @@ defmodule StudorWeb.TutoringSessionController do
 
   action_fallback StudorWeb.FallbackController
 
-  def index(conn, %{"user_id" => user_id}) do
-    tutoring_sessions = TutoringSessions.list_tutoring_sessions_by_id(user_id)
-    render(conn, "index.json", tutoring_sessions: tutoring_sessions)
+  def index(conn, %{"user_id" => user_id, "user_type" => user_type}) do
+    if user_type == "STUDENT" do
+      tutoring_sessions = TutoringSessions.list_tutoring_sessions_by_student_id(user_id)
+      render(conn, "index.json", tutoring_sessions: tutoring_sessions)
+    else
+      tutoring_sessions = TutoringSessions.list_tutoring_sessions_by_tutor_id(user_id)
+      IO.inspect(tutoring_sessions)
+      render(conn, "index.json", tutoring_sessions: tutoring_sessions)
+    end
   end
 
   def create(conn, %{"tutoring_session" => tutoring_session_params}) do

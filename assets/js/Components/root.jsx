@@ -41,9 +41,7 @@ class Root extends React.Component {
               <Route path="/profile" exact={true} render={() =>
                 <ProfilePageContainer />
               } />
-              <Route path="/currentSession" exact={true} render={() =>
-                <CurrentSessionPage />
-              } />
+              <Route path="/currentSession" component={CurrentSessionPage} exact={true} />
               <Route path="/signup" exact={true} render={() =>
                 <SignupPage />
               } />

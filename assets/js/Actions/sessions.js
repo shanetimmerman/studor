@@ -16,6 +16,7 @@ export function fetchSessions() {
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             data: {
+                user_type: user.user_type,
                 user_id: user.user_id
             }
         }

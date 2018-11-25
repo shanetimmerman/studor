@@ -4,6 +4,7 @@ import deepFreeze from 'deep-freeze';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import {Socket} from "phoenix"
+import { instanceOf } from 'prop-types';
 
 
 class Whiteboard extends React.Component {
@@ -12,7 +13,7 @@ class Whiteboard extends React.Component {
       this.btn_down = false;
       let socket = new Socket("/socket", {params: {token: window.userToken}})
       socket.connect();
-      this.channel = socket.channel("whiteboards:1", {active: 1});;
+      this.channel = socket.channel("whiteboards:" + props.session_info.id, {active: props.session_info.id});;
       this.state = {
           draw: true,
           whiteboard: { lines: [], 
