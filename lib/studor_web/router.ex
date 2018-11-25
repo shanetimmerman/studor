@@ -13,20 +13,15 @@ defmodule StudorWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", StudorWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
   scope "/api/v1", StudorWeb do
     pipe_through :api
     get "/tutors/:university_id/:query", TutorController, :course_index
     get "/tutors/:subject_area_id", TutorController, :subject_index
+    get "/universities", UniversityController, :index
     post "/session_files/:files", SessionFileController, :post_files
     resources "/sessions", SessionController, only: [:create]
     resources "/subjects", SubjectController, except: [:new, :edit]
-    resources "/universities", UniversityController, except: [:new, :edit]
+    resources "/universities", UniversityController
     resources "/time_blocks", TimeBlockController, except: [:new, :edit]
     resources "/students", StudentController, except: [:new, :edit]
     resources "/tutors", TutorController, except: [:new, :edit]
@@ -38,5 +33,11 @@ defmodule StudorWeb.Router do
     resources "/tutor_courses", TutorCourseController, except: [:new, :edit]
     resources "/tutor_subject_areas", TutorSubjectAreaController, except: [:new, :edit]
     resources "/tutor_availabilities", TutorAvailabilityController, except: [:new, :edit]
+  end
+
+  scope "/", StudorWeb do
+    pipe_through :browser
+
+    get "/*path", PageController, :index
   end
 end

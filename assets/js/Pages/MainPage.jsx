@@ -4,39 +4,32 @@ import _ from 'lodash';
 import LoginRegisterPage from './LoginRegisterPage'
 import TutorSearchPage from './TutorSearchPage'
 import SessionsPage from './SessionsPage'
+import { STUDENT, TUTOR } from '../Constants/userTypes';
 
 class MainPage extends React.Component {
     constructor(props) {
         super(props);
-        console.log("rendering main")
+    }
 
+    componentWillMount() {
+        this.props.fetchSession();
     }
 
     render() {
-        return (<div>
-            <div className="mt-3 mb-3">
-                <div className="mt-3 mb-3">
-                    <h1>Render this if user is not logged in:</h1>
-                    <LoginRegisterPage />
-                </div>
-            </div>
+        let user = this.props.user;
 
-            <div className="mt-3 mb-3">
-                <div className="mt-3 mb-3">
-                    <h1>Render this if student is logged in:</h1>
-                    <TutorSearchPage />
-                </div>
-            </div>
+        if (user.logged_in) {
+            // If they're a student, return the search page
+            switch (user.user_type) {
+                case STUDENT: return (<TutorSearchPage />);
+                case TUTOR: return (<SessionsPage />);
+                default: new Error("Illegal state: unsupported user type.");
+            }
 
-
-            <div className="mb-3 mt-3">
-                <div className="mb-3 mt-3">
-                    <h1>Render this if tutor is logged in:</h1>
-                    <SessionsPage />
-                </div>
-            </div>
-
-        </div>);
+        } else {
+            // Not logged in, return login page
+            return (<LoginRegisterPage />)
+        }
     }
 }
 

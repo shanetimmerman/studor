@@ -10,14 +10,10 @@ import { Persist } from 'formik-persist'
 
 
 /**
- * General purpose form to be used for sign up flows and user account information editing.
- * This expects to be passed a {@link userTypes.js} userType, so that conditional rendering of the
- * TutorSkills form can be achieved. Subforms will take the onChange handler provided by this parent form,
- * so all of the value management will be in here.
- * 
- * @param {*} props See below for default props and typing.
+ * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
+ * @param {*} props 
  */
-function UserInformationForm(props) {
+function NewUserForm(props) {
     return (
         <Formik
             intialValues={props.account.user_type == TUTOR ? { account: props.account, tutorSkills: props.tutorSkills } : { account: props.account }}
@@ -28,7 +24,6 @@ function UserInformationForm(props) {
                     {props.account.user_type == TUTOR && <TutorSkillsFieldsetContainer tutorSkills={props.tutorSkills} onChange={setValues} parentValues={values} />}
                     <PaymentInformationFieldset onChange={setValues} parentValues={values} />
                     <button type="submit" className="btn btn-primary">Submit</button>
-                    {/* <Persist name="userinfo-form" /> */}
                 </form>
             )}
         </ Formik>
@@ -36,7 +31,7 @@ function UserInformationForm(props) {
 }
 
 
-UserInformationForm.propTypes = {
+NewUserForm.propTypes = {
     account: PropTypes.shape({
         email: PropTypes.string,
         name: PropTypes.string,
@@ -60,7 +55,7 @@ UserInformationForm.propTypes = {
     onSubmit: PropTypes.func.isRequired
 }
 
-UserInformationForm.defaultProps = {
+NewUserForm.defaultProps = {
     account: {
         email: '',
         name: '',
@@ -82,4 +77,4 @@ UserInformationForm.defaultProps = {
     },
 }
 
-export default UserInformationForm;
+export default NewUserForm;

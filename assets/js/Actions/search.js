@@ -30,7 +30,6 @@ export function fetchCourseSearch(university_id, query) {
             contentType: "application/json; charset=UTF-8",
         }
     ).done((resp) => {
-        // console.log(resp)
         store.dispatch({ type: FETCH_SEARCH_RESULTS_SUCCESS, payload: resp.data })
     });
 

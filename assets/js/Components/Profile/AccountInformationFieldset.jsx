@@ -9,7 +9,6 @@ import { STUDENT, TUTOR } from '../../Constants/userTypes';
 class AccountInformationFieldset extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
   }
 
   render() {
@@ -66,7 +65,6 @@ class AccountInformationFieldset extends React.Component {
                 onChange={(event) => {
                   setValues(_.assign(values, { password: event.target.value }));
                   this.props.onChange(_.assign(this.props.parentValues, { account: values }));
-                  console.log(values)
                 }}
                 value={values.password}
               />

@@ -7,20 +7,21 @@ defmodule StudorWeb.SessionController do
     alias Studor.Tutors.Tutor
   
     def create(conn, %{"email" => email, "password" => password, "user_type" => user_type}) do
-        user = Studor.Students.get_and_auth_user(email, password)
         case user_type do 
-            "STUDENT" -> send_create(conn, Studor.Students.get_and_auth_user(email, password), %Student{})
-            "TUTOR" -> send_create(conn, Studor.Tutors.get_and_auth_user(email, password), %Tutor{})
+            "STUDENT" -> send_create(conn, Studor.Students.get_and_auth_user(email, password), %Student{}, user_type)
+            "TUTOR" -> send_create(conn, Studor.Tutors.get_and_auth_user(email, password), %Tutor{}, user_type)
             _ -> :error
         end
     end
 
-    def send_create(conn, user, struct) do
+    def send_create(conn, user, struct, user_type) do
         with struct = user do
             resp = %{
                 data: %{
                     token: Phoenix.Token.sign(StudorWeb.Endpoint, "user_id", user.id),
                     user_id: user.id,
+                    user_type: user_type,
+    
                 }
             }
     

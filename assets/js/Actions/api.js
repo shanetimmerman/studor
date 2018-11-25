@@ -20,13 +20,18 @@ export const FETCH_SUBJECT_AREAS = 'FETCH_UNIVERSITIES';
 export const FETCH_SUBJECT_AREAS_SUCCESS = 'FETCH_SUBJECT_AREAS_SUCCESS';
 export const FETCH_SUBJECT_AREAS_FAILED = 'FETCH_SUBJECT_AREAS_FAILED';
 
+// Fetching courses
+export const FETCH_COURSES = 'FETCH_COURSES';
+export const FETCH_COURSES_SUCCESS = 'FETCH_COURSES_SUCCESS';
+export const FETCH_COURSES_FAILED = 'FETCH_COURSES_FAILED';
+
 function fetchAjax(path, data, callback) {
     $.ajax(
         path, {
             method: "get",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
-            data: data
+            data: JSON.stringify(data)
         }
     ).done(callback);
 }
@@ -49,5 +54,12 @@ export function fetchSubjectAreas() {
     fetchAjax("/api/v1/subject_areas", {},
         (resp) => {
             store.dispatch({ type: FETCH_SUBJECT_AREAS_SUCCESS, payload: resp.data })
+        })
+}
+
+export function fetchCourses() {
+    fetchAjax("/api/v1/courses", {},
+        (resp) => {
+            store.dispatch({ type: FETCH_COURSES_SUCCESS, payload: resp.data })
         })
 }

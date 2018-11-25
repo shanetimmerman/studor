@@ -7,7 +7,10 @@ defmodule StudorWeb.UniversityController do
   action_fallback StudorWeb.FallbackController
 
   def index(conn, _params) do
+    IO.puts "fetching"
     universities = Universities.list_universities()
+    IO.inspect universities
+
     render(conn, "index.json", universities: universities)
   end
 

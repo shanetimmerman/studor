@@ -11,8 +11,11 @@ defmodule StudorWeb.CourseView do
   end
 
   def render("course.json", %{course: course}) do
+    university = Studor.Universities.get_university!(course.university_id)
     %{id: course.id,
       course_no: course.course_no,
-      course_name: course.course_name}
+      course_name: course.course_name,
+      university_id: university.id
+    }
   end
 end

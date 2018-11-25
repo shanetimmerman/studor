@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import createUser from '../../Actions/login'
+import createUser from '../../Actions/users'
 import SignUpForm from '../../Components/Login/SignUpForm'
 
 function mapStateToProps(state) {

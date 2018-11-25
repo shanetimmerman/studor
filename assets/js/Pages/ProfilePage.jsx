@@ -1,6 +1,9 @@
 import React from 'react';
 import _ from 'lodash';
 import UserInformationForm from '../Components/Login/UserInformationForm';
+import { STUDENT } from '../Constants/userTypes';
+import EditStudentForm from '../Components/Profile/EditStudentForm';
+import EditTutorFormContainer from '../Containers/Profile/EditTutorFormContainer';
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -9,6 +12,8 @@ class ProfilePage extends React.Component {
     }
 
     render() {
+        console.log(this.props.user)
+        let form = this.props.user.user_type == STUDENT ? <EditStudentForm /> : <EditTutorFormContainer />
         return (<div className="bg-light">
             <div className="row padding">
                 <div className="col-md-3"></div>
@@ -21,7 +26,7 @@ class ProfilePage extends React.Component {
             <div className="row padding">
                 <div className="col-md-2"></div>
                 <div className="col-md-8">
-                    <UserInformationForm onSubmit={() => { console.log("changing user info") }} />
+                    {form}
                 </div>
                 <div className="col-md-2"></div>
             </div>

@@ -2,12 +2,14 @@ import {
     FETCH_SUBJECTS, FETCH_SUBJECTS_FAILED, FETCH_SUBJECTS_SUCCESS,
     FETCH_SUBJECT_AREAS, FETCH_SUBJECT_AREAS_FAILED, FETCH_SUBJECT_AREAS_SUCCESS,
     FETCH_UNIVERSITIES, FETCH_UNIVERSITIES_FAILED, FETCH_UNIVERSITIES_SUCCESS,
+    FETCH_COURSES, FETCH_COURSES_SUCCESS, FETCH_COURSES_FAILED
 } from '../Actions/api'
 
 const INITIAL_STATE = {
     universities: [],
     subjects: [],
-    subjectAreas: []
+    subjectAreas: [],
+    courses: []
 }
 
 export default function (state = INITIAL_STATE, action) {
@@ -34,6 +36,14 @@ export default function (state = INITIAL_STATE, action) {
         case FETCH_UNIVERSITIES_SUCCESS:
             return Object.assign({}, state, { universities: action.payload, error: null, loading: false });
         case FETCH_UNIVERSITIES_FAILED:
+            error = action.payload || { message: action.payload.message };
+            return Object.assign({}, state, { error: error });
+
+        case FETCH_COURSES:
+            return Object.assign({}, state, { courses: [], error: null, loading: true });
+        case FETCH_COURSES_SUCCESS:
+            return Object.assign({}, state, { courses: action.payload, error: null, loading: false });
+        case FETCH_COURSES_FAILED:
             error = action.payload || { message: action.payload.message };
             return Object.assign({}, state, { error: error });
         default: return state;

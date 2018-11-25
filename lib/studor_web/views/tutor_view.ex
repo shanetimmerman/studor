@@ -26,6 +26,7 @@ defmodule StudorWeb.TutorView do
       average_rating: avg_rating,
       subject_areas: subject_areas,
       courses: course_names,
-      availability: availability}
+      availability: availability,
+      user_type: "TUTOR"}
   end
 end

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from '../Components/Header.jsx'
-import { logoutUser } from '../Actions/users';
+import MainPage from '../../Pages/MainPage'
+import { fetchSession } from '../../Actions/users'
 
 const mapStateToProps = (state) => {
     return {
@@ -9,13 +9,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-
 const mapDispatchToProps = (dispatch) => {
     return {
-        logoutUser: () => {
-            logoutUser();
+        fetchSession: () => {
+            fetchSession();
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage)

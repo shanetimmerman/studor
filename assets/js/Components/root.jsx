@@ -5,11 +5,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import _ from 'lodash';
 
 import SessionsPage from "../Pages/SessionsPage.jsx"
-import ProfilePage from "../Pages/ProfilePage.jsx"
+import ProfilePageContainer from "../Containers/Pages/ProfilePageContainer"
 import HeaderContainer from '../Containers/HeaderContainer.jsx';
-import MainPage from '../Pages/MainPage.jsx';
+import MainPageContainer from '../Containers/Pages/MainPageContainer'
 import CurrentSessionPage from '../Pages/CurrentSessionPage.jsx';
-import UserInformationForm from '../Components/Login/UserInformationForm';
+import SignupPage from '../Pages/SignupPage'
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -22,6 +22,7 @@ export default function root_init(node, store) {
 class Root extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props)
   }
 
   render() {
@@ -32,19 +33,19 @@ class Root extends React.Component {
           <div className="row">
             <div className="col-12">
               <Route path="/" exact={true} render={() =>
-                <MainPage />
+                <MainPageContainer />
               } />
               <Route path="/sessions" exact={true} render={() =>
                 <SessionsPage />
               } />
               <Route path="/profile" exact={true} render={() =>
-                <ProfilePage />
+                <ProfilePageContainer />
               } />
               <Route path="/currentSession" exact={true} render={() =>
                 <CurrentSessionPage />
               } />
               <Route path="/signup" exact={true} render={() =>
-                <UserInformationForm />
+                <SignupPage />
               } />
             </div>
           </div>

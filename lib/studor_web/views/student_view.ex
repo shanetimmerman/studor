@@ -15,6 +15,7 @@ defmodule StudorWeb.StudentView do
       email: student.email,
       password_hash: student.password_hash,
       paypal_token: student.paypal_token,
-      profile_pic_url: student.profile_pic_url}
+      profile_pic_url: student.profile_pic_url,
+      user_type: "STUDENT"}
   end
 end

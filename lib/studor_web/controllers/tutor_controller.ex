@@ -11,12 +11,14 @@ defmodule StudorWeb.TutorController do
     render(conn, "index.json", tutors: tutors)
   end
 
+  # Fetches a list of tutors that go to the given university and teach courses that match the given query
   def course_index(conn, %{ "university_id" => university_id, "query" => query}) do
     tutors = Tutors.search_courses(university_id, query)
 
     render(conn, "index.json", tutors: tutors)
   end
 
+  # Fetches a list of tutors that are marked with the given subject area
   def subject_index(conn, %{ "subject_area_id" => subject_area_id}) do
     tutors = Tutors.search_subjects(subject_area_id)
     render(conn, "index.json", tutors: tutors)
