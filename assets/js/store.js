@@ -1,6 +1,4 @@
-import { createStore, combineReducers } from 'redux';
-import deepFreeze from 'deep-freeze';
-import $ from 'jquery';
+import { createStore } from 'redux';
 import { root_reducer } from './Reducers/root';
 
 /*

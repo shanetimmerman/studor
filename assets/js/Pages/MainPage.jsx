@@ -19,7 +19,7 @@ class MainPage extends React.Component {
         let user = this.props.user;
 
         if (user.logged_in) {
-            // If they're a student, return the search page
+            // If they're a student, show search page, if tutor session page
             switch (user.user_type) {
                 case STUDENT: return (<TutorSearchPage />);
                 case TUTOR: return (<SessionsPage />);

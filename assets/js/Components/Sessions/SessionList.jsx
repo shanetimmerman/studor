@@ -130,7 +130,4 @@ class ActiveSession extends React.Component {
     }
 }
 
-
-
-
 export default SessionList;

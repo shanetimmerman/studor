@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import MainPage from '../../Pages/MainPage'
 import { fetchSession } from '../../Actions/users'

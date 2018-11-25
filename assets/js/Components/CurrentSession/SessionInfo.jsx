@@ -1,8 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
-
-
 
 class SessionInfo extends React.Component {
     constructor(props) {
@@ -10,24 +7,20 @@ class SessionInfo extends React.Component {
     }
 
     timeConversion(milliseconds){
-        //Get hours from milliseconds
         var hours = milliseconds / (1000*60*60);
         var absoluteHours = Math.floor(hours);
         var h = absoluteHours > 9 ? absoluteHours : '0' + absoluteHours;
       
-        //Get remainder from hours and convert to minutes
         var minutes = (hours - absoluteHours) * 60;
         var absoluteMinutes = Math.floor(minutes);
         var m = absoluteMinutes > 9 ? absoluteMinutes : '0' +  absoluteMinutes;
       
-        //Get remainder from minutes and convert to seconds
         var seconds = (minutes - absoluteMinutes) * 60;
         var absoluteSeconds = Math.floor(seconds);
         var s = absoluteSeconds > 9 ? absoluteSeconds : '0' + absoluteSeconds;
       
-      
         return h + 'h:' + m + 'm:' + s + 's';
-      }
+    }
 
     render () {
         return (
@@ -45,7 +38,6 @@ class SessionInfo extends React.Component {
 class CurrentMembers extends React.Component {
     constructor(props) {
       super(props);
-     
     }
 
     render() {
@@ -56,12 +48,11 @@ class CurrentMembers extends React.Component {
                     <div className="text-secondary">Student: {this.props.session_info.student}</div>
                  </div>);
         }
-  }
+    }
 
   class UploadedFiles extends React.Component {
     constructor(props) {
       super(props);
-     
     }
 
     render() {
@@ -87,10 +78,4 @@ class CurrentMembers extends React.Component {
         }
   }
 
-  function mapStateToProps(state) {
-      return {
-
-      }
-  }
-
-  export default connect(mapStateToProps)(SessionInfo);
+  export default SessionInfo;

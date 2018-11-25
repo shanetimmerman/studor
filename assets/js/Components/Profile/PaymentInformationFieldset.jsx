@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import _ from 'lodash';
 import PropTypes from 'prop-types';

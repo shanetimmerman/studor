@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import _ from 'lodash';

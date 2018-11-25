@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { STUDENT, TUTOR } from '../../Constants/userTypes';
-
 
 class AccountInformationFieldset extends React.Component {
   constructor(props) {

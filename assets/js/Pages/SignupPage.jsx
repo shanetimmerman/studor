@@ -14,8 +14,7 @@ function SignupPage(props) {
                 createTutor(values.account, values.tutorData, values.payment);
                 break;
             default: new Error("Invalid user type.");
-        }
-    }} />)
+        }}} />)
 }
 
 export default SignupPage;

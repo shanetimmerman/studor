@@ -18,7 +18,6 @@ export default function root_init(node, store) {
     </Provider>, node);
 }
 
-
 class Root extends React.Component {
   constructor(props) {
     super(props);

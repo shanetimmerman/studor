@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';

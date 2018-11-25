@@ -9,6 +9,5 @@ export const root_reducer = combineReducers({
     searchPage: searchPageReducer,
     sessionPage: sessionPageReducer,
     apiData: apiReducer,
-    // currentSessionPage: currentSessionPageReducer,
     currentUser: currentUserReducer,
 })

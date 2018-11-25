@@ -5,7 +5,6 @@ import SignInFormContainer from '../Containers/Login/SignInFormContainer';
 class LoginRegisterPage extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {
