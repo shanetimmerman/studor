@@ -48,7 +48,7 @@ defmodule Paypal do
             {"Content-Type", "application/json"},
         ]
         body = Jason.encode!(%{
-            intent: "sale",
+            intent: "authorize",
             payer: %{
                 payment_method: "paypal",
                 payer_info: %{
@@ -65,7 +65,6 @@ defmodule Paypal do
             transactions: [
                 %{
                     description: "A tutoring session.",
-                    soft_descriptor: "ECHI5786786",
 
                     amount: %{
                         total: amount,
@@ -95,7 +94,7 @@ defmodule Paypal do
     end
 
 
-    def refund(sale_id, access_token) do
+    def refund(access_token, sale_id) do
         url = "https://api.sandbox.paypal.com/v1/payments/sale/#{sale_id}/refund"
 
         headers = [
