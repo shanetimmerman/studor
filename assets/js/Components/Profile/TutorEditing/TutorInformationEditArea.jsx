@@ -48,6 +48,7 @@ class TutorInformationEditArea extends React.Component {
                         <h2> Availability: </h2>
                         <AvailabilityList removeItem={this.removeTutorAvailability} values={info.availabilities} />
 
+
                     </div>
                 </div>
             </div>
