@@ -8,6 +8,7 @@ defmodule StudorWeb.UniversityController do
 
   def index(conn, _params) do
     universities = Universities.list_universities()
+
     render(conn, "index.json", universities: universities)
   end
 

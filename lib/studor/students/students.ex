@@ -101,4 +101,18 @@ defmodule Studor.Students do
   def change_student(%Student{} = student) do
     Student.changeset(student, %{})
   end
+
+  def get_user_by_email(email) do
+    Repo.get_by(Student, email: email)
+  end
+
+  def get_and_auth_user(email, password) do
+    user = get_user_by_email(email)
+    # case Comeonin.Argon2.check_pass(user, password) do
+    #   {:ok, user} -> user
+    #   _else       -> nil
+    # end
+    user
+  end
+
 end
