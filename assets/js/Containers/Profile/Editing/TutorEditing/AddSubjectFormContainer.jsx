@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { addTutorSubjectArea } from '../../../../Actions/users'
 import AddSubjectForm from '../../../../Components/Profile/Editing/TutorEditing/AddSubjectForm';
+import { fetchSubjectAreas } from '../../../../Actions/api'
 
 function mapStateToProps(state) {
     return {
@@ -13,6 +14,10 @@ function mapDispatchToProps(dispatch) {
     return {
         addSubject: (values) => {
             addTutorSubjectArea(values);
+        },
+
+        fetchSubjects: () => {
+            fetchSubjectAreas();
         }
     }
 }

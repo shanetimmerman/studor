@@ -21,6 +21,10 @@ class AddCourseForm extends React.Component {
         this.setState({ isOpen: !this.state.isOpen });
     }
 
+    componentWillMount() {
+        this.props.fetchCourses();
+    }
+
     formatCourseOptions(university_id) {
         let courseOptions = [];
 
