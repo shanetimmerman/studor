@@ -25,7 +25,7 @@ defmodule Studor.Tutors.Tutor do
   @doc false
   def changeset(tutor, attrs) do
     tutor
-    |> cast(attrs, [:email, :name, :password_hash, :paypal_email, :profile_pic_url, :gpa])
+    |> cast(attrs, [:email, :name, :password_hash, :paypal_email, :profile_pic_url, :gpa, :university_id])
     |> validate_required([:email, :name, :password_hash, :paypal_email, :gpa])
     |> unique_constraint(:email)
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)

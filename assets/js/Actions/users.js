@@ -152,44 +152,44 @@ export function createTutor(accountData, tutorData, paymentData) {
     console.log(paymentData);
 }
 
-export function editStudent(oldValues, newValues, id) {
-
-}
 
 /**
- * Edits the currently signed in tutor, updating the account information
- * to reflect the given values, and adding or removing any of the listed
- * tutor information as necessary, based on the tutor's previously stored information.
+ * Edits the currently signed in student, updating the account information
+ * such as name and email.
  * 
- * @param {Object} values, an object including information about the tutor's account
- * and tutoring information, such as availabilities, courses, and subject areas
+ * @param {Object} values, an object including information about the student's account information.
  */
-export function udpateTutorProfile(values) {
+export function updateStudentProfile(values) {
     console.log('submitting:');
+    console.log(values)
     let state = store.getState();
-    let oldValues = state.currentUser.user_info;
     let id = state.currentUser.user_id;
 
-    // Change their account information  
-    // editTutorAccountInfo({
-    //     name: values.name,
-    //     email: values.email,
-    //     university: values.university,
-    //     gpa: values.gpa
-    // }, id)
-}
-
-/**
- * Updates the account information (name, email, gpa, and university) of the tutor with the
- * given id. 
- * @param {object} values 
- * @param {number} tutor_id 
- */
-function editTutorAccountInfo(values, tutor_id) {
-    putAjax('/api/v1/tutors/' + tutor_id, { tutor: values },
+    putAjax('/api/v1/students/' + id, { student: values },
         (resp) => {
             // TODO dispatch this
             console.log(resp);
+            fetchStudentInfo(id);
+        });
+}
+
+/**
+ * Edits the currently signed in tutor, updating the account information such as
+ * Name, Email, GPA, University, and Paypal Email.
+ * 
+ * @param {Object} values, an object including information about the tutor's account information.
+ */
+export function udpateTutorProfile(values) {
+    console.log('submitting:');
+    console.log(values)
+    let state = store.getState();
+    let id = state.currentUser.user_id;
+
+    putAjax('/api/v1/tutors/' + id, { tutor: values },
+        (resp) => {
+            // TODO dispatch this
+            console.log(resp);
+            fetchTutorInfo(id);
         });
 }
 
@@ -234,13 +234,24 @@ export function addTutorSubjectArea(values) {
 }
 
 export function deleteTutorAvailability(id) {
-
+    deleteAjax('/api/v1/tutor_availabilities/' + id, {},
+        (resp) => {
+            let id = store.getState().currentUser.user_id;
+            fetchTutorInfo(id);
+        })
 }
 
 export function addTutorAvailability(values) {
-    // start
-    // end
-    // tutor id
+    let id = store.getState().currentUser.user_id;
+
+    postAjax('/api/v1/time_blocks/', { time_block: values },
+        (resp) => {
+            let time_id = resp.data.id;
+            postAjax('/api/v1/tutor_availabilities/', { tutor_availability: { time_block_id: time_id, tutor_id: id } },
+                (resp) => {
+                    fetchTutorInfo(id);
+                });
+        });
 }
 
 export function fetchUserInfo(user_id, user_type) {
@@ -254,6 +265,7 @@ export function fetchUserInfo(user_id, user_type) {
 function fetchStudentInfo(user_id) {
     fetchAjax("/api/v1/students/" + user_id, {},
         (resp) => {
+            console.log(resp)
             store.dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: resp.data })
         });
 }

@@ -1,22 +1,17 @@
 import { Formik } from 'formik';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { STUDENT, TUTOR } from "../../Constants/userTypes";
-import AccountInformationFieldset from './AccountInformationFieldset';
-import PaymentInformationFieldset from './PaymentInformationFieldset';
-import TutorSkillsFieldsetContainer from '../../Containers/Profile/TutorSkillsFieldsetContainer'
-import { Persist } from 'formik-persist'
-
 
 /**
  * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
  * @param {*} props 
  */
 function EditStudentForm(props) {
+    let info = props.user.user_info;
+
     return (
         <Formik
-            initialValues={props}
+            initialValues={{ name: info.name, email: info.email }}
             onSubmit={(values) => { props.onSubmit(values) }}>
             {({ values, handleChange, handleSubmit, setValues }) => (
                 <form onSubmit={handleSubmit}>
@@ -28,7 +23,7 @@ function EditStudentForm(props) {
                             <label htmlFor="accountname">Name:</label>
                             <input
                                 type="text"
-                                name="account.name"
+                                name="name"
                                 id="accountname"
                                 className="form-control bg-light border-0"
                                 onChange={handleChange}
@@ -37,44 +32,20 @@ function EditStudentForm(props) {
                             <label htmlFor="accountemail">Email:</label>
                             <input
                                 type="email"
-                                name="account.email"
+                                name="email"
                                 id="accountemail"
                                 className="form-control bg-light border-0"
                                 onChange={handleChange}
                                 value={values.email}
                             />
-
-                            <label htmlFor="accountpassword">Password:</label>
-                            <input
-                                type="password"
-                                name="account.password"
-                                id="accountpassword"
-                                className="form-control bg-light border-0"
-                                onChange={handleChange}
-                                value={values.password}
-                            />
                         </div>
                     </div>
 
-                    <PaymentInformationFieldset onChange={setValues} parentValues={values} />
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Save changes</button>
                 </form>
             )}
         </ Formik>
     )
-}
-
-EditStudentForm.defaultProps = {
-    account: {
-        email: '',
-        name: '',
-        password: '',
-    },
-
-    payment: {
-        paypal_email: '',
-        paypal_password: '',
-    },
 }
 
 export default EditStudentForm;

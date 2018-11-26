@@ -27,6 +27,7 @@ defmodule StudorWeb.TutorView do
       availabilities: availability,
       profile_pic_url: tutor.profile_pic_url,
       average_rating: avg_rating,
+      paypal_email: tutor.paypal_email,
       user_type: "TUTOR"}
   end
 end

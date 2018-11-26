@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
-import TutorInformationEditArea from '../../../Components/Profile/TutorEditing/TutorInformationEditArea';
-import { addTutorCourse } from '../../../Actions/users'
-import AddCourseForm from '../../../Components/Profile/TutorEditing/AddCourseForm';
+import { addTutorCourse } from '../../../../Actions/users'
+import AddCourseForm from '../../../../Components/Profile/Editing/TutorEditing/AddCourseForm'
 
 function mapStateToProps(state) {
     return {

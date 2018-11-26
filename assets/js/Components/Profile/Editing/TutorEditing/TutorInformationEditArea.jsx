@@ -1,10 +1,9 @@
-import { Formik } from 'formik';
 import _ from 'lodash';
 import React from 'react';
-import { STUDENT, TUTOR } from "../../../Constants/userTypes";
 import { v4 as uuidv4 } from 'uuid';
-import AddCourseFormContainer from '../../../Containers/Profile/TutorEditing/AddCourseFormContainer';
-import AddSubjectFormContainer from '../../../Containers/Profile/TutorEditing/AddSubjectFormContainer';
+import AddCourseFormContainer from '../../../../Containers/Profile/Editing/TutorEditing/AddCourseFormContainer'
+import AddSubjectFormContainer from '../../../../Containers/Profile/Editing/TutorEditing/AddSubjectFormContainer';
+import AddAvailabilityFormContainer from '../../../../Containers/Profile/Editing/TutorEditing/AddAvailabilityFormContainer';
 
 class TutorInformationEditArea extends React.Component {
     constructor(props) {
@@ -24,7 +23,10 @@ class TutorInformationEditArea extends React.Component {
     }
 
     removeTutorAvailability(timeblock) {
+        console.log("deleting timeblock")
+        console.log(timeblock)
 
+        this.props.removeTutorAvailability(timeblock.tutor_availability_id)
     }
 
     render() {
@@ -47,7 +49,7 @@ class TutorInformationEditArea extends React.Component {
 
                         <h2> Availability: </h2>
                         <AvailabilityList removeItem={this.removeTutorAvailability} values={info.availabilities} />
-
+                        <AddAvailabilityFormContainer />
                     </div>
                 </div>
             </div>
@@ -140,7 +142,7 @@ function Availability(props) {
         <div className="row">
             <p> Start: {props.item.start.toLocaleString()}</p>
             <p> End: {props.item.end.toLocaleString()}</p>
-            <button type="button" onClick={() => { props.removeItem(props.timeblock) }} className="btn btn-danger"> Remove {props.label} </button>
+            <button type="button" onClick={() => { props.removeItem(props.item) }} className="btn btn-danger"> Remove {props.label} </button>
         </div>
     )
 }

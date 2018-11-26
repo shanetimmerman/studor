@@ -13,7 +13,7 @@ defmodule Studor.TutorAvailabilities.TutorAvailability do
   @doc false
   def changeset(tutor_availability, attrs) do
     tutor_availability
-    |> cast(attrs, [])
+    |> cast(attrs, [:time_block_id, :tutor_id])
     |> validate_required([])
   end
 end
