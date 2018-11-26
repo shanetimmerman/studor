@@ -51,14 +51,16 @@ class CurrentMembers extends React.Component {
     }
 
     render() {
-        let user = store.getState().currentUser
-        let sid = "s" + this.props.session_info.student_id;
-        let tid = "t" + this.props.session_info.tutor_id;
-
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
+        let user = store.getState().currentUser
+        let tid = "t" + this.props.session_info.tutor_id;
+        let sid = "s" + this.props.session_info.student_id;
+
+        let onCall = false;
         let peer = null;
         let other_id = null;
+
         if (user.user_type == "TUTOR") {
             peer = new Peer(tid, {key: 'lwjd5qra8257b9'});
             other_id = sid;
@@ -66,8 +68,6 @@ class CurrentMembers extends React.Component {
             peer = new Peer(sid, {key: 'lwjd5qra8257b9'});
             other_id = tid;
         }
-
-        let onCall = false;
 
         peer.on('call', function(call) {
             onCall = true;
@@ -81,7 +81,7 @@ class CurrentMembers extends React.Component {
                 console.log('Failed to get local stream' ,err);
             });
         });
-    
+
         if (!onCall) {
             navigator.getUserMedia({video: true, audio: true}, function(stream) {
             let call = peer.call(other_id, stream);
