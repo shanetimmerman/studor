@@ -12,9 +12,8 @@ defmodule StudorWeb.StudentView do
 
   def render("student.json", %{student: student}) do
     %{id: student.id,
+      name: student.name,
       email: student.email,
-      password_hash: student.password_hash,
-      paypal_token: student.paypal_token,
       profile_pic_url: student.profile_pic_url,
       user_type: "STUDENT"}
   end

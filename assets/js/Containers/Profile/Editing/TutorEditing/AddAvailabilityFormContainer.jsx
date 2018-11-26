@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import { addTutorAvailability } from '../../../Actions/users'
-import AddAvailabilityForm from '../../../Components/Profile/TutorEditing/AddAvailabilityForm';
+import { addTutorAvailability } from '../../../../Actions/users'
+import AddAvailabilityForm from '../../../../Components/Profile/Editing/TutorEditing/AddAvailabilityForm';
 
 function mapStateToProps(state) {
     return {

@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import AddCourseFormContainer from '../../../Containers/Profile/TutorEditing/AddCourseFormContainer';
-import AddSubjectFormContainer from '../../../Containers/Profile/TutorEditing/AddSubjectFormContainer';
-import AddAvailabilityFormContainer from '../../../Containers/Profile/TutorEditing/AddAvailabilityFormContainer';
+import AddCourseFormContainer from '../../../../Containers/Profile/Editing/TutorEditing/AddCourseFormContainer'
+import AddSubjectFormContainer from '../../../../Containers/Profile/Editing/TutorEditing/AddSubjectFormContainer';
+import AddAvailabilityFormContainer from '../../../../Containers/Profile/Editing/TutorEditing/AddAvailabilityFormContainer';
 
 class TutorInformationEditArea extends React.Component {
     constructor(props) {
