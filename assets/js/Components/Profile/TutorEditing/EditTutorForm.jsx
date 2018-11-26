@@ -10,7 +10,6 @@ class EditTutorForm extends React.Component {
     constructor(props) {
         super(props);
         this.renderUniversityOptions = this.renderUniversityOptions.bind(this);
-
     }
 
     componentWillMount() {
@@ -29,7 +28,7 @@ class EditTutorForm extends React.Component {
 
         return (
             <Formik
-                initialValues={{ name: info.name, email: info.email, university_id: info.university.id, gpa: info.gpa }}
+                initialValues={{ name: info.name, email: info.email, university_id: info.university.id, gpa: info.gpa, paypal_email: info.paypal_email }}
                 onSubmit={(values) => { this.props.onSubmit(values) }}>
 
                 {({ values, handleChange, handleSubmit, setValues }) => (
@@ -82,15 +81,17 @@ class EditTutorForm extends React.Component {
                                         onChange={handleChange}
                                         value={values.gpa} />
                                 </div>
-                                {/* <label htmlFor="accountpassword">Password:</label>
+
+                                <label htmlFor="paypalemail">Paypal Email:</label>
                                 <input
-                                    type="password"
-                                    name="password"
-                                    id="accountpassword"
+                                    type="email"
+                                    name="paypal_email"
+                                    id="paypalemail"
                                     className="form-control bg-light border-0"
                                     onChange={handleChange}
-                                    value={values.password}
-                                /> */}
+                                    value={values.paypal_email}
+                                />
+
                             </div>
                         </div>
 
