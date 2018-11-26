@@ -1,80 +1,173 @@
 import { Formik } from 'formik';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { STUDENT, TUTOR } from "../../Constants/userTypes";
-import AccountInformationFieldset from '../Profile/AccountInformationFieldset';
-import PaymentInformationFieldset from '../Profile/PaymentInformationFieldset';
-import TutorSkillsFieldsetContainer from '../../Containers/Profile/TutorSkillsFieldsetContainer'
-import { Persist } from 'formik-persist'
+
 
 
 /**
  * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
  * @param {*} props 
  */
-function NewUserForm(props) {
-    return (
-        <Formik
-            intialValues={props.account.user_type == TUTOR ? { account: props.account, tutorSkills: props.tutorSkills } : { account: props.account }}
-            onSubmit={(values) => { props.onSubmit(values) }}>
-            {({ values, handleSubmit, setValues }) => (
-                <form onSubmit={handleSubmit}>
-                    <AccountInformationFieldset account={props.account} onChange={setValues} parentValues={values} />
-                    {props.account.user_type == TUTOR && <TutorSkillsFieldsetContainer tutorSkills={props.tutorSkills} onChange={setValues} parentValues={values} />}
-                    <PaymentInformationFieldset onChange={setValues} parentValues={values} />
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
-            )}
-        </ Formik>
-    )
-}
+class NewUserForm extends React.Component {
+    constructor(props) {
+        super(props);
 
+        this.renderAccountInfo = this.renderAccountInfo.bind(this);
 
-NewUserForm.propTypes = {
-    account: PropTypes.shape({
-        email: PropTypes.string,
-        name: PropTypes.string,
-        password: PropTypes.string,
-        user_type: PropTypes.string.isRequired,
-    }).isRequired, // gotta have that userType babyyy
+        // load university options
+    }
 
-    payment: PropTypes.shape({
-        email: PropTypes.string,
-        password: PropTypes.string,
-    }).isRequired,
+    componentWillMount() {
+        this.props.fetchUniversities();
+    }
 
-    tutorSkills: PropTypes.shape({
-        university: PropTypes.number,
-        gpa: PropTypes.number,
-        tutor_courses: PropTypes.array,
-        tutor_subject_areas: PropTypes.array,
-        tutor_availabilities: PropTypes.array,
-    }),
+    renderUniversityOptions() {
+        return (_.map(this.props.universities, (university) => { return (<option key={university.id} value={university.id}> {university.name} </option>) }));
+    }
 
-    onSubmit: PropTypes.func.isRequired
-}
+    renderAccountInfo(values, handleChange, setValues) {
+        return (
+            <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
+                <div className="card-body">
+                    <h3 className="card-title text-primary">Account Information</h3>
+                    <label htmlFor="accountname">Name:</label>
+                    <input
+                        type="text"
+                        name="name"
+                        id="accountname"
+                        className="form-control bg-light border-0"
+                        onChange={handleChange}
+                        value={values.name} />
 
-NewUserForm.defaultProps = {
-    account: {
-        email: '',
-        name: '',
-        password: '',
-        user_type: STUDENT
-    },
+                    <label htmlFor="accountemail">Email:</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="accountemail"
+                        className="form-control bg-light border-0"
+                        onChange={handleChange}
+                        value={values.email}
+                    />
+                    {/* {errors.email && touched.email && errors.email} */}
 
-    payment: {
-        paypal_email: '',
-        paypal_password: '',
-    },
+                    <label htmlFor="accountpassword">Password:</label>
+                    <input
+                        type="password"
+                        name="password_hash"
+                        id="accountpassword"
+                        className="form-control bg-light border-0"
+                        onChange={handleChange}
+                        value={values.password_hash}
+                    />
+                    {/* {errors.password && touched.password && errors.password} */}
 
-    tutorSkills: {
-        university: 1,
-        gpa: 4.0,
-        tutor_courses: [],
-        tutor_subject_areas: [],
-        tutor_availabilities: [],
-    },
+                    <div className="row mb-3 mt-3">
+                        <div className="col-md-4">
+                            <label htmlFor="studentTutorSelect">I am a:</label>
+                            <select
+                                id="studentTutorSelect"
+                                name="user_type"
+                                onChange={(event) => {
+                                    switch (values.user_type) {
+                                        // If it was previously student, add relevant fields to the values
+                                        case STUDENT: setValues(_.assign(values, { user_type: event.target.value, paypal_email: '', gpa: 4.0, university_id: 1 })); break;
+                                        // If they were previously a tutor, remove those values
+                                        case TUTOR: setValues({ name: values.name, email: values.email, password: values.password, user_type: STUDENT }); break;
+                                        default: new Error("Invalid user type");
+                                    }
+                                }}
+                                value={values.user_type}
+                                className="form-control border-0 bg-light">
+                                <option value={STUDENT}>Student</option>
+                                <option value={TUTOR}>Tutor</option>
+                            </select>
+                        </div>
+                        <div className="col-md-8"></div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    renderTutorInfo(values, handleChange) {
+        return (
+            <div>
+                <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
+                    <div className="card-body">
+                        <h3 className="card-title text-primary">Tutoring Profile</h3>
+
+                        <label className="mt-2" htmlFor="uni">University:</label>
+                        <small className="text-muted">You will later be able to add courses at your university that you tutor to your tutoring profile.</small>
+
+                        <select
+                            id="univeristy"
+                            name="univeristy_id"
+                            onChange={handleChange}
+                            value={values.university_id}
+                            className="form-control border-0 bg-light">
+                            {this.renderUniversityOptions()}
+                        </select>
+
+                        <div className="mb-1 mt-3">
+                            <label htmlFor="gpa">GPA:</label>
+                            <input
+                                type="number"
+                                name="gpa"
+                                id="gpa"
+                                min="0"
+                                max="5"
+                                step='.1'
+                                className="form-control bg-light border-0"
+                                onChange={handleChange}
+                                value={values.gpa} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
+                    <div className="card-body">
+                        <h3 className="card-title text-primary">Payment Information</h3>
+                        <div className="col">
+                            <label htmlFor="paypal_email">Paypal Email:</label>
+                            <small className="text-muted">Payment for sessions is handled through PayPal. Please include an email associated with a PayPal account.</small>
+
+                            <input
+                                type="email"
+                                name="paypal_email"
+                                id="paypal_email"
+                                className="form-control bg-light border-0"
+                                onChange={handleChange}
+                                value={values.paypal_email}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <Formik
+                initialValues={{ name: '', email: '', password_hash: '', user_type: STUDENT }}
+                onSubmit={(values) => {
+                    console.log('submitting')
+                    console.log(values)
+                    this.props.onSubmit(values)
+                }}>
+                {({ values, handleSubmit, handleChange, setValues }) => (
+                    < form onSubmit={handleSubmit}>
+                        {console.log(values)}
+                        {this.renderAccountInfo(values, handleChange, setValues)}
+                        {values.user_type == TUTOR && this.renderTutorInfo(values, handleChange)}
+                        <button type="submit" className="btn btn-primary">Create account</button>
+                    </form>
+                )
+                }
+            </ Formik>
+        )
+    }
 }
 
 export default NewUserForm;

@@ -145,9 +145,12 @@ defmodule Studor.Tutors do
     select: rating.stars
 
     ratings = Repo.all(query)
-    total = Enum.reduce(ratings, fn rating, acc -> acc + rating end)
-        
-    if (total == 0) do 0 else total / length(ratings) end
+    
+    if (ratings == []) do 0 else
+      total = Enum.reduce(ratings, fn rating, acc -> acc + rating end)
+          
+      if (total == 0) do 0 else total / length(ratings) end
+    end
   end
 
   def get_subject_areas(tutor_id) do
