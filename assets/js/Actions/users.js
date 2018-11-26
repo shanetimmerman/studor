@@ -234,13 +234,24 @@ export function addTutorSubjectArea(values) {
 }
 
 export function deleteTutorAvailability(id) {
-
+    deleteAjax('/api/v1/tutor_availabilities/' + id, {},
+        (resp) => {
+            let id = store.getState().currentUser.user_id;
+            fetchTutorInfo(id);
+        })
 }
 
 export function addTutorAvailability(values) {
-    // start
-    // end
-    // tutor id
+    let id = store.getState().currentUser.user_id;
+
+    postAjax('/api/v1/time_blocks/', { time_block: values },
+        (resp) => {
+            let time_id = resp.data.id;
+            postAjax('/api/v1/tutor_availabilities/', { tutor_availability: { time_block_id: time_id, tutor_id: id } },
+                (resp) => {
+                    fetchTutorInfo(id);
+                });
+        });
 }
 
 export function fetchUserInfo(user_id, user_type) {

@@ -15,8 +15,10 @@ defmodule StudorWeb.Router do
 
   scope "/api/v1", StudorWeb do
     pipe_through :api
-    get "/tutors/subject_areas/:subject_area_id", TutorController, :subject_index
-    get "/tutors/:university_id/:query", TutorController, :course_index
+    get "/tutors/search/subject_areas/:subject_area_id", TutorController, :subject_index
+    get "/tutors/search/university/:university_id/:query", TutorController, :course_index
+    get "/tutors/search/university/:university_id", TutorController, :course_index
+    
     get "/universities", UniversityController, :index
     post "/session_files/:files", SessionFileController, :post_files
     resources "/sessions", SessionController, only: [:create]

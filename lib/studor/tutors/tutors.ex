@@ -109,9 +109,18 @@ defmodule Studor.Tutors do
     where: tcourse.course_id  == course.id # tutor course and course are aligned
     and ^university_id == course.university_id # course is from the right university
     and tcourse.tutor_id == tutor.id # tutor teaches the course
+    and tutor.university_id == ^university_id
     and (fragment("levenshtein(?, ?)", ^query, course.course_name) <= 8 
          or fragment("levenshtein(?, ?)", ^query, course.course_no)  <= 8), # Levenshtein distance for similar queries
     distinct: true,
+    select: tutor
+
+    Repo.all(query)
+  end
+
+  def search_courses(university_id) do
+    query = from tutor in Studor.Tutors.Tutor,
+    where: tutor.university_id == ^university_id,
     select: tutor
 
     Repo.all(query)

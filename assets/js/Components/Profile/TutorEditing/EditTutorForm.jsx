@@ -15,40 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 class EditTutorForm extends React.Component {
     constructor(props) {
         super(props);
-
-        this.formatSubjectOptions = this.formatSubjectOptions.bind(this);
-        this.formatCourseOptions = this.formatCourseOptions.bind(this);
-        this.renderUniversityOptions = this.renderUniversityOptions.bind(this);
     }
-
-    componentWillMount() {
-        this.props.fetchUniversities();
-        this.props.fetchSubjectAreas();
-        this.props.fetchCourses();
-    }
-
-    renderUniversityOptions() {
-        return (_.map(this.props.universities, (university) => { return (<option key={university.id} value={university.id}> {university.name} </option>) }));
-    }
-
-    formatSubjectOptions() {
-        let options = _.map(this.props.subjectAreas, (subjectArea) => { return { id: subjectArea.id, name: subjectArea.subject_area } });
-        return options;
-    }
-
-    formatCourseOptions(university_id) {
-        let courseOptions = [];
-
-        _.each(this.props.courses,
-            (course) => {
-                if (course.university_id == university_id) {
-                    courseOptions.push({ id: course.id, name: course.course_name, number: course.course_no });
-                }
-            });
-
-        return courseOptions;
-    }
-
 
     render() {
         // console.log('user info')
@@ -99,43 +66,12 @@ class EditTutorForm extends React.Component {
                         </div>
 
                         {/* Payment */}
-                        {/* <PaymentInformationFieldset onChange={setValues} parentValues={values} /> */}
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 )}
             </ Formik>
         )
     }
-}
-
-class TimeblockList extends React.Component {
-    constructor(props) {
-        super(props)
-        this.removeTimeblock = this.removeTimeblock.bind(this);
-    }
-
-    removeTimeblock(timeblock) {
-        this.props.removeTimeblock(timeblock)
-    }
-
-    render() {
-        let timeblockList = _.map(this.props.values,
-            (timeblock) => {
-                return (<Timeblock key={uuidv4()} removeTimeblock={this.removeTimeblock} timeblock={timeblock} />)
-            });
-
-        return (timeblockList);
-    }
-}
-
-function Timeblock(props) {
-    return (
-        <div className="row">
-            <p> Start: {props.timeblock.start.toLocaleString()}</p>
-            <p> End: {props.timeblock.end.toLocaleString()}</p>
-            <button type="button" onClick={() => { props.removeTimeblock(props.timeblock) }} className="btn btn-danger"> Remove timeblock </button>
-        </div>
-    )
 }
 
 export default EditTutorForm;
