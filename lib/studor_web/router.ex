@@ -35,9 +35,15 @@ defmodule StudorWeb.Router do
     resources "/tutor_availabilities", TutorAvailabilityController, except: [:new, :edit]
   end
 
+  scope "/from_paypal", StudorWeb do
+    pipe_through :browser
+    get "/", RedirectController, :index
+  end
+
   scope "/", StudorWeb do
     pipe_through :browser
 
     get "/*path", PageController, :index
   end
+
 end

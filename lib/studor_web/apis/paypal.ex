@@ -40,7 +40,7 @@ defmodule Paypal do
         Jason.decode!(resp.body)
     end
 
-    def pay(api_token, reciever_email, amount) do
+    def pay(api_token, reciever_email, amount, confirm_url, cancel_url) do
         HTTPoison.start
         url = "https://api.sandbox.paypal.com/v1/payments/payment"
         headers = [
@@ -79,8 +79,8 @@ defmodule Paypal do
             ],
 
             redirect_urls: %{
-                return_url: "http://localhost:4000",
-                cancel_url: "http://localhost:4000",
+                return_url: confirm_url,
+                cancel_url: cancel_url,
             },
         })
 

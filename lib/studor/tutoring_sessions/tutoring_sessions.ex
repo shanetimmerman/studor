@@ -55,6 +55,11 @@ defmodule Studor.TutoringSessions do
     |> Repo.insert()
   end
 
+  def get_valid_session(attrs \\ %{}) do
+    %TutoringSession{}
+    |> TutoringSession.changeset(attrs)
+  end
+
   @doc """
   Updates a tutoring_session.
 

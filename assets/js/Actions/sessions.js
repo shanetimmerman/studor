@@ -57,8 +57,11 @@ export function requestSession(request) {
         }
     ).done((resp) => {
         console.log(resp)
-        alert("Session request made!")
-        // store.dispatch({ type: FETCH_SESSIONS_SUCCESS, payload: resp.data })
+        if (resp.redirect_to) {
+            window.location.href = resp.redirect_to
+        } else {
+            console.log("Payment cancelled")
+        }
     });
 
 }
