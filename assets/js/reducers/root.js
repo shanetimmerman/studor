@@ -10,4 +10,5 @@ export const root_reducer = combineReducers({
     sessionPage: sessionPageReducer,
     apiData: apiReducer,
     currentUser: currentUserReducer,
+    // profilePage: profilePageReducer,
 })

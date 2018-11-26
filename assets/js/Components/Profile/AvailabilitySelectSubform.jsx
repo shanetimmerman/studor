@@ -17,17 +17,17 @@ class AvailabilitySelectSubform extends React.Component {
 
     render() {
         return (
-            <Formik initialValues={{ start_time: new Date(), end_time: new Date() }}>
+            <Formik initialValues={{ start: new Date(), end: new Date(), id: null }}>
                 {({ values, setValues, resetForm }) => (
                     <div className="row">
                         <DateTimePicker
                             name="start_time"
-                            value={values.start_time}
+                            value={values.start}
                             onChange={(value) => setValues(_.assign(values, { start_time: value }))} />
                         to
                         <DateTimePicker
                             name="end_time"
-                            value={values.end_time}
+                            value={values.end}
                             onChange={(value) => setValues(_.assign(values, { end_time: value }))} />
 
                         <button type="button" onClick={() => { this.handleSubmit(values); resetForm() }} className="btn btn-primary"> Add availability block </button>

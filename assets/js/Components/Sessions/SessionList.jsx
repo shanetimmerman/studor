@@ -20,27 +20,27 @@ class SessionList extends React.Component {
         let user = store.getState().currentUser;
         let active = _.map(_.filter(this.props.sessionsList, (session) => {
             return session.approved && new Date(session.start) <= new Date() && new Date(session.end) >= new Date();
-        }), (session) => <SessionInfo 
-                            currentUser={user} 
-                            sessionInfo={session} 
-                            key={session.id} 
-                            mode={"active"}
-                            cancel={this.props.cancelSession}/>);
+        }), (session) => <SessionInfo
+            currentUser={user}
+            sessionInfo={session}
+            key={session.id}
+            mode={"active"}
+            cancel={this.props.cancelSession} />);
 
         let activeSessions = active.length > 0 ? active : <p>No active sessions</p>
         return activeSessions;
     }
 
-    get_upcoming(){
+    get_upcoming() {
         let user = store.getState().currentUser;
         let upcoming = _.map(_.filter(this.props.sessionsList, (session) => {
             return session.approved && new Date(session.start) > new Date();
-        }), (session) => <SessionInfo 
-                            currentUser={user} 
-                            sessionInfo={session} 
-                            key={session.id} 
-                            mode={"upcoming"}
-                            cancel={this.props.cancelSession}/>);
+        }), (session) => <SessionInfo
+            currentUser={user}
+            sessionInfo={session}
+            key={session.id}
+            mode={"upcoming"}
+            cancel={this.props.cancelSession} />);
 
         let upcomingSessions = upcoming.length > 0 ? upcoming : <p>No upcoming sessions</p>
         return upcomingSessions;
@@ -50,12 +50,12 @@ class SessionList extends React.Component {
         let user = store.getState().currentUser;
         let past = _.map(_.filter(this.props.sessionsList, (session) => {
             return session.approved && new Date(session.end) < new Date();
-        }), (session) => <SessionInfo 
-                            currentUser={user} 
-                            sessionInfo={session} 
-                            key={session.id}
-                            mode={"past"}
-                            cancel={this.props.cancelSession}/>);
+        }), (session) => <SessionInfo
+            currentUser={user}
+            sessionInfo={session}
+            key={session.id}
+            mode={"past"}
+            cancel={this.props.cancelSession} />);
 
         let pastSessions = past.length > 0 ? past : <p>No past sessions</p>
         return pastSessions;
@@ -65,28 +65,28 @@ class SessionList extends React.Component {
         let user = store.getState().currentUser;
         let pending = _.map(_.filter(this.props.sessionsList, (session) => {
             return !session.approved;
-        }), (session) => <SessionInfo 
-                            currentUser={user} 
-                            sessionInfo={session} 
-                            key={session.id} 
-                            mode={"pending"}
-                            cancel={this.props.cancelSession}
-                            approve={this.props.approveSession}/>);
+        }), (session) => <SessionInfo
+            currentUser={user}
+            sessionInfo={session}
+            key={session.id}
+            mode={"pending"}
+            cancel={this.props.cancelSession}
+            approve={this.props.approveSession} />);
 
         let pendingSessions = pending.length > 0 ? pending : <p>No pending session requests</p>
         return pendingSessions;
     }
 
     upcoming_sessions() {
-        this.setState({mode: "upcoming sessions"});
+        this.setState({ mode: "upcoming sessions" });
     }
 
     past_sessions() {
-        this.setState({mode: "past sessions"});
+        this.setState({ mode: "past sessions" });
     }
 
     pending_sessions() {
-        this.setState({mode: "pending requests"});
+        this.setState({ mode: "pending requests" });
     }
 
     render() {
@@ -109,14 +109,14 @@ class SessionList extends React.Component {
                 <h3 className="text-primary">Active Sessions</h3>
                 {active_sessions}
             </div>
-        
+
             <form className="form-inline">
                 <div className="form-group mb-3">
                     <label>Viewing</label>
                     <div className="dropdown">
                         <a className="btn dropdown-toggle text-primary" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {this.state.mode}
-                            </a>
+                        </a>
 
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a className="dropdown-item" onClick={this.upcoming_sessions.bind(this)}>upcoming sessions</a>
@@ -153,7 +153,7 @@ class SessionInfo extends React.Component {
         let approve = null;
         let cancel = null;
 
-        if(this.props.mode == "active") {
+        if (this.props.mode == "active") {
             join = <Link to={{ pathname: "/currentSession", state: info }} className="btn ml-2 rounded btn-outline-primary">Join Session</Link>;
         } else if (this.props.mode == "pending" && currentUser.user_type == "TUTOR") {
             approve = <button onClick={() => this.props.approve(info.id, info)} className="btn-sm btn-outline-success"> Approve Session </button>;

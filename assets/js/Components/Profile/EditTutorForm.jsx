@@ -1,13 +1,11 @@
 import { Formik } from 'formik';
 import _ from 'lodash';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { STUDENT, TUTOR } from "../../Constants/userTypes";
-import AccountInformationFieldset from './AccountInformationFieldset';
 import PaymentInformationFieldset from './PaymentInformationFieldset';
-import TutorSkillsFieldsetContainer from '../../Containers/Profile/TutorSkillsFieldsetContainer'
-import { Persist } from 'formik-persist'
 import { Typeahead } from 'react-bootstrap-typeahead';
+import AvailabilitySelectSubform from './AvailabilitySelectSubform'
+import { v4 as uuidv4 } from 'uuid';
 
 
 /**
@@ -34,35 +32,39 @@ class EditTutorForm extends React.Component {
     }
 
     formatSubjectOptions() {
-        let options = _.map(this.props.subjectAreas, (subjectArea) => { return { id: subjectArea.id, label: subjectArea.subject_area } });
+        let options = _.map(this.props.subjectAreas, (subjectArea) => { return { id: subjectArea.id, name: subjectArea.subject_area } });
         return options;
     }
 
     formatCourseOptions(university_id) {
-        console.log(university_id)
-
         let courseOptions = [];
 
         _.each(this.props.courses,
             (course) => {
                 if (course.university_id == university_id) {
-                    courseOptions.push({ id: course.id, label: course.course_no + ": " + course.course_name });
+                    courseOptions.push({ id: course.id, name: course.course_no + ": " + course.course_name });
                 }
             });
 
         return courseOptions;
     }
-
+    // Do diffing at the end
+    // Save the original list
+    // if it's in the new list and not the old list, it's an add
+    // if it's in the old list but not the new list, it's a remove
 
     render() {
-        console.log(this.props)
+        console.log('user info')
+        console.log(this.props.user.user_info)
+        // console.log(this.props)
         return (
             <Formik
-                intialValues={{ account: this.props.account, tutorSkills: this.props.tutorSkills, payment: this.props.payment }}
-                onSubmit={(values) => { props.onSubmit(values) }}>
+                initialValues={_.clone(this.props.user.user_info)}
+                onSubmit={(values) => { this.props.onSubmit(values) }}>
+
                 {({ values, handleChange, handleSubmit, setValues }) => (
                     <form onSubmit={handleSubmit}>
-                        {console.log("okay these are values")}
+                        {console.log("values")}
                         {console.log(values)}
 
 
@@ -73,31 +75,31 @@ class EditTutorForm extends React.Component {
                                 <label htmlFor="accountname">Name:</label>
                                 <input
                                     type="text"
-                                    name="account.name"
+                                    name="name"
                                     id="accountname"
                                     className="form-control bg-light border-0"
                                     onChange={handleChange}
-                                    value={values.account.name} />
+                                    value={values.name} />
 
                                 <label htmlFor="accountemail">Email:</label>
                                 <input
                                     type="email"
-                                    name="account.email"
+                                    name="email"
                                     id="accountemail"
                                     className="form-control bg-light border-0"
                                     onChange={handleChange}
-                                    value={values.account.email}
+                                    value={values.email}
                                 />
 
-                                <label htmlFor="accountpassword">Password:</label>
+                                {/* <label htmlFor="accountpassword">Password:</label>
                                 <input
                                     type="password"
-                                    name="account.password"
+                                    name="password"
                                     id="accountpassword"
                                     className="form-control bg-light border-0"
                                     onChange={handleChange}
-                                    value={values.account.password}
-                                />
+                                    value={values.password}
+                                /> */}
                             </div>
                         </div>
 
@@ -109,10 +111,10 @@ class EditTutorForm extends React.Component {
 
                                 <label className="mt-2" htmlFor="uni">University:</label>
                                 <select
-                                    id="univeristy"
-                                    name="tutorSkills.univeristy"
+                                    id="university"
+                                    name="university"
                                     onChange={handleChange}
-                                    value={values.university}
+                                    value={values.university.id}
                                     className="form-control border-0 bg-light">
                                     {this.renderUniversityOptions()}
                                 </select>
@@ -121,7 +123,7 @@ class EditTutorForm extends React.Component {
                                     <label htmlFor="gpa">GPA:</label>
                                     <input
                                         type="number"
-                                        name="tutorSkills.gpa"
+                                        name="gpa"
                                         id="gpa"
                                         min="0"
                                         max="5"
@@ -132,75 +134,55 @@ class EditTutorForm extends React.Component {
                                 </div>
 
                                 <div className="mb-1 mt-3">
-                                    <label htmlFor="tutor_courses">Courses:</label>
+                                    <label htmlFor="courses">Courses:</label>
                                     <Typeahead
-                                        id="tutor_courses"
-                                        name="tutorSkills.tutor_courses"
+                                        id="courses"
+                                        name="courses"
                                         placeholder="Search for courses at your university..."
                                         selectHintOnEnter={true}
                                         multiple
-                                        selected={values.display}
+                                        selected={values.courses}
+                                        labelKey="name"
                                         onChange={(selected) => {
-                                            console.log("values")
-                                            console.log(values)
-                                            // Alias for source values
-                                            let source = values;
-
-                                            // Convert to list of ids
-                                            let ids = _.map(selected, (selected) => selected.id);
-
-                                            // Get the difference
-                                            let diffSelected = _.reduce(ids, (id) => source.display.has(id));
-
-                                            // Figure out the target change list ( If the list of selected items is bigger, this means we added, so just add this to toAdd, otherwise use toDelete)
-                                            let target = selected.length > source.display.length ? source.toAdd : source.toDelete;
-
-                                            // Make changes to target
-                                            target = target.concat(diffSelected)
-
-                                            // Update display
-                                            setValues(_.assign(source.display, ids));
-
-                                            console.log(source);
+                                            setValues(_.assign(values, { courses: selected }));
                                         }}
-                                        options={this.formatCourseOptions(1)} />
+                                        options={this.formatCourseOptions(values.university)} />
+                                </div>
+
+                                <div className="mb-1 mt-3">
+                                    <label htmlFor="subject_areas">Subject Areas:</label>
+                                    <Typeahead
+                                        id="subject_areas"
+                                        name=".subject_areas"
+                                        placeholder="Search for subjects..."
+                                        selectHintOnEnter={true}
+                                        selected={values.subject_areas}
+                                        multiple
+                                        labelKey="name"
+                                        onChange={(selected) => {
+                                            console.log(selected)
+                                            // Update form values
+                                            setValues(_.assign(values, { subject_areas: selected }));
+
+                                        }}
+                                        options={this.formatSubjectOptions()} />
+                                </div>
+
+                                <div className="mb-3 mt-3">
+                                    <AvailabilitySelectSubform onSubmit={(timeblock) => {
+                                        setValues(_.assign(values, { availabilities: values.availabilities.concat(timeblock) }));
+                                    }} />
+
+                                    <TimeblockList values={values.availabilities} removeTimeblock={(timeblock) => {
+                                        setValues(_.assign(values, { availabilities: _.without(values.availabilities, timeblock) }));
+                                    }} />
                                 </div>
                             </div>
                         </div>
 
-                        {/* <div className="mb-1 mt-3">
-                                <label htmlFor="tutor_subject_areas">Subject Areas:</label>
-                                <Typeahead
-                                    id="tutor_subject_areas"
-                                    name="tutorSkills.tutor_subject_areas"
-                                    placeholder="Search for subjects..."
-                                    selectHintOnEnter={true}
-                                    multiple
-                                    onChange={(selected) => {
-                                        let ids = _.map(selected, (selected) => selected.id);
-                                        setValues(_.assign(values, { tutor_subject_areas: ids }));
-                                        this.props.onChange(_.assign(this.props.parentValues, { tutorSkills: values }))
-                                    }}
-                                    options={this.formatSubjectOptions()} />
-                            </div>
-
-                            <div className="mb-3 mt-3">
-                                <AvailabilitySelectSubform onSubmit={(timeblock) => {
-                                    setValues(_.assign(values, { tutor_availabilities: values.tutor_availabilities.concat(timeblock) }));
-                                    this.props.onChange(_.assign(this.props.parentValues, { tutorSkills: values }))
-                                }} />
-
-                                <TimeblockList values={values} removeTimeblock={(timeblock) => {
-                                    setValues(_.assign(values, { tutor_availabilities: _.without(values.tutor_availabilities, timeblock) }));
-                                    this.props.onChange(_.assign(this.props.parentValues, { tutorSkills: values }))
-                                }} />
-                            </div>
-                        </div>
-                    </div> */}
-
 
                         {/* Payment */}
-                        <PaymentInformationFieldset onChange={setValues} parentValues={values} />
+                        {/* <PaymentInformationFieldset onChange={setValues} parentValues={values} /> */}
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 )}
@@ -226,48 +208,28 @@ class EditTutorForm extends React.Component {
 //     tutorSkills: PropTypes.shape({
 //         university: PropTypes.number,
 //         gpa: PropTypes.number,
-//         tutor_courses: PropTypes.array,
-//         tutor_subject_areas: PropTypes.array,
-//         tutor_availabilities: PropTypes.array,
+//         courses: PropTypes.array,
+//         subject_areas: PropTypes.array,
+//         availabilities: PropTypes.array,
 //     }),
 
 //     onSubmit: PropTypes.func.isRequired
 // }
 
-EditTutorForm.defaultProps = {
-    account: {
-        email: '',
-        name: '',
-        password: '',
-    },
-
-    payment: {
-        paypal_email: '',
-        paypal_password: '',
-    },
-
-    tutorSkills: {
-        university: 1,
-        gpa: 4.0,
-        tutor_courses: {
-            display: [1],
-            toAdd: [],
-            toDelete: [],
-        },
-
-        tutor_subject_areas: {
-            display: [],
-            toAdd: [],
-            toDelete: [],
-        },
-
-        tutor_availabilities: {
-            display: [],
-            toAdd: [],
-            toDelete: [],
-        },
-    },
-}
+// EditTutorForm.defaultProps = {
+//     user_info: {
+//         email: '',
+//         name: '',
+//         // password: '', cutting out editing passwords for now
+//         // paypal_email: '',
+//         // paypal_password: '', not sure how we're authenticating this
+//         university: 1,
+//         gpa: 4.0,
+//         courses: [],
+//         subject_areas: [],
+//         availabilities: [],
+//     }
+// }
 
 class TimeblockList extends React.Component {
     constructor(props) {
@@ -280,7 +242,7 @@ class TimeblockList extends React.Component {
     }
 
     render() {
-        let timeblockList = _.map(this.props.values.tutor_availabilities,
+        let timeblockList = _.map(this.props.values,
             (timeblock) => {
                 return (<Timeblock key={uuidv4()} removeTimeblock={this.removeTimeblock} timeblock={timeblock} />)
             });
@@ -292,8 +254,8 @@ class TimeblockList extends React.Component {
 function Timeblock(props) {
     return (
         <div className="row">
-            <p> Start: {props.timeblock.start_time.toLocaleString()}</p>
-            <p> End: {props.timeblock.end_time.toLocaleString()}</p>
+            <p> Start: {props.timeblock.start.toLocaleString()}</p>
+            <p> End: {props.timeblock.end.toLocaleString()}</p>
             <button type="button" onClick={() => { props.removeTimeblock(props.timeblock) }} className="btn btn-danger"> Remove timeblock </button>
         </div>
     )

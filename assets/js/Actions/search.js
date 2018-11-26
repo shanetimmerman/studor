@@ -30,6 +30,7 @@ export function fetchCourseSearch(university_id, query) {
             contentType: "application/json; charset=UTF-8",
         }
     ).done((resp) => {
+        console.log(resp)
         store.dispatch({ type: FETCH_SEARCH_RESULTS_SUCCESS, payload: resp.data })
     });
 
@@ -42,11 +43,10 @@ export function fetchSubjectSearch(subject_area_id) {
     console.log("Searching subjects")
 
     $.ajax(
-        "api/v1/tutors/" + subject_area_id, {
+        "api/v1/tutors/subject_areas/" + subject_area_id, {
             method: "get",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
-
         }
     ).done((resp) => {
         store.dispatch({ type: FETCH_SEARCH_RESULTS_SUCCESS, payload: resp.data })

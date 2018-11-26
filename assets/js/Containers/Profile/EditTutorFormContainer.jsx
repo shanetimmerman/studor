@@ -1,15 +1,16 @@
 import { connect } from 'react-redux';
 import { fetchCourses, fetchUniversities, fetchSubjectAreas, } from '../../Actions/api'
+import { fetchUserInfo, udpateTutorProfile } from '../../Actions/users';
 import EditTutorForm from '../../Components/Profile/EditTutorForm';
 
 
 const mapStateToProps = (state) => {
     return {
-        universities: state.apiData.universities, // to populate the dropdowns in the search bar
+        universities: state.apiData.universities,
         subjectAreas: state.apiData.subjectAreas,
         courses: state.apiData.courses,
         user: state.currentUser,
-        searchResults: state.searchPage.searchResults, // list of tutors
+        searchResults: state.searchPage.searchResults,
     }
 }
 
@@ -25,6 +26,14 @@ const mapDispatchToProps = (dispatch) => {
 
         fetchCourses: () => {
             fetchCourses();
+        },
+
+        fetchUserInfo: (user_id, user_type) => {
+            fetchUserInfo(user_id, user_type);
+        },
+
+        onSubmit: (newValues) => {
+            udpateTutorProfile(newValues);
         }
     }
 }

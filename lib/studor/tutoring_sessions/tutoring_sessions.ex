@@ -107,7 +107,7 @@ defmodule Studor.TutoringSessions do
     query = from session in TutoringSession,
     preload: [:student],
     preload: [:tutor],
-    where: session.student_id == ^id,
+    where: session.student_id == ^id or session.tutor_id == ^id,
     select: session
 
     Repo.all(query)
