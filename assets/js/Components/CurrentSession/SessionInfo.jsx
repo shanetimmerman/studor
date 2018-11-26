@@ -38,8 +38,7 @@ class SessionInfo extends React.Component {
                 {rating}
                 <h5>Description:</h5>
                 <p className="text-secondary">{this.props.session_info.description}</p>
-                <CurrentMembers session_info={this.props.session_info}/>
-                {/*<UploadedFiles />*/}
+                <CurrentMembers socket={this.props.socket} session_info={this.props.session_info}/>
             </div>
         );
     }
@@ -48,6 +47,8 @@ class SessionInfo extends React.Component {
 class CurrentMembers extends React.Component {
     constructor(props) {
       super(props);
+      let socket = props.socket;
+      this.channel = socket.channel("whiteboards:" + props.session_info.id, {active: props.session_info.id});;
     }
 
     render() {
@@ -69,6 +70,21 @@ class CurrentMembers extends React.Component {
             other_id = tid;
         }
 
+        this.channel.on("new_user", ({user}) => {
+            if(user == other_id) {
+                console.log("Second user joined")
+                navigator.getUserMedia({video: true, audio: true}, function(stream) {
+                let call = peer.call(other_id, stream);
+                call.on('stream', function(remoteStream) {
+                    document.querySelector('#other-a').srcObject = remoteStream;
+                    document.querySelector('#other-v').srcObject = remoteStream;
+                });
+                }, function(err) {
+                    console.log('Failed to get local stream' ,err);
+                });
+            }
+        });
+
         peer.on('call', function(call) {
             onCall = true;
             navigator.getUserMedia({video: true, audio: true}, function(stream) {
@@ -81,18 +97,6 @@ class CurrentMembers extends React.Component {
                 console.log('Failed to get local stream' ,err);
             });
         });
-
-        if (!onCall) {
-            navigator.getUserMedia({video: true, audio: true}, function(stream) {
-            let call = peer.call(other_id, stream);
-            call.on('stream', function(remoteStream) {
-                document.querySelector('#other-a').srcObject = remoteStream;
-                document.querySelector('#other-v').srcObject = remoteStream;
-            });
-            }, function(err) {
-                console.log('Failed to get local stream' ,err);
-            });
-        }
 
         return (<div className="mt-3">
                     <h5>Members:</h5>

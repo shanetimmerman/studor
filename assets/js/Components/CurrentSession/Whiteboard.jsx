@@ -1,17 +1,15 @@
 import React from 'react';
 import { Stage, Layer, Rect, Line } from 'react-konva';
 import deepFreeze from 'deep-freeze';
-import { connect } from 'react-redux';
 import _ from 'lodash';
-import {Socket} from "phoenix"
+import store from '../../store';
 
 class Whiteboard extends React.Component {
     constructor(props) {
       super(props);
       window.addEventListener('resize', this.scaleCanvas.bind(this));
       this.btn_down = false;
-      let socket = new Socket("/socket", {params: {token: window.userToken}})
-      socket.connect();
+      let socket = props.socket;
       this.channel = socket.channel("whiteboards:" + props.session_info.id, {active: props.session_info.id});;
       this.state = {
           width: window.innerWidth * 2 / 3,
@@ -20,8 +18,20 @@ class Whiteboard extends React.Component {
                         points: [] }
       };
 
+    let user = store.getState().currentUser
+
+    let newUser = null
+    if (user.user_type == "TUTOR") {
+      newUser = "t" + this.props.session_info.tutor_id;
+    } else {
+      newUser = "s" + this.props.session_info.student_id;
+    }
+
     this.channel.join()
-    .receive("ok", this.gotView.bind(this))
+    .receive("ok", () => {
+      this.channel.push("add_user", {name: newUser});
+      this.gotView.bind(this);
+    })
     .receive("error", resp => { console.log("Unable to join", resp) });
 
     this.channel.on("draw", ({x, y}) => {this.draw(x, y);});
