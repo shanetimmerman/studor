@@ -108,46 +108,6 @@ class EditTutorForm extends React.Component {
     }
 }
 
-
-// EditTutorForm.propTypes = {
-//     account: PropTypes.shape({
-//         email: PropTypes.string,
-//         name: PropTypes.string,
-//         password: PropTypes.string,
-//         user_type: PropTypes.string.isRequired,
-//     }).isRequired, // gotta have that userType babyyy
-
-//     payment: PropTypes.shape({
-//         email: PropTypes.string,
-//         password: PropTypes.string,
-//     }).isRequired,
-
-//     tutorSkills: PropTypes.shape({
-//         university: PropTypes.number,
-//         gpa: PropTypes.number,
-//         courses: PropTypes.array,
-//         subject_areas: PropTypes.array,
-//         availabilities: PropTypes.array,
-//     }),
-
-//     onSubmit: PropTypes.func.isRequired
-// }
-
-// EditTutorForm.defaultProps = {
-//     user_info: {
-//         email: '',
-//         name: '',
-//         // password: '', cutting out editing passwords for now
-//         // paypal_email: '',
-//         // paypal_password: '', not sure how we're authenticating this
-//         university: 1,
-//         gpa: 4.0,
-//         courses: [],
-//         subject_areas: [],
-//         availabilities: [],
-//     }
-// }
-
 class TimeblockList extends React.Component {
     constructor(props) {
         super(props)

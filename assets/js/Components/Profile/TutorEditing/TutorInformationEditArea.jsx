@@ -11,6 +11,8 @@ class TutorInformationEditArea extends React.Component {
         super(props);
         this.removeCourse = this.removeCourse.bind(this);
         this.removeSubjectArea = this.removeSubjectArea.bind(this);
+        this.removeTutorAvailability = this.removeTutorAvailability.bind(this);
+
     }
 
     removeCourse(course) {
@@ -19,6 +21,10 @@ class TutorInformationEditArea extends React.Component {
 
     removeSubjectArea(subjectArea) {
         this.props.removeSubjectArea(subjectArea.id);
+    }
+
+    removeTutorAvailability(timeblock) {
+
     }
 
     render() {
@@ -38,6 +44,10 @@ class TutorInformationEditArea extends React.Component {
                         <h2> Subjects: </h2>
                         <SubjectList removeItem={this.removeSubjectArea} values={info.subject_areas} />
                         <AddSubjectFormContainer />
+
+                        <h2> Availability: </h2>
+                        <AvailabilityList removeItem={this.removeTutorAvailability} values={info.availabilities} />
+
                     </div>
                 </div>
             </div>
@@ -101,6 +111,36 @@ function Subject(props) {
         <div className="row">
             <p> {props.item.name} </p>
             <button type="button" onClick={() => { props.removeItem(props.item) }} className="btn btn-danger"> Remove {props.label} </button>
+        </div>
+    )
+}
+
+class AvailabilityList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.removeItem = this.removeItem.bind(this);
+    }
+
+    removeItem(course) {
+        this.props.removeItem(course)
+    }
+
+    render() {
+        let itemList = _.map(this.props.values,
+            (item) => {
+                return (<Availability key={uuidv4()} removeItem={this.removeItem} item={item} label="time" />)
+            });
+
+        return (itemList);
+    }
+}
+
+function Availability(props) {
+    return (
+        <div className="row">
+            <p> Start: {props.item.start.toLocaleString()}</p>
+            <p> End: {props.item.end.toLocaleString()}</p>
+            <button type="button" onClick={() => { props.removeItem(props.timeblock) }} className="btn btn-danger"> Remove {props.label} </button>
         </div>
     )
 }
