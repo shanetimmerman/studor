@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import SessionList from '../../Components/Sessions/SessionList.jsx'
-import { fetchSessions, cancelSession } from '../../Actions/sessions'
+import { fetchSessions, cancelSession, approveSession } from '../../Actions/sessions'
 
 const mapStateToProps = (state) => {
     return {
@@ -17,6 +17,10 @@ const mapDispatchToProps = (dispatch) => {
 
         cancelSession: (id) => {
             cancelSession(id);
+        },
+
+        approveSession: (id, session) => {
+            approveSession(id, session)
         }
     }
 }

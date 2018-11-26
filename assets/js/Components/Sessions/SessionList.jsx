@@ -70,7 +70,8 @@ class SessionList extends React.Component {
                             sessionInfo={session} 
                             key={session.id} 
                             mode={"pending"}
-                            cancel={this.props.cancelSession}/>);
+                            cancel={this.props.cancelSession}
+                            approve={this.props.approveSession}/>);
 
         let pendingSessions = pending.length > 0 ? pending : <p>No pending session requests</p>
         return pendingSessions;
@@ -142,24 +143,26 @@ class SessionInfo extends React.Component {
         this.setState({ menuOpen: !this.state.menuOpen })
     }
 
-    delete(id) {
-        this.props.cancel(id);
-    }
-
     render() {
         let currentUser = this.props.currentUser;
         let info = this.props.sessionInfo;
         let start = new Date(info.start);
         let end = new Date(info.end);
 
-        let action = null;
+        let join = null;
+        let approve = null;
+        let cancel = null;
 
         if(this.props.mode == "active") {
-            action = <Link to={{ pathname: "/currentSession", state: info }} className="btn ml-2 rounded btn-outline-primary">Join Session</Link>;
+            join = <Link to={{ pathname: "/currentSession", state: info }} className="btn ml-2 rounded btn-outline-primary">Join Session</Link>;
+        } else if (this.props.mode == "pending" && currentUser.user_type == "TUTOR") {
+            approve = <button onClick={() => this.props.approve(info.id, info)} className="btn-sm btn-outline-success"> Approve Session </button>;
         } else if (this.props.mode == "upcoming" || this.props.mode == "pending") {
             console.log(info.id)
-            action = <button onClick={() => this.delete(info.id)} className="btn-sm btn-outline-danger"> Cancel Session </button>;
+            cancel = <button onClick={() => this.props.cancel(info.id)} className="btn-sm btn-outline-danger"> Cancel Session </button>;
         }
+
+
 
         let cardTitle = currentUser.user_type == "STUDENT" ? <h5 className="card-title">Tutor: {info.tutor}</h5> : <h5 className="card-title">Student: {info.student}</h5>
         return (
@@ -172,7 +175,9 @@ class SessionInfo extends React.Component {
                         </div>
 
                         <div className="col pr-0 d-flex justify-content-end">
-                            {action}
+                            {join}
+                            {approve}
+                            {cancel}
                         </div>
 
                     </div>

@@ -75,3 +75,20 @@ export function cancelSession(id) {
         fetchSessions();
     });
 }
+
+export function approveSession(id, session) {
+    console.log(session)
+    let session1 = session;
+    session1.approved = true;
+    $.ajax(
+        "/api/v1/tutoring_sessions/" + id, {
+            method: "put",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({tutoring_session: session1})
+        }
+    ).done((resp) => {
+        console.log("approved session" + id)
+        fetchSessions();
+    });
+}
