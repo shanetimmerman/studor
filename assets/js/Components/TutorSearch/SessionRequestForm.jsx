@@ -89,8 +89,8 @@ class SessionRequestForm extends React.Component {
 
                                         <div className="form-inline mb-4">
                                             <div className="form-group mr-3">
-                                                <label htmlFor="time_block">Session Time:</label>
-                                                <select id="time_block" name="time_block" onChange={handleChange} value={values.date} className="form-control border-0 bg-light ml-2"> {availability}
+                                                <label htmlFor="time_block_id">Session Time:</label>
+                                                <select id="time_block_id" name="time_block_id" onChange={handleChange} value={values.date} className="form-control border-0 bg-light ml-2"> {availability}
                                                 </select>
                                             </div>
                                         </div>
