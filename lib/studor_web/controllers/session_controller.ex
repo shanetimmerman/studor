@@ -15,6 +15,14 @@ defmodule StudorWeb.SessionController do
     end
 
     def send_create(conn, user, struct, user_type) do
+        # Unauthorized, send 401
+        if user == nil do
+            conn
+            |> send_resp(401, "Invalid username or password. Please try again!")
+            |> halt()
+        else
+        
+            # Authorized, return the correct data
         with struct = user do
             resp = %{
                 data: %{
@@ -28,6 +36,7 @@ defmodule StudorWeb.SessionController do
             |> put_resp_header("content-type", "application/json; charset=utf-8")
             |> send_resp(:created, Jason.encode!(resp))
         end
+    end
     end
 end
 

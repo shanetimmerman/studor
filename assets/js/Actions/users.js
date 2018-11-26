@@ -72,9 +72,12 @@ export function loginUser(email, password, type) {
                 });
             },
             error: (resp) => {
+                console.log("failed")
+                console.log(resp)
+
                 store.dispatch({
                     type: LOGIN_USER_FAILED,
-                    payload: resp.data,
+                    payload: resp,
                 });
             }
         }
