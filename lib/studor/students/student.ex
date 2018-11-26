@@ -7,7 +7,6 @@ defmodule Studor.Students.Student do
     field :email, :string
     field :name, :string
     field :password_hash, :string
-    field :paypal_token, :string
     field :profile_pic_url, :string
 
     has_many :ratings, Studor.Ratings.Rating
@@ -19,8 +18,8 @@ defmodule Studor.Students.Student do
   @doc false
   def changeset(student, attrs) do
     student
-    |> cast(attrs, [:email, :name, :password_hash, :paypal_token, :profile_pic_url])
-    |> validate_required([:email, :name, :password_hash, :paypal_token])
+    |> cast(attrs, [:email, :name, :password_hash, :profile_pic_url])
+    |> validate_required([:email, :name, :password_hash])
     |> unique_constraint(:email)
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
   end

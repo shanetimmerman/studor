@@ -6,7 +6,7 @@ defmodule Studor.Repo.Migrations.CreateTutors do
       add :email, :string, null: false
       add :name, :string, null: false
       add :password_hash, :string, null: false
-      add :paypal_token, :string, null: false
+      add :paypal_email, :string, null: false
       add :profile_pic_url, :string
       add :gpa, :float, null: false
       add :university_id, references(:universities, on_delete: :nilify_all)
