@@ -5,21 +5,10 @@ import EditTutorFormContainer from '../Containers/Profile/Editing/TutorEditing/E
 import TutorInformationEditAreaContainer from '../Containers/Profile/Editing/TutorEditing/TutorInformationEditAreaContainer'
 import EditStudentFormContainer from '../Containers/Profile/Editing/StudentEditing/EditStudentFormContainer';
 import TutorAccountInfoDisplayContainer from '../Containers/Profile/Display/TutorDisplay/TutorAccountInfoDisplayContainer'
-import StudentAccountInfoDisplayContainer from '../Containers/Profile/Display/StudentDisplay/StudentAccountInfoDisplayContainer'
 
 class ProfilePage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            edit: false
-        }
-
-        this.toggleEdit = this.toggleEdit.bind(this);
-
-    }
-
-    toggleEdit() {
-        this.setState({ edit: !this.state.edit })
     }
 
     componentWillMount() {
@@ -31,8 +20,8 @@ class ProfilePage extends React.Component {
         let userType = this.props.user.user_type;
 
         switch (userType) {
-            case STUDENT: return this.state.edit ? <EditStudentFormContainer /> : <StudentAccountInfoDisplayContainer />
-            case TUTOR: return this.state.edit ? <div><EditTutorFormContainer /> <TutorInformationEditAreaContainer /> </div> : <div> <TutorAccountInfoDisplayContainer /> <TutorInformationEditAreaContainer /> </div>
+            case STUDENT: return <EditStudentFormContainer />
+            case TUTOR: return <div><EditTutorFormContainer /> <TutorInformationEditAreaContainer /> </div>
             default: new Error("Unsupported user type")
         }
     }
@@ -51,9 +40,7 @@ class ProfilePage extends React.Component {
                 <div className="row padding">
                     <div className="col-md-2"></div>
                     <div className="col-md-8">
-                        {!this.state.edit && <button onClick={this.toggleEdit}>Edit profile</button>}
                         {this.renderProfile()}
-                        {this.state.edit && <button onClick={this.toggleEdit}>cancel</button>}
                     </div>
                     <div className="col-md-2"></div>
                 </div>
