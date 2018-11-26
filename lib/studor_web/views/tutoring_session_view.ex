@@ -11,8 +11,16 @@ defmodule StudorWeb.TutoringSessionView do
   end
 
   def render("tutoring_session.json", %{tutoring_session: tutoring_session}) do
+    tutor = Studor.Tutors.get_tutor!(tutoring_session.tutor_id)
+    student = Studor.Students.get_student!(tutoring_session.student_id)
+    timeblock = Studor.TimeBlocks.get_time_block!(tutoring_session.time_block_id)
+
     %{id: tutoring_session.id,
       description: tutoring_session.description,
-      approved: tutoring_session.approved}
+      approved: tutoring_session.approved,
+      start: timeblock.start_time,
+      end: timeblock.end_time,
+      student: student.name,
+      tutor: tutor.name}
   end
 end

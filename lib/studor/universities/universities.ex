@@ -18,6 +18,7 @@ defmodule Studor.Universities do
 
   """
   def list_universities do
+    IO.puts "list univiersities"
     Repo.all(University)
   end
 

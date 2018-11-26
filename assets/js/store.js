@@ -1,6 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import deepFreeze from 'deep-freeze';
-import $ from 'jquery';
+import { createStore } from 'redux';
+import { root_reducer } from './Reducers/root';
 
 /*
   Application state layout
@@ -9,18 +8,5 @@ import $ from 'jquery';
   }
 */
 
-
-// For each component of the state:
-//  * Function with the same name
-//  * Default is the default value of that component
-
-function root_reducer(state0, action) {
-
-    let reducer = combineReducers({});
-    let state1 = reducer(state0, action);
-
-    return deepFreeze(state1);
-  }
-
-  let store = createStore(root_reducer);
-  export default store;
+let store = createStore(root_reducer);
+export default store;

@@ -21,7 +21,7 @@ defmodule Studor.TutoringSessions.TutoringSession do
   @doc false
   def changeset(tutoring_session, attrs) do
     tutoring_session
-    |> cast(attrs, [:description, :approved])
-    |> validate_required([:description, :approved])
+    |> cast(attrs, [:description, :approved, :tutor_id, :student_id, :time_block_id])
+    |> validate_required([:description, :approved, :tutor_id, :student_id, :time_block_id])
   end
 end

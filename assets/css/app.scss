@@ -1,1 +1,17 @@
 @import "~bootstrap/scss/bootstrap";
+
+.padding {
+    padding: 15px;
+}
+
+.img-fluid {
+    height: 100%;
+}
+
+.full-height {
+    height: 600px;
+}
+
+.ReactModal__Body--open {
+    overflow: hidden;
+}

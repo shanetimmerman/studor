@@ -12,6 +12,7 @@ defmodule StudorWeb.SubjectAreaView do
 
   def render("subject_area.json", %{subject_area: subject_area}) do
     %{id: subject_area.id,
-      subject_area: subject_area.subject_area}
+      subject_area: subject_area.subject_area,
+      subject: subject_area.subject_id}
   end
 end
