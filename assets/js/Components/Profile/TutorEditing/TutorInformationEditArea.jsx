@@ -1,7 +1,5 @@
-import { Formik } from 'formik';
 import _ from 'lodash';
 import React from 'react';
-import { STUDENT, TUTOR } from "../../../Constants/userTypes";
 import { v4 as uuidv4 } from 'uuid';
 import AddCourseFormContainer from '../../../Containers/Profile/TutorEditing/AddCourseFormContainer';
 import AddSubjectFormContainer from '../../../Containers/Profile/TutorEditing/AddSubjectFormContainer';

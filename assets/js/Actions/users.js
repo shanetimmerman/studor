@@ -166,17 +166,12 @@ export function editStudent(oldValues, newValues, id) {
  */
 export function udpateTutorProfile(values) {
     console.log('submitting:');
+    console.log(values)
     let state = store.getState();
-    let oldValues = state.currentUser.user_info;
     let id = state.currentUser.user_id;
 
     // Change their account information  
-    // editTutorAccountInfo({
-    //     name: values.name,
-    //     email: values.email,
-    //     university: values.university,
-    //     gpa: values.gpa
-    // }, id)
+    editTutorAccountInfo(values, id)
 }
 
 /**
@@ -190,6 +185,7 @@ function editTutorAccountInfo(values, tutor_id) {
         (resp) => {
             // TODO dispatch this
             console.log(resp);
+            fetchTutorInfo(tutor_id);
         });
 }
 
