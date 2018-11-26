@@ -88,11 +88,6 @@ export function logoutUser() {
     })
 }
 
-export function createUser(userInfo, userType) {
-    console.log("creating user")
-    console.log(userInfo)
-}
-
 function fetchAjax(path, data, callback) {
     $.ajax(
         path, {
@@ -139,17 +134,26 @@ function deleteAjax(path, data, callback) {
 }
 
 
-export function createStudent(accountData, paymentData) {
+export function createStudent(values) {
     console.log("cookin up a studert")
-    console.log(accountData);
-    console.log(paymentData);
+    console.log(values);
+
+    postAjax('/api/v1/students/', { student: values },
+        (resp) => {
+            console.log(resp)
+            loginUser(values.email, values.password_hash, STUDENT);
+        })
 }
 
-export function createTutor(accountData, tutorData, paymentData) {
+export function createTutor(values) {
     console.log("cookin up a tooter")
-    console.log(accountData);
-    console.log(tutorData);
-    console.log(paymentData);
+    console.log(values);
+
+    postAjax('/api/v1/tutors/', { tutor: values },
+        (resp) => {
+            console.log(resp)
+            loginUser(values.email, values.password_hash, TUTOR);
+        })
 }
 
 
