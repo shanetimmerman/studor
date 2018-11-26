@@ -14,7 +14,7 @@ class Whiteboard extends React.Component {
       socket.connect();
       this.channel = socket.channel("whiteboards:" + props.session_info.id, {active: props.session_info.id});;
       this.state = {
-          width: window.innerWidth * 9 / 12,
+          width: window.innerWidth * 2 / 3,
           draw: true,
           whiteboard: { lines: [], 
                         points: [] }
@@ -149,7 +149,7 @@ class Whiteboard extends React.Component {
     }
 
     scaleCanvas () {
-      this.setState({width: window.innerWidth * 9 / 12})
+      this.setState({width: window.innerWidth * 2 / 3})
     }
 
     render () {

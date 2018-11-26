@@ -20,6 +20,8 @@ defmodule StudorWeb.TutoringSessionView do
       approved: tutoring_session.approved,
       start: timeblock.start_time,
       end: timeblock.end_time,
+      student_id: student.id,
+      tutor_id: tutor.id,
       student: student.name,
       tutor: tutor.name}
   end

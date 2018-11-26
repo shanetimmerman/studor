@@ -15,10 +15,10 @@ class CurrentSessionPage extends React.Component {
         console.log("PROPS");
         console.log(this.state);
     return (<div className="row bg-light full-height">
-                <div className="col-md-9">
+                <div className="col-md-8">
                     <Whiteboard session_info={this.state}/>
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4">
                     <SessionInfo session_info={this.state}/>
                 </div>                                
             </div>);
