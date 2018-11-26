@@ -104,13 +104,13 @@ defmodule Studor.Tutors do
 
   def search_courses(university_id, query) do
     query = from tutor in Studor.Tutors.Tutor,
-    join: tcourse in Studor.TutorCourses.TutorCourse, 
+    join: tcourse in Studor.TutorCourses.TutorCourse,
     join: course in Studor.Courses.Course,
     where: tcourse.course_id  == course.id # tutor course and course are aligned
     and ^university_id == course.university_id # course is from the right university
     and tcourse.tutor_id == tutor.id # tutor teaches the course
     and tutor.university_id == ^university_id
-    and (fragment("levenshtein(?, ?)", ^query, course.course_name) <= 8 
+    and (fragment("levenshtein(?, ?)", ^query, course.course_name) <= 8
          or fragment("levenshtein(?, ?)", ^query, course.course_no)  <= 8), # Levenshtein distance for similar queries
     distinct: true,
     select: tutor
@@ -128,7 +128,7 @@ defmodule Studor.Tutors do
 
   def search_subjects(subect_area_id) do
     query = from tutor in Studor.Tutors.Tutor,
-    join: tsubject_area in Studor.TutorSubjectAreas.TutorSubjectArea, 
+    join: tsubject_area in Studor.TutorSubjectAreas.TutorSubjectArea,
     join: subject_area in Studor.SubjectAreas.SubjectArea,
     where: tsubject_area.subject_area_id  == subject_area.id # tutor subject area and subject area are aligned
     and ^subect_area_id == subject_area.id # the subject area and the current subject area match
@@ -145,10 +145,10 @@ defmodule Studor.Tutors do
     select: rating.stars
 
     ratings = Repo.all(query)
-    
+
     if (ratings == []) do 0 else
       total = Enum.reduce(ratings, fn rating, acc -> acc + rating end)
-          
+
       if (total == 0) do 0 else total / length(ratings) end
     end
   end
@@ -188,10 +188,9 @@ defmodule Studor.Tutors do
 
   def get_and_auth_user(email, password) do
     user = get_user_by_email(email)
-    # case Comeonin.Argon2.check_pass(user, password) do
-    #   {:ok, user} -> user
-    #   _else       -> nil
-    # end
-    user
+    case Comeonin.Argon2.check_pass(user, password) do
+      {:ok, user} -> user
+      _else       -> nil
+    end
   end
 end
