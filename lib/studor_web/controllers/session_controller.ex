@@ -21,7 +21,6 @@ defmodule StudorWeb.SessionController do
                     token: Phoenix.Token.sign(StudorWeb.Endpoint, "user_id", user.id),
                     user_id: user.id,
                     user_type: user_type,
-    
                 }
             }
     

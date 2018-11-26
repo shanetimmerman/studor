@@ -53,12 +53,14 @@ class TutorInfo extends React.Component {
 
     render() {
         let info = this.props.tutorInfo;
+        console.log(info)
+
         return (
             <div>
                 <div className="card shadow p-3 mb-4 bg-white rounded padding border-0">
                     <div className="card-body">
                         <h5 className="card-title">{info.name + " | " + info.university}</h5>
-                        <h6 className="card-subtitle mb-2 text-primary">{info.subject_areas.join(", ")}</h6>
+                        <h6 className="card-subtitle mb-2 text-primary">{_.map(info.subject_areas, (area) => area.name).join(", ")}</h6>
                         <p className="card-text">Forgot to add tutor default messages to database :^).</p>
                         {/* <a href="#" className="card-link">Request Session</a> */}
                         <SessionRequestFormContainer tutorInfo={info} />

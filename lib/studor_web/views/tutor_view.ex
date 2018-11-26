@@ -19,14 +19,14 @@ defmodule StudorWeb.TutorView do
    
     %{id: tutor.id,
       email: tutor.email,
-      profile_pic_url: tutor.profile_pic_url,
-      gpa: tutor.gpa,
       name: tutor.name,
-      university: university.name,
-      average_rating: avg_rating,
-      subject_areas: subject_areas,
+      university: %{name: university.name, id: university.id},
+      gpa: tutor.gpa,
       courses: course_names,
-      availability: availability,
+      subject_areas: subject_areas,
+      availabilities: availability,
+      profile_pic_url: tutor.profile_pic_url,
+      average_rating: avg_rating,
       user_type: "TUTOR"}
   end
 end

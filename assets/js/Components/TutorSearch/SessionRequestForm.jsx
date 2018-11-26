@@ -18,12 +18,13 @@ class SessionRequestForm extends React.Component {
     render() {
         if (this.state.isOpen) {
             let info = this.props.tutorInfo;
+            console.log(info)
 
-            let availability = _.map(info.availability,
+            let availability = _.map(info.availabilities,
                 (availability) => {
                     let start = new Date(availability.start).toLocaleString();
                     let end = new Date(availability.end).toLocaleTimeString();
-                    return (<option key={availability.id} value={availability.id}>
+                    return (<option key={availability.tutor_availability_id} value={availability.tutor_availability_id}>
                         {start + " to " + end}
                     </option>);
                 });
@@ -58,9 +59,10 @@ class SessionRequestForm extends React.Component {
                             bottom: '0px',
                         }
                     }}>
-                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: 'description', time_block_id: info.availability[0] ? info.availability[0].id : -1, session_files: [] }}
+                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: 'description', time_block_id: info.availabilities[0].tutor_availability_id, session_files: [] }}
                         onSubmit={(values, { setSubmitting }) => {
-                            let session = {tutor_id : values.tutor_id, student_id: values.student_id, description: values.description, time_block_id: values.time_block_id, approved: false}
+                            let session = { tutor_id: values.tutor_id, student_id: values.student_id, description: values.description, time_block_id: values.time_block_id, approved: false }
+                            console.log(session)
                             this.props.requestSession(session);
                             this.toggleModal();
                         }}>
@@ -89,7 +91,7 @@ class SessionRequestForm extends React.Component {
                                         <div className="form-inline mb-4">
                                             <div className="form-group mr-3">
                                                 <label htmlFor="time_block">Session Time:</label>
-                                                <select id="time_block" name="time_block" onChange={handleChange} value={values.date} className="form-control border-0 bg-light ml-2"> {availability}
+                                                <select id="time_block" name="time_block_id" onChange={handleChange} value={values.date} className="form-control border-0 bg-light ml-2"> {availability}
                                                 </select>
                                             </div>
                                         </div>

@@ -8,11 +8,13 @@ import {Socket} from "phoenix"
 class Whiteboard extends React.Component {
     constructor(props) {
       super(props);
+      window.addEventListener('resize', this.scaleCanvas.bind(this));
       this.btn_down = false;
       let socket = new Socket("/socket", {params: {token: window.userToken}})
       socket.connect();
       this.channel = socket.channel("whiteboards:" + props.session_info.id, {active: props.session_info.id});;
       this.state = {
+          width: window.innerWidth * 9 / 12,
           draw: true,
           whiteboard: { lines: [], 
                         points: [] }
@@ -146,10 +148,14 @@ class Whiteboard extends React.Component {
       this.setState(_.assign(this.state, {draw: false}));
     }
 
+    scaleCanvas () {
+      this.setState({width: window.innerWidth * 9 / 12})
+    }
+
     render () {
 
-      let ww = window.innerWidth * 9 / 12;
-      var hh = window.innerHeight;
+      let ww = this.state.width;
+      let hh = 550;
 
     let controls = <div className="controls draw-controls row">
         <div className="column">
@@ -182,8 +188,9 @@ class Whiteboard extends React.Component {
     <div>
       { controls }
       <div className="row">
-        <div className="drawbox column mt-5">
+        <div className="drawbox column">
           <Stage width={ww} height={hh}
+                 container={'whiteboard'}
                  onContentMousemove={this.mouse_move.bind(this)}
                  onContentMouseUp={this.mouse_up.bind(this)}
                  onContentMouseDown={this.mouse_down.bind(this)}>

@@ -16,7 +16,7 @@ import { Persist } from 'formik-persist'
 function EditStudentForm(props) {
     return (
         <Formik
-            intialValues={props}
+            initialValues={props}
             onSubmit={(values) => { props.onSubmit(values) }}>
             {({ values, handleChange, handleSubmit, setValues }) => (
                 <form onSubmit={handleSubmit}>
@@ -63,31 +63,6 @@ function EditStudentForm(props) {
         </ Formik>
     )
 }
-
-
-// EditUserForm.propTypes = {
-//     account: PropTypes.shape({
-//         email: PropTypes.string,
-//         name: PropTypes.string,
-//         password: PropTypes.string,
-//         user_type: PropTypes.string.isRequired,
-//     }).isRequired, // gotta have that userType babyyy
-
-//     payment: PropTypes.shape({
-//         email: PropTypes.string,
-//         password: PropTypes.string,
-//     }).isRequired,
-
-//     tutorSkills: PropTypes.shape({
-//         university: PropTypes.number,
-//         gpa: PropTypes.number,
-//         tutor_courses: PropTypes.array,
-//         tutor_subject_areas: PropTypes.array,
-//         tutor_availabilities: PropTypes.array,
-//     }),
-
-//     onSubmit: PropTypes.func.isRequired
-// }
 
 EditStudentForm.defaultProps = {
     account: {

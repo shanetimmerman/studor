@@ -73,7 +73,6 @@ class TutorSearchBar extends React.Component {
         let subjectOptions = _.map(this.props.subjects, (subject) => { return (<option key={subject.id} value={subject.id} > {subject.subject} </option >) });
         let topicOptions = [];
         _.each(this.props.subjectAreas, (area) => { if (area.subject == values.subject_id) topicOptions.push(<option key={area.id} value={area.id} > {area.subject_area} </option >) });
-        if (topicOptions[0]) { values.topic_id = topicOptions[0].props.value }
 
         return (
             <div className="input-group mb-3">

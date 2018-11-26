@@ -109,7 +109,8 @@ defmodule Studor.Tutors do
     where: tcourse.course_id  == course.id # tutor course and course are aligned
     and ^university_id == course.university_id # course is from the right university
     and tcourse.tutor_id == tutor.id # tutor teaches the course
-    and fragment("levenshtein(?, ?)", ^query, course.course_name) <= 8, # Levenshtein distance for similar queries
+    and (fragment("levenshtein(?, ?)", ^query, course.course_name) <= 8 
+         or fragment("levenshtein(?, ?)", ^query, course.course_no)  <= 8), # Levenshtein distance for similar queries
     distinct: true,
     select: tutor
 
@@ -145,7 +146,7 @@ defmodule Studor.Tutors do
     join: subarea in Studor.SubjectAreas.SubjectArea,
     where: tsubarea.tutor_id == ^tutor_id
     and tsubarea.subject_area_id == subarea.id,
-    select: subarea.subject_area
+    select: %{name: subarea.subject_area, id: tsubarea.id}
 
     Repo.all(query)
   end
@@ -155,7 +156,7 @@ defmodule Studor.Tutors do
     join: course in Studor.Courses.Course,
     where: tcourse.tutor_id == ^tutor_id
     and tcourse.course_id == course.id,
-    select: course.course_name
+    select: %{name: course.course_name, number: course.course_no, tutor_course_id: tcourse.id, course_id: tcourse.course_id}
 
     Repo.all(query)
   end
@@ -164,7 +165,7 @@ defmodule Studor.Tutors do
     query = from timeblock in Studor.TimeBlocks.TimeBlock,
     join: tutor_avail in Studor.TutorAvailabilities.TutorAvailability,
     where: tutor_avail.tutor_id == ^tutor_id and tutor_avail.time_block_id == timeblock.id,
-    select: %{:end => timeblock.end_time, :start => timeblock.start_time, id: tutor_avail.id}
+    select: %{:end => timeblock.end_time, :start => timeblock.start_time, :tutor_availability_id => tutor_avail.id, :timeblock_id => timeblock.id}
 
     Repo.all(query)
   end
