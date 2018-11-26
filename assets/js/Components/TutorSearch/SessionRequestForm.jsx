@@ -59,9 +59,10 @@ class SessionRequestForm extends React.Component {
                             bottom: '0px',
                         }
                     }}>
-                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: 'description', time_block_id: info.availabilities[0] ? info.availabilities[0].id : -1, session_files: [] }}
+                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: 'description', time_block_id: info.availabilities[0].tutor_availability_id, session_files: [] }}
                         onSubmit={(values, { setSubmitting }) => {
                             let session = { tutor_id: values.tutor_id, student_id: values.student_id, description: values.description, time_block_id: values.time_block_id, approved: false }
+                            console.log(session)
                             this.props.requestSession(session);
                             this.toggleModal();
                         }}>
@@ -90,7 +91,7 @@ class SessionRequestForm extends React.Component {
                                         <div className="form-inline mb-4">
                                             <div className="form-group mr-3">
                                                 <label htmlFor="time_block">Session Time:</label>
-                                                <select id="time_block" name="time_block" onChange={handleChange} value={values.date} className="form-control border-0 bg-light ml-2"> {availability}
+                                                <select id="time_block" name="time_block_id" onChange={handleChange} value={values.date} className="form-control border-0 bg-light ml-2"> {availability}
                                                 </select>
                                             </div>
                                         </div>

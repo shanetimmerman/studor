@@ -90,10 +90,7 @@ class SessionList extends React.Component {
     }
 
     render() {
-        console.log(this.props.sessionsList);
-
         let active_sessions = this.get_active();
-        console.log(active_sessions);
 
         let sessions1 = null
         if (this.state.mode == "upcoming sessions") {
