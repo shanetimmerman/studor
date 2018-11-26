@@ -11,6 +11,7 @@ defmodule Studor.Repo.Migrations.CreateTutoringSessions do
       add :course_id, references(:courses, on_delete: :nilify_all)
       add :subject_area_id, references(:subject_areas, on_delete: :nilify_all)
       add :payment_id, :string, null: false
+      add :payer_id, :string, null: false
 
       timestamps()
     end

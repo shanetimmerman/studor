@@ -120,21 +120,38 @@ defmodule Paypal do
 
     end
 
-    def refund(access_token, sale_id) do
-        url = "https://api.sandbox.paypal.com/v1/payments/sale/#{sale_id}/refund"
+    def refund(access_token, payment_id, payer_id) do
+        url = "https://api.sandbox.paypal.com/v1/payments/payment/#{payment_id}/refund"
 
         headers = [
             {"Content-Type", "application/json"},
             {"Authorization", "Bearer #{access_token}"},
         ]
 
-        body = []
+        body = %{
+            payer_id: payer_id
+        }
 
-        {:ok, resp} = HTTPoison.post(url, body, headers, [])
+        {:ok, resp} = HTTPoison.post(url, Jason.encode!(body), headers, [])
 
         # TODO improve return type
         Jason.decode!(resp.body)
 
     end
 
+    def execute_payment(access_token, payment_id, payer_id) do
+        url = "https://api.sandbox.paypal.com/v1/payments/payment/#{payment_id}/execute"
+
+        headers = [
+            {"Content-Type", "application/json"},
+            {"Authorization", "Bearer #{access_token}"}
+        ]
+
+        body = %{
+            payer_id: payer_id
+        }
+
+        HTTPoison.post(url, Jason.encode!(body), headers)
+
+    end
 end

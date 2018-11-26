@@ -2,18 +2,21 @@ defmodule Studor.PaymentServer do
     use GenServer
 
     require Paypal
-    require HTTPoison
-    require Jason
-    require Logger
 
-    def execute_payment(url, time) do
-        Process.send_after(self(), {:execute, url}, time)
+    def init(args) do
+        {:ok, args}
     end
 
-    def handle_info({:execute, url}, state) do
-        resp = HTTPoison.post(url, Jason.encode!([]))
-        Logger.info "Posting system: #{inspect(resp)}"
-        {:noreply, state}
+    def execute_payment(payment_id, payer_id, time) do
+        Process.send_after(self(), {:execute, payment_id, payer_id}, time)
+    end
 
+    def handle_info({:execute, payment_id, payer_id}, state) do
+        token = Paypal.get_token()
+        access_token = token["access_token"]
+
+        Paypal.execute_payment(access_token, payment_id, payer_id)
+
+        {:noreply, state}
     end
 end
