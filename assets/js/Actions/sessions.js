@@ -92,3 +92,17 @@ export function approveSession(id, session) {
         fetchSessions();
     });
 }
+
+export function rateTutor(rating) {
+    $.ajax(
+        "/api/v1/ratings", {
+            method: "post",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify({rating: rating})
+        }
+    ).done((resp) => {
+        console.log("Created rating")
+        console.log(rating);
+    });
+}

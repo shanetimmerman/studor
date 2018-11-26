@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import Peer from 'peerjs';
 import store from '../../store';
+import RatingForm from '../CurrentSession/RatingForm'
 
 class SessionInfo extends React.Component {
     constructor(props) {
@@ -25,9 +26,16 @@ class SessionInfo extends React.Component {
     }
 
     render () {
+        let user = store.getState().currentUser;
+        let rating = null;
+        if (user.user_type == "STUDENT") {
+            rating = <RatingForm rateTutor={this.props.rateTutor} session={this.props.session_info}/>
+        }
+
         return (
             <div className="mt-3">
                 <h2 className="text-primary mb-2"> Session Details</h2>
+                {rating}
                 <h5>Description:</h5>
                 <p className="text-secondary">{this.props.session_info.description}</p>
                 <CurrentMembers session_info={this.props.session_info}/>
