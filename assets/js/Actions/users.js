@@ -127,6 +127,17 @@ function putAjax(path, data, callback) {
     ).done(callback);
 }
 
+function deleteAjax(path, data, callback) {
+    $.ajax(
+        path, {
+            method: "delete",
+            data: JSON.stringify(data),
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+        }
+    ).done(callback);
+}
+
 
 export function createStudent(accountData, paymentData) {
     console.log("cookin up a studert")
@@ -159,13 +170,6 @@ export function udpateTutorProfile(values) {
     let oldValues = state.currentUser.user_info;
     let id = state.currentUser.user_id;
 
-    console.log('old:');
-    console.log(oldValues);
-
-    console.log('new:');
-    console.log(values);
-    console.log(id)
-
     // Change their account information  
     // editTutorAccountInfo({
     //     name: values.name,
@@ -173,12 +177,6 @@ export function udpateTutorProfile(values) {
     //     university: values.university,
     //     gpa: values.gpa
     // }, id)
-
-    // let newTutorInfo = {
-    //     courses: newValues.courses,
-    //     subject_areas: newValues.subject_areas,
-    //     availabilities: newValues.availabilities
-    // }
 }
 
 /**
@@ -195,17 +193,54 @@ function editTutorAccountInfo(values, tutor_id) {
         });
 }
 
-/**
- * Updates the tutor profile information (availability, courses, and subject areas) 
- * of the tutor with the given id. Any values that are present in the new values but not
- * in the old will be added, and any values that are in the old values but not in the new 
- * will be deleted. 
- * @param {object} oldValues 
- * @param {object} newValues 
- * @param {number} tutor_id 
- */
-function editTutorProfileInformation(oldValues, newValues, tutor_id) {
+export function deleteTutorCourse(id) {
+    deleteAjax('/api/v1/tutor_courses/' + id, {},
+        (resp) => {
+            let id = store.getState().currentUser.user_id;
+            fetchTutorInfo(id);
+        })
+}
 
+export function addTutorCourse(values) {
+    console.log("adding tutor course");
+    console.log(values)
+
+    postAjax('/api/v1/tutor_courses/', { tutor_course: values },
+        (resp) => {
+            console.log(resp)
+            let id = store.getState().currentUser.user_id;
+            fetchTutorInfo(id);
+        });
+}
+
+export function deleteTutorSubjectArea(id) {
+    deleteAjax('/api/v1/tutor_subject_areas/' + id, {},
+        (resp) => {
+            let id = store.getState().currentUser.user_id;
+            fetchTutorInfo(id);
+        })
+}
+
+export function addTutorSubjectArea(values) {
+    console.log("adding tutor area");
+    console.log(values)
+
+    postAjax('/api/v1/tutor_subject_areas/', { tutor_subject_area: values },
+        (resp) => {
+            console.log(resp)
+            let id = store.getState().currentUser.user_id;
+            fetchTutorInfo(id);
+        });
+}
+
+export function deleteTutorAvailability(id) {
+
+}
+
+export function addTutorAvailability(values) {
+    // start
+    // end
+    // tutor id
 }
 
 export function fetchUserInfo(user_id, user_type) {

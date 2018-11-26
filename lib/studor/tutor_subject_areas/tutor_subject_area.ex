@@ -13,7 +13,7 @@ defmodule Studor.TutorSubjectAreas.TutorSubjectArea do
   @doc false
   def changeset(tutor_subject_area, attrs) do
     tutor_subject_area
-    |> cast(attrs, [])
+    |> cast(attrs, [:tutor_id, :subject_area_id])
     |> validate_required([])
   end
 end

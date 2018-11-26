@@ -1,10 +1,10 @@
 import { Formik } from 'formik';
 import _ from 'lodash';
 import React from 'react';
-import { STUDENT, TUTOR } from "../../Constants/userTypes";
-import PaymentInformationFieldset from './PaymentInformationFieldset';
+import { STUDENT, TUTOR } from "../../../Constants/userTypes";
+import PaymentInformationFieldset from '../PaymentInformationFieldset';
 import { Typeahead } from 'react-bootstrap-typeahead';
-import AvailabilitySelectSubform from './AvailabilitySelectSubform'
+import AvailabilitySelectSubform from '../AvailabilitySelectSubform'
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -42,20 +42,17 @@ class EditTutorForm extends React.Component {
         _.each(this.props.courses,
             (course) => {
                 if (course.university_id == university_id) {
-                    courseOptions.push({ id: course.id, name: course.course_no + ": " + course.course_name });
+                    courseOptions.push({ id: course.id, name: course.course_name, number: course.course_no });
                 }
             });
 
         return courseOptions;
     }
-    // Do diffing at the end
-    // Save the original list
-    // if it's in the new list and not the old list, it's an add
-    // if it's in the old list but not the new list, it's a remove
+
 
     render() {
-        console.log('user info')
-        console.log(this.props.user.user_info)
+        // console.log('user info')
+        // console.log(this.props.user.user_info)
         // console.log(this.props)
         return (
             <Formik
@@ -64,9 +61,8 @@ class EditTutorForm extends React.Component {
 
                 {({ values, handleChange, handleSubmit, setValues }) => (
                     <form onSubmit={handleSubmit}>
-                        {console.log("values")}
-                        {console.log(values)}
-
+                        {/* {console.log("values")}
+                        {console.log(values)} */}
 
                         {/* Account stuff */}
                         <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
@@ -90,7 +86,6 @@ class EditTutorForm extends React.Component {
                                     onChange={handleChange}
                                     value={values.email}
                                 />
-
                                 {/* <label htmlFor="accountpassword">Password:</label>
                                 <input
                                     type="password"
@@ -102,84 +97,6 @@ class EditTutorForm extends React.Component {
                                 /> */}
                             </div>
                         </div>
-
-                        {/* Tutor information stuff */}
-
-                        <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
-                            <div className="card-body">
-                                <h3 className="card-title text-primary">Tutoring Profile</h3>
-
-                                <label className="mt-2" htmlFor="uni">University:</label>
-                                <select
-                                    id="university"
-                                    name="university"
-                                    onChange={handleChange}
-                                    value={values.university.id}
-                                    className="form-control border-0 bg-light">
-                                    {this.renderUniversityOptions()}
-                                </select>
-
-                                <div className="mb-1 mt-3">
-                                    <label htmlFor="gpa">GPA:</label>
-                                    <input
-                                        type="number"
-                                        name="gpa"
-                                        id="gpa"
-                                        min="0"
-                                        max="5"
-                                        step='.1'
-                                        className="form-control bg-light border-0"
-                                        onChange={handleChange}
-                                        value={values.gpa} />
-                                </div>
-
-                                <div className="mb-1 mt-3">
-                                    <label htmlFor="courses">Courses:</label>
-                                    <Typeahead
-                                        id="courses"
-                                        name="courses"
-                                        placeholder="Search for courses at your university..."
-                                        selectHintOnEnter={true}
-                                        multiple
-                                        selected={values.courses}
-                                        labelKey="name"
-                                        onChange={(selected) => {
-                                            setValues(_.assign(values, { courses: selected }));
-                                        }}
-                                        options={this.formatCourseOptions(values.university)} />
-                                </div>
-
-                                <div className="mb-1 mt-3">
-                                    <label htmlFor="subject_areas">Subject Areas:</label>
-                                    <Typeahead
-                                        id="subject_areas"
-                                        name=".subject_areas"
-                                        placeholder="Search for subjects..."
-                                        selectHintOnEnter={true}
-                                        selected={values.subject_areas}
-                                        multiple
-                                        labelKey="name"
-                                        onChange={(selected) => {
-                                            console.log(selected)
-                                            // Update form values
-                                            setValues(_.assign(values, { subject_areas: selected }));
-
-                                        }}
-                                        options={this.formatSubjectOptions()} />
-                                </div>
-
-                                <div className="mb-3 mt-3">
-                                    <AvailabilitySelectSubform onSubmit={(timeblock) => {
-                                        setValues(_.assign(values, { availabilities: values.availabilities.concat(timeblock) }));
-                                    }} />
-
-                                    <TimeblockList values={values.availabilities} removeTimeblock={(timeblock) => {
-                                        setValues(_.assign(values, { availabilities: _.without(values.availabilities, timeblock) }));
-                                    }} />
-                                </div>
-                            </div>
-                        </div>
-
 
                         {/* Payment */}
                         {/* <PaymentInformationFieldset onChange={setValues} parentValues={values} /> */}

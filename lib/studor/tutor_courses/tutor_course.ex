@@ -13,7 +13,7 @@ defmodule Studor.TutorCourses.TutorCourse do
   @doc false
   def changeset(tutor_course, attrs) do
     tutor_course
-    |> cast(attrs, [])
+    |> cast(attrs, [:course_id, :tutor_id])
     |> validate_required([])
   end
 end

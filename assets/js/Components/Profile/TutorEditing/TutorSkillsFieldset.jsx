@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import { Typeahead } from 'react-bootstrap-typeahead';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import AvailabilitySelectSubform from './AvailabilitySelectSubform'
+import AvailabilitySelectSubform from '../AvailabilitySelectSubform'
 import { v4 as uuidv4 } from 'uuid';
 
 

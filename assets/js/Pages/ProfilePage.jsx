@@ -4,6 +4,7 @@ import UserInformationForm from '../Components/Login/UserInformationForm';
 import { STUDENT } from '../Constants/userTypes';
 import EditStudentForm from '../Components/Profile/EditStudentForm';
 import EditTutorFormContainer from '../Containers/Profile/EditTutorFormContainer';
+import TutorInformationEditAreaContainer from '../Containers/Profile/TutorEditing/TutorInformationEditAreaContainer';
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class ProfilePage extends React.Component {
 
     render() {
         console.log(this.props.user)
-        let form = this.props.user.user_type == STUDENT ? <EditStudentForm /> : <EditTutorFormContainer />
+        let form = this.props.user.user_type == STUDENT ? <EditStudentForm /> : <div><EditTutorFormContainer /> <TutorInformationEditAreaContainer /> </div>
         if (this.props.user.user_info) {
             return (<div className="bg-light">
                 <div className="row padding">
