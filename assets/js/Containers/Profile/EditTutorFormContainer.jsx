@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchCourses, fetchUniversities, fetchSubjectAreas, } from '../../Actions/api'
 import { fetchUserInfo, udpateTutorProfile } from '../../Actions/users';
-import EditTutorForm from '../../Components/Profile/EditTutorForm';
+import EditTutorForm from '../../Components/Profile/TutorEditing/EditTutorForm';
 
 
 const mapStateToProps = (state) => {

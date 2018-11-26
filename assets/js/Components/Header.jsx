@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import { Redirect } from 'react-router'
+import Cookie from 'js-cookie';
+
 
 function Header(props) {
       if (props.user.logged_in) {
