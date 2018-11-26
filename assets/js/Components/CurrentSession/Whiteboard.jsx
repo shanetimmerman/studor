@@ -185,24 +185,23 @@ class Whiteboard extends React.Component {
     }
     
     return (<div id="whiteboard" className="card shadow p-3 mb-5 bg-white full-height border-0 rounded">
-    <div>
-      { controls }
-      <div className="row">
-        <div className="drawbox column">
-          <Stage width={ww} height={hh}
-                 container={'whiteboard'}
-                 onContentMousemove={this.mouse_move.bind(this)}
-                 onContentMouseUp={this.mouse_up.bind(this)}
-                 onContentMouseDown={this.mouse_down.bind(this)}>
-            <Layer>
-              <Rect width={ww} height={hh} x={0} y={0}/>
-              { lines }
-              { currentLine }
-            </Layer>
-          </Stage>
-        </div>
-      </div>
-    </div>
+              <div>
+                { controls }
+                <div className="row">
+                  <div className="drawbox column">
+                    <Stage width={ww} height={hh}
+                          onContentMousemove={this.mouse_move.bind(this)}
+                          onContentMouseUp={this.mouse_up.bind(this)}
+                          onContentMouseDown={this.mouse_down.bind(this)}>
+                      <Layer>
+                        <Rect width={ww} height={hh} x={0} y={0}/>
+                        { lines }
+                        { currentLine }
+                      </Layer>
+                    </Stage>
+                  </div>
+                </div>
+              </div>
     
     </div>);
     }
