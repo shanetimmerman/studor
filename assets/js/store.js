@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
-import { root_reducer } from './Reducers/root';
+import { root_reducer } from './reducers/root';
 
 /*
   Application state layout

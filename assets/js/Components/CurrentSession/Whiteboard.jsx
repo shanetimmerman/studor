@@ -16,7 +16,7 @@ class Whiteboard extends React.Component {
       this.state = {
           width: window.innerWidth * 2 / 3,
           draw: true,
-          whiteboard: { lines: [], 
+          whiteboard: { lines: [],
                         points: [] }
       };
 
@@ -27,11 +27,11 @@ class Whiteboard extends React.Component {
     this.channel.on("draw", ({x, y}) => {this.draw(x, y);});
 
     this.channel.on("erase", ({x, y}) => {this.erase(x, y);});
-  
+
     this.channel.on("line_done", ({points}) => {this.line_done(points);});
 
     this.channel.on("erase_line_done", ({erase_points}) => {this.erase_line_done(erase_points);});
-  
+
     this.channel.on("clear", (_payload) => {this.update_whiteboard({ points: [], lines: [] });});
 }
 
@@ -44,12 +44,12 @@ class Whiteboard extends React.Component {
         let state1 = _.assign({}, this.state, pairs);
         this.setState(deepFreeze(state1));
       }
-    
+
       update_whiteboard(pairs) {
         let whiteboard1 = _.assign({}, this.state.whiteboard, pairs);
         this.update_state({whiteboard: whiteboard1});
       }
-    
+
       draw(x, y) {
         let points1 = _.concat(this.state.whiteboard.points, [{x: x, y: y, color: "black"}]);
         this.update_whiteboard({points: points1});
@@ -59,7 +59,7 @@ class Whiteboard extends React.Component {
         let points1 = _.concat(this.state.whiteboard.points, [{x: x, y: y, color: "white"}]);
         this.update_whiteboard({points: points1});
       }
-    
+
       flatten_points(points) {
         let points1 = _.map(points, (point) => [point.x, point.y])
         let flatten_points = _.flattenDeep(points1);
@@ -94,7 +94,7 @@ class Whiteboard extends React.Component {
         if ((ev.evt.buttons & 1) === 0) {
           return;
         }
-          
+
         if (this.state.draw) {
           let local_draw = () => {
             if (this.btn_down) {
@@ -116,9 +116,9 @@ class Whiteboard extends React.Component {
           }
           _.debounce(local_erase, 50)();
         }
-  
+
       }
-    
+
       mouse_up(ev) {
         let points1 = this.state.whiteboard.points;
         if (this.state.draw == true) {
@@ -131,7 +131,7 @@ class Whiteboard extends React.Component {
 
         this.btn_down = false;
       }
-  
+
 
     send_clear(_ev) {
         this.channel.push("clear", {})
@@ -183,7 +183,7 @@ class Whiteboard extends React.Component {
       let strokeWidth = this.state.whiteboard.points[0].color == "black" ? 4 : 25
       currentLine = <Line points={this.flatten_points(this.state.whiteboard.points)} tension={0} stroke={this.state.whiteboard.points[0].color} strokeWidth={strokeWidth} />
     }
-    
+
     return (<div id="whiteboard" className="card shadow p-3 mb-5 bg-white full-height border-0 rounded">
               <div>
                 { controls }
@@ -202,9 +202,9 @@ class Whiteboard extends React.Component {
                   </div>
                 </div>
               </div>
-    
+
     </div>);
     }
 }
-  
+
   export default Whiteboard;
