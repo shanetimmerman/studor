@@ -1,10 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
-import UserInformationForm from '../Components/Login/UserInformationForm';
-import { STUDENT } from '../Constants/userTypes';
-import EditStudentForm from '../Components/Profile/EditStudentForm';
-import EditTutorFormContainer from '../Containers/Profile/EditTutorFormContainer';
-import TutorInformationEditAreaContainer from '../Containers/Profile/TutorEditing/TutorInformationEditAreaContainer';
+import { STUDENT, TUTOR } from '../Constants/userTypes';
+import EditTutorFormContainer from '../Containers/Profile/Editing/TutorEditing/EditTutorFormContainer'
+import TutorInformationEditAreaContainer from '../Containers/Profile/Editing/TutorEditing/TutorInformationEditAreaContainer'
+import EditStudentFormContainer from '../Containers/Profile/Editing/StudentEditing/EditStudentFormContainer';
+import TutorAccountInfoDisplayContainer from '../Containers/Profile/Display/TutorDisplay/TutorAccountInfoDisplayContainer'
 
 class ProfilePage extends React.Component {
     constructor(props) {
@@ -12,12 +12,21 @@ class ProfilePage extends React.Component {
     }
 
     componentWillMount() {
+        console.log(this.props.user.user_type)
         this.props.fetchUserInfo(this.props.user.user_id, this.props.user.user_type);
     }
 
+    renderProfile() {
+        let userType = this.props.user.user_type;
+
+        switch (userType) {
+            case STUDENT: return <EditStudentFormContainer />
+            case TUTOR: return <div><EditTutorFormContainer /> <TutorInformationEditAreaContainer /> </div>
+            default: new Error("Unsupported user type")
+        }
+    }
+
     render() {
-        console.log(this.props.user)
-        let form = this.props.user.user_type == STUDENT ? <EditStudentForm /> : <div><EditTutorFormContainer /> <TutorInformationEditAreaContainer /> </div>
         if (this.props.user.user_info) {
             return (<div className="bg-light">
                 <div className="row padding">
@@ -31,7 +40,7 @@ class ProfilePage extends React.Component {
                 <div className="row padding">
                     <div className="col-md-2"></div>
                     <div className="col-md-8">
-                        {form}
+                        {this.renderProfile()}
                     </div>
                     <div className="col-md-2"></div>
                 </div>

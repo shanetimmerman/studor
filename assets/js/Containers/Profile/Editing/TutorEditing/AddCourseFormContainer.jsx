@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
-import TutorInformationEditArea from '../../../Components/Profile/TutorEditing/TutorInformationEditArea';
-import { addTutorCourse } from '../../../Actions/users'
-import AddCourseForm from '../../../Components/Profile/TutorEditing/AddCourseForm';
-
+import { addTutorCourse } from '../../../../Actions/users'
+import AddCourseForm from '../../../../Components/Profile/Editing/TutorEditing/AddCourseForm'
+import { fetchCourses } from '../../../../Actions/api'
 function mapStateToProps(state) {
     return {
         user: state.currentUser,
@@ -14,6 +13,10 @@ function mapDispatchToProps(dispatch) {
     return {
         addCourse: (values) => {
             addTutorCourse(values);
+        },
+
+        fetchCourses: () => {
+            fetchCourses();
         }
     }
 }

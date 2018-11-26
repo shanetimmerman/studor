@@ -24,12 +24,13 @@ export function fetchCourseSearch(university_id, query) {
     console.log(university_id)
 
     $.ajax(
-        "api/v1/tutors/" + university_id + "/" + query + "/", {
+        "api/v1/tutors/search/university/" + university_id + "/" + query, {
             method: "get",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
         }
     ).done((resp) => {
+        console.log("done searching")
         console.log(resp)
         store.dispatch({ type: FETCH_SEARCH_RESULTS_SUCCESS, payload: resp.data })
     });
@@ -41,9 +42,10 @@ export function fetchCourseSearch(university_id, query) {
 
 export function fetchSubjectSearch(subject_area_id) {
     console.log("Searching subjects")
+    console.log(subject_area_id)
 
     $.ajax(
-        "api/v1/tutors/subject_areas/" + subject_area_id, {
+        "api/v1/tutors/search/subject_areas/" + subject_area_id, {
             method: "get",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",

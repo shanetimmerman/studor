@@ -37,6 +37,13 @@ defmodule Studor.TutoringSessions do
   """
   def get_tutoring_session!(id), do: Repo.get!(TutoringSession, id)
 
+  def get_by_payment_id(payment_id) do
+    query = from s in TutoringSession,
+      where: s.payment_id == ^payment_id
+    Repo.all(query)
+  end
+
+
   @doc """
   Creates a tutoring_session.
 
@@ -53,6 +60,11 @@ defmodule Studor.TutoringSessions do
     %TutoringSession{}
     |> TutoringSession.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def get_valid_session(attrs \\ %{}) do
+    %TutoringSession{}
+    |> TutoringSession.changeset(attrs)
   end
 
   @doc """

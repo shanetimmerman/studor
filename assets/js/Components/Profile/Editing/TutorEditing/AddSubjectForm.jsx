@@ -17,11 +17,16 @@ class AddSubjectForm extends React.Component {
         this.toggleOpen = this.toggleOpen.bind(this);
     }
 
+    componentWillMount() {
+        this.props.fetchSubjects();
+    }
+
     toggleOpen() {
         this.setState({ isOpen: !this.state.isOpen });
     }
 
     formatSubjectOptions() {
+        console.log(this.props)
         let options = _.map(this.props.subjectAreas, (subjectArea) => { return { id: subjectArea.id, label: subjectArea.subject_area } });
         return options;
     }
@@ -31,7 +36,10 @@ class AddSubjectForm extends React.Component {
             return (
                 <Formik
                     initialValues={{ tutor_id: this.props.user.user_id, subject_area_id: 1 }}
-                    onSubmit={(values) => { this.props.addSubject(values) }}>
+                    onSubmit={(values) => {
+                        this.toggleOpen();
+                        this.props.addSubject(values)
+                    }}>
                     {({ values, handleSubmit, setValues }) => (
                         <form onSubmit={handleSubmit}>
                             <Typeahead

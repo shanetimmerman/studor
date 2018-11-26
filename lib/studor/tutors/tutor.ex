@@ -8,7 +8,7 @@ defmodule Studor.Tutors.Tutor do
     field :name, :string
     field :gpa, :float
     field :password_hash, :string
-    field :paypal_token, :string
+    field :paypal_email, :string
     field :profile_pic_url, :string
 
     belongs_to :university, Studor.Universities.University
@@ -25,9 +25,10 @@ defmodule Studor.Tutors.Tutor do
   @doc false
   def changeset(tutor, attrs) do
     tutor
-    |> cast(attrs, [:email, :name, :password_hash, :paypal_token, :profile_pic_url, :gpa])
-    |> validate_required([:email, :name, :password_hash, :paypal_token, :gpa])
+    |> cast(attrs, [:email, :name, :password_hash, :paypal_email, :profile_pic_url, :gpa, :university_id])
+    |> validate_required([:email, :name, :password_hash, :paypal_email, :gpa])
     |> unique_constraint(:email)
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
+    |> validate_format(:paypal_email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
   end
 end

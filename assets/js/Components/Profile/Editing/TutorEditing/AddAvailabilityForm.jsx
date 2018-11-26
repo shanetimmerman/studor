@@ -2,6 +2,7 @@ import { Formik } from 'formik';
 import _ from 'lodash';
 import React from 'react';
 import { Typeahead } from 'react-bootstrap-typeahead';
+import DateTimePicker from 'react-datetime-picker/dist/DateTimePicker';
 
 
 class AddAvailabilityForm extends React.Component {
@@ -15,7 +16,6 @@ class AddAvailabilityForm extends React.Component {
         }
 
         this.toggleOpen = this.toggleOpen.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
@@ -26,7 +26,8 @@ class AddAvailabilityForm extends React.Component {
     render() {
         if (this.state.isOpen) {
             return (
-                <Formik initialValues={{ start_time: new Date(), end_time: new Date() }}>
+                <Formik initialValues={{ start_time: new Date(), end_time: new Date() }}
+                    onSubmit={(values) => { this.props.addAvailability(values) }}>
                     {({ values, setValues, handleSubmit }) => (
                         <form onSubmit={handleSubmit}>
 
@@ -35,18 +36,18 @@ class AddAvailabilityForm extends React.Component {
                                 value={values.start_time}
                                 onChange={(value) => setValues(_.assign(values, { start_time: value }))} />
                             to
-    
+
                         <DateTimePicker
                                 name="end_time"
                                 value={values.end_time}
                                 onChange={(value) => setValues(_.assign(values, { end_time: value }))} />
 
-                            <button type="button" onClick={() => { this.handleSubmit(values); resetForm() }} className="btn btn-primary"> Add availability block </button>
+                            <button type="submit"> add availability </button>
                         </form>)}
                 </Formik>
             )
         } else {
-            return (<button onClick={this.toggleOpen} className="btn btn-primary">Add Subject Area</button>)
+            return (<button onClick={this.toggleOpen} className="btn btn-primary">Add availability</button>)
         }
     }
 }

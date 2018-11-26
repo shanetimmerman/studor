@@ -8,6 +8,8 @@ class TutorList extends React.Component {
     }
 
     render() {
+        console.log("search results")
+        console.log(this.props.searchResults)
         let tutors1 = _.map(this.props.searchResults, (tutor) => <TutorInfo tutorInfo={tutor} key={tutor.id} />);
 
         return <div>
@@ -58,7 +60,7 @@ class TutorInfo extends React.Component {
             <div>
                 <div className="card shadow p-3 mb-4 bg-white rounded padding border-0">
                     <div className="card-body">
-                        <h5 className="card-title">{info.name + " | " + info.university}</h5>
+                        <h5 className="card-title">{info.name + " | " + info.university.name}</h5>
                         <h6 className="card-subtitle mb-2 text-primary">{_.map(info.subject_areas, (area) => area.name).join(", ")}</h6>
                         <p className="card-text">Forgot to add tutor default messages to database :^).</p>
                         {/* <a href="#" className="card-link">Request Session</a> */}

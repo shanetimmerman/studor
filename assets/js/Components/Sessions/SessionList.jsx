@@ -149,11 +149,13 @@ class SessionInfo extends React.Component {
         let join = null;
         let approve = null;
         let cancel = null;
+        let decline = null;
 
         if (this.props.mode == "active") {
             join = <Link to={{ pathname: "/currentSession", state: info }} className="btn ml-2 rounded btn-outline-primary">Join Session</Link>;
         } else if (this.props.mode == "pending" && currentUser.user_type == "TUTOR") {
             approve = <button onClick={() => this.props.approve(info.id, info)} className="btn-sm btn-outline-success"> Approve Session </button>;
+            decline = <button onClick={() => this.props.cancel(info.id)} className="btn-sm btn-outline-danger"> Decline Session </button>;
         } else if (this.props.mode == "upcoming" || this.props.mode == "pending") {
             console.log(info.id)
             cancel = <button onClick={() => this.props.cancel(info.id)} className="btn-sm btn-outline-danger"> Cancel Session </button>;
@@ -174,6 +176,7 @@ class SessionInfo extends React.Component {
                         <div className="col pr-0 d-flex justify-content-end">
                             {join}
                             {approve}
+                            {decline}
                             {cancel}
                         </div>
 

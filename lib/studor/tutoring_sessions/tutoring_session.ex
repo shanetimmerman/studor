@@ -6,6 +6,8 @@ defmodule Studor.TutoringSessions.TutoringSession do
   schema "tutoring_sessions" do
     field :approved, :boolean, default: false
     field :description, :string
+    field :payment_id, :string
+    field :payer_id, :string
 
     belongs_to :tutor, Studor.Tutors.Tutor
     belongs_to :student, Studor.Students.Student
@@ -21,7 +23,7 @@ defmodule Studor.TutoringSessions.TutoringSession do
   @doc false
   def changeset(tutoring_session, attrs) do
     tutoring_session
-    |> cast(attrs, [:description, :approved, :tutor_id, :student_id, :time_block_id])
-    |> validate_required([:description, :approved, :tutor_id, :student_id, :time_block_id])
+    |> cast(attrs, [:description, :approved, :tutor_id, :student_id, :time_block_id, :payment_id, :payer_id])
+    |> validate_required([:description, :approved, :tutor_id, :student_id, :time_block_id, :payment_id, :payer_id])
   end
 end
