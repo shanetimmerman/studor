@@ -14,6 +14,10 @@ class TutorInformationEditArea extends React.Component {
 
     }
 
+    componentWillMount() {
+        this.props.fetchUserInfo(this.props.user.user_id);
+    }
+
     removeCourse(course) {
         this.props.removeCourse(course.tutor_course_id);
     }
@@ -32,7 +36,7 @@ class TutorInformationEditArea extends React.Component {
     render() {
         console.log(this.props)
         let info = this.props.user.user_info;
-        // console.log(info)
+        console.log(info)
         return (
             <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
                 <div className="card-body">

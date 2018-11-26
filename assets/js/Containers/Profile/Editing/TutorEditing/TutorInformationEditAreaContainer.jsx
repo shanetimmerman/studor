@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import TutorInformationEditArea from '../../../../Components/Profile/Editing/TutorEditing/TutorInformationEditArea'
-import { deleteTutorCourse, deleteTutorSubjectArea, deleteTutorAvailability } from '../../../../Actions/users'
+import { deleteTutorCourse, deleteTutorSubjectArea, deleteTutorAvailability, fetchUserInfo } from '../../../../Actions/users'
+import { TUTOR } from '../../../../Constants/userTypes';
 
 function mapStateToProps(state) {
     return {
@@ -20,6 +21,10 @@ function mapDispatchToProps(dispatch) {
 
         removeTutorAvailability: (availability_id) => {
             deleteTutorAvailability(availability_id);
+        },
+
+        fetchUserInfo: (id) => {
+            fetchUserInfo(id, TUTOR);
         }
     }
 }
