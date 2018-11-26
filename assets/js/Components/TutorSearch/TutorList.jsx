@@ -11,7 +11,14 @@ class TutorList extends React.Component {
     render() {
         console.log("search results")
         console.log(this.props.searchResults)
-        let tutors1 = _.map(this.props.searchResults, (tutor) => <TutorInfo tutorInfo={tutor} key={tutor.id} />);
+        let tutors1 = [];
+
+        _.each(this.props.searchResults,
+            (tutor) => {
+                if (tutor.availabilities.length != 0) {
+                    tutors1.push(<TutorInfo tutorInfo={tutor} key={tutor.id} />)
+                }
+            });
 
         return <div>
             <div className="row mb-3">
@@ -55,8 +62,6 @@ class TutorInfo extends React.Component {
 
     render() {
         let info = this.props.tutorInfo;
-        console.log(info)
-
         return (
             <div>
                 <div className="card shadow p-3 mb-4 bg-white rounded padding border-0">

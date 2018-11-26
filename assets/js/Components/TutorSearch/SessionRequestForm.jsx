@@ -59,14 +59,21 @@ class SessionRequestForm extends React.Component {
                             bottom: '0px',
                         }
                     }}>
-                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: 'description', time_block_id: info.availabilities[0].tutor_availability_id, session_files: [] }}
+                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: null, time_block_id: info.availabilities[0].tutor_availability_id, session_files: [] }}
                         onSubmit={(values, { setSubmitting }) => {
                             let session = { tutor_id: values.tutor_id, student_id: values.student_id, description: values.description, time_block_id: values.time_block_id, approved: false }
                             console.log(session)
                             this.props.requestSession(session);
                             this.toggleModal();
+                        }}
+                        validate={values => {
+                            let errors = {};
+                            if (!values.description) {
+                                errors.description = 'Required';
+                            }
+                            return errors;
                         }}>
-                        {({ values, handleChange, handleSubmit, setValues }) => (
+                        {({ values, errors, touched, handleChange, handleSubmit, setValues }) => (
                             <form onSubmit={handleSubmit}>
                                 <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
                                     <div className="card-body">
@@ -86,6 +93,8 @@ class SessionRequestForm extends React.Component {
                                         <div className="form-group mb-4">
                                             <label htmlFor="requestmessage">Message to {info.name.substr(0, info.name.indexOf(' '))}:</label>
                                             <textarea name="description" id="requestmessage" rows="3" className="form-control bg-light border-0" onChange={handleChange} value={values.message} />
+                                            {errors.description && touched.description && errors.description}
+
                                         </div>
 
                                         <div className="form-inline mb-4">

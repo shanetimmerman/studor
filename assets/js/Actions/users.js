@@ -36,7 +36,6 @@ const USER_COOKIE = 'user';
 // user enters stuff -> clicks login -> on success dispatch login user success, just logs them in -> on fail dispatch login user failed, shows error
 export function fetchSession() {
     let data = Cookie.getJSON('user');
-    console.log(data)
 
     if (data) {
         store.dispatch({
@@ -51,9 +50,6 @@ export function fetchSession() {
 }
 
 export function loginUser(email, password, type) {
-    console.log(email)
-    console.log(password)
-    console.log(type)
 
     $.ajax(
         "/api/v1/sessions", {
@@ -62,8 +58,6 @@ export function loginUser(email, password, type) {
             contentType: "application/json; charset=UTF-8",
             data: JSON.stringify({ email: email, password: password, user_type: type }),
             success: (resp) => {
-                console.log("nice job")
-                console.log(resp.data)
                 Cookie.set(USER_COOKIE, resp.data);
 
                 store.dispatch({
@@ -72,8 +66,6 @@ export function loginUser(email, password, type) {
                 });
             },
             error: (resp) => {
-                console.log("failed")
-                console.log(resp)
 
                 store.dispatch({
                     type: LOGIN_USER_FAILED,
@@ -138,23 +130,15 @@ function deleteAjax(path, data, callback) {
 
 
 export function createStudent(values) {
-    console.log("cookin up a studert")
-    console.log(values);
-
     postAjax('/api/v1/students/', { student: values },
         (resp) => {
-            console.log(resp)
             loginUser(values.email, values.password_hash, STUDENT);
         })
 }
 
 export function createTutor(values) {
-    console.log("cookin up a tooter")
-    console.log(values);
-
     postAjax('/api/v1/tutors/', { tutor: values },
         (resp) => {
-            console.log(resp)
             loginUser(values.email, values.password_hash, TUTOR);
         })
 }
@@ -167,15 +151,12 @@ export function createTutor(values) {
  * @param {Object} values, an object including information about the student's account information.
  */
 export function updateStudentProfile(values) {
-    console.log('submitting:');
-    console.log(values)
     let state = store.getState();
     let id = state.currentUser.user_id;
 
     putAjax('/api/v1/students/' + id, { student: values },
         (resp) => {
             // TODO dispatch this
-            console.log(resp);
             fetchStudentInfo(id);
         });
 }
@@ -187,15 +168,12 @@ export function updateStudentProfile(values) {
  * @param {Object} values, an object including information about the tutor's account information.
  */
 export function udpateTutorProfile(values) {
-    console.log('submitting:');
-    console.log(values)
     let state = store.getState();
     let id = state.currentUser.user_id;
 
     putAjax('/api/v1/tutors/' + id, { tutor: values },
         (resp) => {
             // TODO dispatch this
-            console.log(resp);
             fetchTutorInfo(id);
         });
 }
@@ -209,12 +187,8 @@ export function deleteTutorCourse(id) {
 }
 
 export function addTutorCourse(values) {
-    console.log("adding tutor course");
-    console.log(values)
-
     postAjax('/api/v1/tutor_courses/', { tutor_course: values },
         (resp) => {
-            console.log(resp)
             let id = store.getState().currentUser.user_id;
             fetchTutorInfo(id);
         });
@@ -229,12 +203,8 @@ export function deleteTutorSubjectArea(id) {
 }
 
 export function addTutorSubjectArea(values) {
-    console.log("adding tutor area");
-    console.log(values)
-
     postAjax('/api/v1/tutor_subject_areas/', { tutor_subject_area: values },
         (resp) => {
-            console.log(resp)
             let id = store.getState().currentUser.user_id;
             fetchTutorInfo(id);
         });
@@ -272,7 +242,6 @@ export function fetchUserInfo(user_id, user_type) {
 function fetchStudentInfo(user_id) {
     fetchAjax("/api/v1/students/" + user_id, {},
         (resp) => {
-            console.log(resp)
             store.dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: resp.data })
         });
 }
@@ -280,7 +249,6 @@ function fetchStudentInfo(user_id) {
 function fetchTutorInfo(user_id) {
     fetchAjax("/api/v1/tutors/" + user_id, {},
         (resp) => {
-            console.log(resp)
             store.dispatch({ type: FETCH_USER_INFO_SUCCESS, payload: resp.data })
         });
 }
