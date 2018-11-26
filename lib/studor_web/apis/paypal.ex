@@ -40,6 +40,7 @@ defmodule Paypal do
         Jason.decode!(resp.body)
     end
 
+
     def pay(api_token, reciever_email, amount, confirm_url, cancel_url) do
         HTTPoison.start
         url = "https://api.sandbox.paypal.com/v1/payments/payment"
@@ -92,6 +93,7 @@ defmodule Paypal do
         end
     end
 
+
     def update_price(access_token, payment_id, price) do
         url = "https://api.sandbox.paypal.com/v1/payments/payment/#{payment_id}"
 
@@ -117,27 +119,8 @@ defmodule Paypal do
             %{"id" => _payment_id} -> {:ok, body}
             _ -> {400, body} # Could be debug or error
         end
-
     end
 
-    def refund(access_token, payment_id, payer_id) do
-        url = "https://api.sandbox.paypal.com/v1/payments/payment/#{payment_id}/refund"
-
-        headers = [
-            {"Content-Type", "application/json"},
-            {"Authorization", "Bearer #{access_token}"},
-        ]
-
-        body = %{
-            payer_id: payer_id
-        }
-
-        {:ok, resp} = HTTPoison.post(url, Jason.encode!(body), headers, [])
-
-        # TODO improve return type
-        Jason.decode!(resp.body)
-
-    end
 
     def execute_payment(access_token, payment_id, payer_id) do
         url = "https://api.sandbox.paypal.com/v1/payments/payment/#{payment_id}/execute"

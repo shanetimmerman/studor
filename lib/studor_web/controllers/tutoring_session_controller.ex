@@ -6,7 +6,7 @@ defmodule StudorWeb.TutoringSessionController do
   alias Studor.TutoringSessions
   alias Studor.TutoringSessions.TutoringSession
 
-  alias Studor.Students
+  alias Studor.Tutors
   alias Studor.TimeBlocks
 
 
@@ -34,8 +34,8 @@ defmodule StudorWeb.TutoringSessionController do
 
   def create(conn, %{"tutoring_session" => tutoring_session_params}) do
     token = Paypal.get_token()
-    tutor = Students.get_student!(tutoring_session_params["tutor_id"])
-    tutor_paypal_email = "shanetimmerman-facilitator@gmail.com"
+    tutor = Tutors.get_tutor!(tutoring_session_params["tutor_id"])
+    tutor_paypal_email = tutor.paypal_email
     time_block = TimeBlocks.get_time_block!(tutoring_session_params["time_block_id"])
     price = Time.diff(time_block.end_time, time_block.start_time, :second) / 180
     confirm_url = "http://localhost:4000/from_paypal?#{URI.encode_query(tutoring_session_params)}"

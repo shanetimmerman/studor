@@ -1,6 +1,8 @@
 defmodule Studor.PaymentServer do
     use GenServer
 
+    alias Studor.TutoringSessions
+
     require Paypal
 
     def init(args) do
@@ -12,10 +14,13 @@ defmodule Studor.PaymentServer do
     end
 
     def handle_info({:execute, payment_id, payer_id}, state) do
-        token = Paypal.get_token()
-        access_token = token["access_token"]
-
-        Paypal.execute_payment(access_token, payment_id, payer_id)
+        case TutoringSessions.get_by_payment_id(payment_id) do
+            :nil -> nil
+            _ ->
+                token = Paypal.get_token()
+                access_token = token["access_token"]
+                Paypal.execute_payment(access_token, payment_id, payer_id)
+        end
 
         {:noreply, state}
     end
