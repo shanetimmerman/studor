@@ -14,8 +14,6 @@ class NewUserForm extends React.Component {
         super(props);
 
         this.renderAccountInfo = this.renderAccountInfo.bind(this);
-
-        // load university options
     }
 
     componentWillMount() {
@@ -38,7 +36,8 @@ class NewUserForm extends React.Component {
                         id="accountname"
                         className="form-control bg-light border-0"
                         onChange={handleChange}
-                        value={values.name} />
+                        value={values.name}
+                        required />
 
                     <label htmlFor="accountemail">Email:</label>
                     <input
@@ -48,6 +47,7 @@ class NewUserForm extends React.Component {
                         className="form-control bg-light border-0"
                         onChange={handleChange}
                         value={values.email}
+                        required
                     />
                     {/* {errors.email && touched.email && errors.email} */}
 
@@ -59,6 +59,7 @@ class NewUserForm extends React.Component {
                         className="form-control bg-light border-0"
                         onChange={handleChange}
                         value={values.password_hash}
+                        required
                     />
                     {/* {errors.password && touched.password && errors.password} */}
 
@@ -120,7 +121,8 @@ class NewUserForm extends React.Component {
                                 step='.1'
                                 className="form-control bg-light border-0"
                                 onChange={handleChange}
-                                value={values.gpa} />
+                                value={values.gpa}
+                                required />
                         </div>
                     </div>
                 </div>
@@ -139,6 +141,7 @@ class NewUserForm extends React.Component {
                                 className="form-control bg-light border-0"
                                 onChange={handleChange}
                                 value={values.paypal_email}
+                                required
                             />
                         </div>
                     </div>
