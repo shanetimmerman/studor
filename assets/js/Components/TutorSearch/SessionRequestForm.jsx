@@ -107,7 +107,7 @@ class SessionRequestForm extends React.Component {
 
                                         <div className="form-group">
                                             <div className="custom-file">
-                                                <label className="custom-file-label" htmlFor="File upload">Click to upload your problems</label>
+                                                <label className="custom-file-label" htmlFor="File upload">Click to upload pngs for your session</label>
                                                 <input type="file" className="custom-file-input" name="session_files"
                                                     onChange={(event) => {
                                                         setValues(_.assign(values, { session_files: _.concat(values.session_files, (event.currentTarget.files[0])) }));
@@ -126,7 +126,7 @@ class SessionRequestForm extends React.Component {
                     </Formik>
                 </ReactModal>);
         } else {
-            return (<button className="btn" onClick={this.toggleModal}> Request Session </button>);
+            return (<button className="btn btn-outline-primary mt-3" onClick={this.toggleModal}> Request Session </button>);
         }
     }
 }

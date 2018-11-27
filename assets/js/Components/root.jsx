@@ -11,6 +11,7 @@ import MainPageContainer from '../Containers/Pages/MainPageContainer'
 import CurrentSessionPage from '../Pages/CurrentSessionPage.jsx';
 import SignupPage from '../Pages/SignupPage'
 import SignupPageContainer from '../Containers/Pages/SignupPageContainer.jsx';
+import { fetchSession } from '../Actions/users.js';
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -22,7 +23,11 @@ export default function root_init(node, store) {
 class Root extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props)
+    console.log(props);
+  }
+
+  componentWillMount() {
+    fetchSession()
   }
 
   render() {

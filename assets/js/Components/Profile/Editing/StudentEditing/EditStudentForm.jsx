@@ -5,7 +5,7 @@ import StudentAccountInfoDisplayContainer from '../../../../Containers/Profile/D
 
 /**
  * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
- * @param {*} props 
+ * @param {*} props
  */
 class EditStudentForm extends React.Component {
     constructor(props) {
@@ -59,11 +59,12 @@ class EditStudentForm extends React.Component {
                                             value={values.email}
                                             required
                                         />
+
+                                        <button type="submit" className="btn btn-sm btn-success">Save changes</button>
+                                        <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
                                     </div>
                                 </div>
 
-                                <button type="submit" className="btn btn-success">Save changes</button>
-                                <button onClick={this.toggleEdit}>cancel</button>
                             </form>
                         )}
                     </ Formik>
@@ -73,8 +74,7 @@ class EditStudentForm extends React.Component {
 
             return (
                 <div>
-                    <button onClick={this.toggleEdit}>Edit profile</button>
-                    <StudentAccountInfoDisplayContainer />
+                    <StudentAccountInfoDisplayContainer onEditButton={this.toggleEdit} />
                 </div>
             )
         }

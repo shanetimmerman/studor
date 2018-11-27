@@ -5,7 +5,7 @@ import TutorAccountInfoDisplayContainer from '../../../../Containers/Profile/Dis
 
 /**
  * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
- * @param {*} props 
+ * @param {*} props
  */
 class EditTutorForm extends React.Component {
     constructor(props) {
@@ -40,7 +40,7 @@ class EditTutorForm extends React.Component {
         if (this.state.edit) {
             return (
                 <Formik
-                    initialValues={{ name: info.name, email: info.email, university_id: info.university.id, gpa: info.gpa, paypal_email: info.paypal_email }}
+                    initialValues={{ name: info.name, email: info.email, bio: info.bio, university_id: info.university.id, gpa: info.gpa, paypal_email: info.paypal_email }}
                     onSubmit={(values) => {
                         this.toggleEdit();
                         this.props.onSubmit(values)
@@ -75,6 +75,16 @@ class EditTutorForm extends React.Component {
                                         value={values.email}
                                         required
                                     />
+
+                                    <label htmlFor="tutor_bio">Bio:</label>
+                                    <textarea
+                                        name="bio"
+                                        id="tutor_bio"
+                                        className="form-control bg-light border-0"
+                                        onChange={handleChange}
+                                        value={values.bio}
+                                    />
+
                                     <label className="mt-2" htmlFor="university">University:</label>
                                     <select
                                         id="univeristy"
@@ -111,11 +121,13 @@ class EditTutorForm extends React.Component {
                                         required
                                     />
 
+                                <button type="submit" className="btn btn-sm btn-success"> Save changes </button>
+                                <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-success"> Save changes </button>
-                            <button onClick={this.toggleEdit}>cancel</button>
+
 
                         </form>
                     )}
@@ -124,8 +136,7 @@ class EditTutorForm extends React.Component {
         } else {
             return (
                 <div>
-                    <button onClick={this.toggleEdit}>Edit profile</button>
-                    <TutorAccountInfoDisplayContainer />
+                    <TutorAccountInfoDisplayContainer onEditButton={this.toggleEdit} />
                 </div>)
         }
     }

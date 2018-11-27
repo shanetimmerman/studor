@@ -5,6 +5,7 @@ defmodule Studor.Repo.Migrations.CreateTutors do
     create table(:tutors) do
       add :email, :string, null: false
       add :name, :string, null: false
+      add :bio, :string
       add :password_hash, :string, null: false
       add :paypal_email, :string, null: false
       add :profile_pic_url, :string

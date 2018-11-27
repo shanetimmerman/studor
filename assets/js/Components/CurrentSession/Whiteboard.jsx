@@ -1,37 +1,47 @@
 import React from 'react';
 import { Stage, Layer, Rect, Line } from 'react-konva';
 import deepFreeze from 'deep-freeze';
-import { connect } from 'react-redux';
 import _ from 'lodash';
-import {Socket} from "phoenix"
+import store from '../../store';
 
 class Whiteboard extends React.Component {
     constructor(props) {
       super(props);
       window.addEventListener('resize', this.scaleCanvas.bind(this));
       this.btn_down = false;
-      let socket = new Socket("/socket", {params: {token: window.userToken}})
-      socket.connect();
+      let socket = props.socket;
       this.channel = socket.channel("whiteboards:" + props.session_info.id, {active: props.session_info.id});;
       this.state = {
-          width: window.innerWidth * 9 / 12,
+          width: window.innerWidth * 2 / 3,
           draw: true,
-          whiteboard: { lines: [], 
+          whiteboard: { lines: [],
                         points: [] }
       };
 
+    let user = store.getState().currentUser
+
+    let newUser = null
+    if (user.user_type == "TUTOR") {
+      newUser = "t" + this.props.session_info.tutor_id;
+    } else {
+      newUser = "s" + this.props.session_info.student_id;
+    }
+
     this.channel.join()
-    .receive("ok", this.gotView.bind(this))
+    .receive("ok", () => {
+      this.channel.push("add_user", {name: newUser});
+      this.gotView.bind(this);
+    })
     .receive("error", resp => { console.log("Unable to join", resp) });
 
     this.channel.on("draw", ({x, y}) => {this.draw(x, y);});
 
     this.channel.on("erase", ({x, y}) => {this.erase(x, y);});
-  
+
     this.channel.on("line_done", ({points}) => {this.line_done(points);});
 
     this.channel.on("erase_line_done", ({erase_points}) => {this.erase_line_done(erase_points);});
-  
+
     this.channel.on("clear", (_payload) => {this.update_whiteboard({ points: [], lines: [] });});
 }
 
@@ -44,12 +54,12 @@ class Whiteboard extends React.Component {
         let state1 = _.assign({}, this.state, pairs);
         this.setState(deepFreeze(state1));
       }
-    
+
       update_whiteboard(pairs) {
         let whiteboard1 = _.assign({}, this.state.whiteboard, pairs);
         this.update_state({whiteboard: whiteboard1});
       }
-    
+
       draw(x, y) {
         let points1 = _.concat(this.state.whiteboard.points, [{x: x, y: y, color: "black"}]);
         this.update_whiteboard({points: points1});
@@ -59,7 +69,7 @@ class Whiteboard extends React.Component {
         let points1 = _.concat(this.state.whiteboard.points, [{x: x, y: y, color: "white"}]);
         this.update_whiteboard({points: points1});
       }
-    
+
       flatten_points(points) {
         let points1 = _.map(points, (point) => [point.x, point.y])
         let flatten_points = _.flattenDeep(points1);
@@ -94,7 +104,7 @@ class Whiteboard extends React.Component {
         if ((ev.evt.buttons & 1) === 0) {
           return;
         }
-          
+
         if (this.state.draw) {
           let local_draw = () => {
             if (this.btn_down) {
@@ -116,9 +126,9 @@ class Whiteboard extends React.Component {
           }
           _.debounce(local_erase, 50)();
         }
-  
+
       }
-    
+
       mouse_up(ev) {
         let points1 = this.state.whiteboard.points;
         if (this.state.draw == true) {
@@ -131,7 +141,7 @@ class Whiteboard extends React.Component {
 
         this.btn_down = false;
       }
-  
+
 
     send_clear(_ev) {
         this.channel.push("clear", {})
@@ -149,7 +159,7 @@ class Whiteboard extends React.Component {
     }
 
     scaleCanvas () {
-      this.setState({width: window.innerWidth * 9 / 12})
+      this.setState({width: window.innerWidth * 2 / 3})
     }
 
     render () {
@@ -183,29 +193,28 @@ class Whiteboard extends React.Component {
       let strokeWidth = this.state.whiteboard.points[0].color == "black" ? 4 : 25
       currentLine = <Line points={this.flatten_points(this.state.whiteboard.points)} tension={0} stroke={this.state.whiteboard.points[0].color} strokeWidth={strokeWidth} />
     }
-    
+
     return (<div id="whiteboard" className="card shadow p-3 mb-5 bg-white full-height border-0 rounded">
-    <div>
-      { controls }
-      <div className="row">
-        <div className="drawbox column">
-          <Stage width={ww} height={hh}
-                 container={'whiteboard'}
-                 onContentMousemove={this.mouse_move.bind(this)}
-                 onContentMouseUp={this.mouse_up.bind(this)}
-                 onContentMouseDown={this.mouse_down.bind(this)}>
-            <Layer>
-              <Rect width={ww} height={hh} x={0} y={0}/>
-              { lines }
-              { currentLine }
-            </Layer>
-          </Stage>
-        </div>
-      </div>
-    </div>
-    
+              <div>
+                { controls }
+                <div className="row">
+                  <div className="drawbox column">
+                    <Stage width={ww} height={hh}
+                          onContentMousemove={this.mouse_move.bind(this)}
+                          onContentMouseUp={this.mouse_up.bind(this)}
+                          onContentMouseDown={this.mouse_down.bind(this)}>
+                      <Layer>
+                        <Rect width={ww} height={hh} x={0} y={0}/>
+                        { lines }
+                        { currentLine }
+                      </Layer>
+                    </Stage>
+                  </div>
+                </div>
+              </div>
+
     </div>);
     }
 }
-  
+
   export default Whiteboard;
