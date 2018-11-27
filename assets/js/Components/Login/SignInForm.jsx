@@ -4,8 +4,6 @@ import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { STUDENT, TUTOR } from '../../Constants/userTypes'
 
-
-
 class SignInForm extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +22,7 @@ class SignInForm extends React.Component {
             } else if (
               !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
             ) {
-              errors.email = 'Invalid email address';
+              errors.email = 'Email addresses must include a . before a domain name.';
             }
             return errors;
           }}
@@ -47,7 +45,7 @@ class SignInForm extends React.Component {
                   onChange={handleChange}
                   value={values.email}
                 />
-                {errors.email && touched.email && errors.email}
+                {errors.email && touched.email && <p className="text-danger"> {errors.email} </p>}
 
                 <label htmlFor="loginpassword">Password:</label>
                 <input
@@ -58,7 +56,7 @@ class SignInForm extends React.Component {
                   onChange={handleChange}
                   value={values.password}
                 />
-                {errors.password && touched.password && errors.password}
+                {errors.password && touched.password && <p className="text-danger"> {errors.password} </p>}
 
                 <div className="row vertical-padding">
                   <div className="col-md-4">
@@ -79,7 +77,7 @@ class SignInForm extends React.Component {
 
               <div className="row mb-3">
                 <div className="col-md-12">
-                  <button type="submit" className="btn rounded btn-primary" onClick={handleSubmit}>Log in</button>
+                  <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Log in</button>
                   <Link to={{ pathname: "/signup", state: values }} className="btn ml-2 rounded btn-outline-primary">Sign up</Link>
                 </div>
               </div>

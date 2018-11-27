@@ -24,7 +24,7 @@ class NewUserForm extends React.Component {
         return (_.map(this.props.universities, (university) => { return (<option key={university.id} value={university.id}> {university.name} </option>) }));
     }
 
-    renderAccountInfo(values, handleChange, setValues) {
+    renderAccountInfo(values, errors, touched, handleChange, setValues) {
         return (
             <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
                 <div className="card-body">
@@ -49,7 +49,7 @@ class NewUserForm extends React.Component {
                         value={values.email}
                         required
                     />
-                    {/* {errors.email && touched.email && errors.email} */}
+                    {errors.email && touched.email && <p className="text-danger"> {errors.email} </p>}
 
                     <label htmlFor="accountpassword">Password:</label>
                     <input
@@ -143,6 +143,8 @@ class NewUserForm extends React.Component {
                                 value={values.paypal_email}
                                 required
                             />
+                            {errors.paypal_email && touched.paypal_email && <p className="text-danger"> {errors.paypal_email} </p>}
+
                         </div>
                     </div>
                 </div>
@@ -158,12 +160,25 @@ class NewUserForm extends React.Component {
                     console.log('submitting')
                     console.log(values)
                     this.props.onSubmit(values)
+                }}
+                validate={values => {
+                    let errors = {};
+                    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                        errors.email = 'Email addresses must include a . before a domain name.';
+                    }
+
+                    if (values.paypal_email) {
+                        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.paypal_email)) {
+                            errors.paypal_email = 'Email addresses must include a . before a domain name.';
+                        }
+                    }
+                    return errors;
                 }}>
                 {({ values, handleSubmit, handleChange, setValues }) => (
                     < form onSubmit={handleSubmit}>
                         {console.log(values)}
-                        {this.renderAccountInfo(values, handleChange, setValues)}
-                        {values.user_type == TUTOR && this.renderTutorInfo(values, handleChange)}
+                        {this.renderAccountInfo(values, handleChange, setValues, errors, touched)}
+                        {values.user_type == TUTOR && this.renderTutorInfo(values, handleChange, errors, touched)}
                         <button type="submit" className="btn btn-primary">Create account</button>
                     </form>
                 )
