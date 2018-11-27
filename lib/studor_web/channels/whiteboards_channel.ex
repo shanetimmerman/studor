@@ -13,6 +13,13 @@ defmodule StudorWeb.WhiteboardsChannel do
         {:ok, %{"join" => session_id, "whiteboard" => Whiteboard.client_view(whiteboard)}, socket}
     end
 
+
+    def handle_in("add_user", %{"name" => name}, socket) do
+      broadcast(socket, "new_user", %{user: name})
+      {:noreply, socket}
+    end
+
+
     def handle_in("draw", %{"x" => x, "y" => y}, socket) do
       id = socket.assigns[:name]
       whiteboard = BackupAgent.get(id)

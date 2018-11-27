@@ -15,7 +15,7 @@ TODO:
 - Populate university dropdown with university data and add TypeAhead
     - Disabled until the above is chosen | populate course dropdown with courses related to the university add TypeAhead
 
-- Populate subject name dropdown with subject data and add TypeAhead 
+- Populate subject name dropdown with subject data and add TypeAhead
     - Disabled until the above is chosen |  populate topic dropdown with topic data and add TypeAhead
 
 */
@@ -33,6 +33,7 @@ class TutorSearchBar extends React.Component {
         this.props.fetchUniversities();
         this.props.fetchSubjects();
         this.props.fetchSubjectAreas();
+        this.props.fetchCourseSearch(1, '');
     }
 
     changeMode(resetForm) {
@@ -104,8 +105,8 @@ class TutorSearchBar extends React.Component {
             <Formik
                 initialValues={this.getInitialValues()}
                 onSubmit={(values, { setSubmitting }) => {
-                    console.log(this.state.searchMode)
-                    console.log(values)
+                    console.log(this.state.searchMode);
+                    console.log(values);
                     this.state.searchMode == COURSE_MODE ? this.props.fetchCourseSearch(values.university, values.name_query) : this.props.fetchSubjectSearch(values.topic_id)
                 }}>
                 {({ values, handleChange, handleSubmit, resetForm, }) => (

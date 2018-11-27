@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import SessionRequestFormContainer from '../../Containers/TutorSearch/SessionRequestFormContainer'
 
@@ -33,7 +32,7 @@ class TutorList extends React.Component {
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a className="dropdown-item" onClick={() => { alert("Show best match") }}>best match</a>
-                                    <a className="dropdown-item" onClick={() => { alert("Show most popular") }}>popularity</a>
+                                    <a className="dropdown-item" onClick={() => { alert("Show most popular") }}>rating</a>
                                     <a className="dropdown-item" onClick={() => { alert("Show highest gpa") }}>gpa</a>
                                 </div>
                             </div>
