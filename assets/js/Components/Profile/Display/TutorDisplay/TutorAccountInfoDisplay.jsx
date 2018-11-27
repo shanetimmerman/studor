@@ -15,6 +15,8 @@ function TutorAccountInfoDisplay(props) {
                 <p>{info.name}</p>
                 <h4> Email: </h4>
                 <p>{info.email}</p>
+                <h4> Bio: </h4>
+                <p>{info.bio}</p>
                 <h4> University: </h4>
                 <p>{info.university.name}</p>
                 <h4> GPA: </h4>

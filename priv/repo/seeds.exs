@@ -239,6 +239,9 @@ tb24e = DateTime.from_naive!(~N[2018-11-25T22:00:00], "Etc/UTC")
 #25 11/26 7am-10pm
 tb25s = DateTime.from_naive!(~N[2018-11-26T07:00:00], "Etc/UTC")
 tb25e = DateTime.from_naive!(~N[2018-11-26T22:00:00], "Etc/UTC")
+#25 11/26 7am-10pm
+tb26s = DateTime.from_naive!(~N[2018-11-26T07:00:00], "Etc/UTC")
+tb26e = DateTime.from_naive!(~N[2018-11-29T03:00:00], "Etc/UTC")
 
 #Time Blocks
 Repo.insert!(%TimeBlock{start_time: tb1s, end_time: tb1e})
@@ -264,18 +267,19 @@ Repo.insert!(%TimeBlock{start_time: tb20s, end_time: tb20e})
 Repo.insert!(%TimeBlock{start_time: tb21s, end_time: tb21e})
 Repo.insert!(%TimeBlock{start_time: tb22s, end_time: tb22e})
 Repo.insert!(%TimeBlock{start_time: tb23s, end_time: tb25e})
+Repo.insert!(%TimeBlock{start_time: tb26s, end_time: tb26e})
 
 #Tutors
-Repo.insert!(%Tutor{email: "raquel@gmail.com", name: "TRaquel Levy", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.8, university_id: 1})
-Repo.insert!(%Tutor{email: "alice@tutor.com", name: "TAlice Jones", password_hash: pwhash1, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 2.8, university_id: 2})
-Repo.insert!(%Tutor{email: "bob@tutor.com", name: "TBob Smith", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.9, university_id: 3})
-Repo.insert!(%Tutor{email: "joe@gmail.com", name: "TJoe Annis", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 4.0, university_id: 4})
-Repo.insert!(%Tutor{email: "shane@gmail.com", name: "TShane Timmerman", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.9, university_id: 5})
-Repo.insert!(%Tutor{email: "john@gmail.com", name: "TJohn Browm", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.5, university_id: 6})
-Repo.insert!(%Tutor{email: "sam@student.com", name: "TSam Peters", password_hash: pwhash1, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.6, university_id: 7})
-Repo.insert!(%Tutor{email: "janelle@example.com", name: "TJanelle Jackson", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 2.9, university_id: 8})
-Repo.insert!(%Tutor{email: "paula@gmail.com", name: "TPaula Santos", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.9, university_id: 9})
-Repo.insert!(%Tutor{email: "steve@gmail.com", name: "TSteve Fairfield", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.1, university_id: 10})
+Repo.insert!(%Tutor{email: "raquel@gmail.com", name: "Raquel Levy", bio: "I am a 3rd year CS student at NEU. My strengths are in fundamental CS courses, algorithms and data structures.", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.8, university_id: 1})
+Repo.insert!(%Tutor{email: "alice@tutor.com", name: "Alice Jones", bio: "Send me a message, I would love to help you out with any of the courses I teach", password_hash: pwhash1, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 2.8, university_id: 2})
+Repo.insert!(%Tutor{email: "bob@tutor.com", name: "Bob Smith", bio: "My availability is flexible. If none of these times work feel free to send a request with", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.9, university_id: 3})
+Repo.insert!(%Tutor{email: "joe@gmail.com", name: "Joe Annis", bio: "", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 4.0, university_id: 4})
+Repo.insert!(%Tutor{email: "shane@gmail.com", name: "Shane Timmerman", bio: "", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.9, university_id: 5})
+Repo.insert!(%Tutor{email: "john@gmail.com", name: "John Browm", bio: "", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.5, university_id: 6})
+Repo.insert!(%Tutor{email: "sam@student.com", name: "Sam Peters", bio: "", password_hash: pwhash1, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.6, university_id: 7})
+Repo.insert!(%Tutor{email: "janelle@example.com", name: "Janelle Jackson", bio: "", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 2.9, university_id: 8})
+Repo.insert!(%Tutor{email: "paula@gmail.com", name: "Paula Santos", bio: "", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.9, university_id: 9})
+Repo.insert!(%Tutor{email: "steve@gmail.com", name: "Steve Fairfield", bio: "", password_hash: pwhash2, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.1, university_id: 10})
 
 
 #Ratings
@@ -469,6 +473,7 @@ Repo.insert!(%TutoringSession{description: "I would like help editing my article
 Repo.insert!(%TutoringSession{description: "I would like some advice on my paper for my lit class", approved: false, tutor_id: 10, student_id: 2, time_block_id: 4, course_id: 4, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
 Repo.insert!(%TutoringSession{description: "I would like to review my orgo homework answers", approved: true, tutor_id: 3, student_id: 1, time_block_id: 23, course_id: 6, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
 Repo.insert!(%TutoringSession{description: "I would like general help with course concepts", approved: true, tutor_id: 3, student_id: 2, time_block_id: 23, course_id: 1, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
+Repo.insert!(%TutoringSession{description: "I would like general help with course concepts", approved: true, tutor_id: 1, student_id: 1, time_block_id: 24, course_id: 1, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
 
 #SessionFiles
 Repo.insert!(%SessionFile{file_url: "http://archives.math.utk.edu/visual.calculus/3/graphing.4/microcalc3.gif", tutoring_session_id: 4})

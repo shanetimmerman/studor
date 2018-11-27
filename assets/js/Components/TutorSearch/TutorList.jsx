@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import StarRatingComponent from 'react-star-rating-component';
 import SessionRequestFormContainer from '../../Containers/TutorSearch/SessionRequestFormContainer'
 
 class TutorList extends React.Component {
@@ -60,9 +61,14 @@ class TutorInfo extends React.Component {
             <div>
                 <div className="card shadow p-3 mb-4 bg-white rounded padding border-0">
                     <div className="card-body">
-                        <h5 className="card-title">{info.name + " | " + info.university.name}</h5>
-                        <h6 className="card-subtitle mb-2 text-primary">{_.map(info.subject_areas, (area) => area.name).join(", ")}</h6>
-                        <p className="card-text">Forgot to add tutor default messages to database :^).</p>
+                        <h3 className="d-inline card-title">{info.name}</h3>
+                        <div className="d-inline ml-3 pt-3">
+                            <StarRatingComponent className="align-bottom" name="rating_stars" starCount={5} value={info.average_rating}/>
+                        </div>
+                        <div className="d-inline mb-3">{"( " + info.num_ratings + " ratings )"}</div>
+                        <h5 className="card-subtitle mt-2 mb-2 text-secondary">{info.gpa + " GPA | " + info.university.name}</h5>
+                        <h6 className="card-subtitle mt-2 mb-2 text-primary">{_.map(info.subject_areas, (area) => area.name).join(", ")}</h6>
+                        <p className="card-text text-secondary mt-2">{info.bio}</p>
                         {/* <a href="#" className="card-link">Request Session</a> */}
                         <SessionRequestFormContainer tutorInfo={info} />
                     </div>

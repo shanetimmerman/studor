@@ -40,7 +40,7 @@ class EditTutorForm extends React.Component {
         if (this.state.edit) {
             return (
                 <Formik
-                    initialValues={{ name: info.name, email: info.email, university_id: info.university.id, gpa: info.gpa, paypal_email: info.paypal_email }}
+                    initialValues={{ name: info.name, email: info.email, bio: info.bio, university_id: info.university.id, gpa: info.gpa, paypal_email: info.paypal_email }}
                     onSubmit={(values) => {
                         this.toggleEdit();
                         this.props.onSubmit(values)
@@ -73,6 +73,16 @@ class EditTutorForm extends React.Component {
                                         onChange={handleChange}
                                         value={values.email}
                                     />
+
+                                    <label htmlFor="tutor_bio">Bio:</label>
+                                    <textarea
+                                        name="bio"
+                                        id="tutor_bio"
+                                        className="form-control bg-light border-0"
+                                        onChange={handleChange}
+                                        value={values.bio}
+                                    />
+
                                     <label className="mt-2" htmlFor="university">University:</label>
                                     <select
                                         id="univeristy"

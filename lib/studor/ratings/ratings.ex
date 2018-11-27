@@ -37,6 +37,28 @@ defmodule Studor.Ratings do
   """
   def get_rating!(id), do: Repo.get!(Rating, id)
 
+    @doc """
+  Gets a single rating.
+
+  Raises `Ecto.NoResultsError` if the Rating does not exist.
+
+  ## Examples
+
+      iex> get_rating!(123)
+      %Rating{}
+
+      iex> get_rating!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get(tutor_id) do
+    query = from rating in Studor.Ratings.Rating,
+    where: rating.tutor_id == ^tutor_id,
+    select: rating.stars
+
+    Repo.all(query)
+  end
+  
   @doc """
   Creates a rating.
 
