@@ -76,6 +76,7 @@ class CurrentMembers extends React.Component {
                 navigator.getUserMedia({ video: true, audio: true }, function (stream) {
                     let call = peer.call(other_id, stream);
                     call.on('stream', function (remoteStream) {
+                        console.log(remoteStream);
                         document.querySelector('#other-a').srcObject = remoteStream;
                         document.querySelector('#other-v').srcObject = remoteStream;
                     });
@@ -89,7 +90,9 @@ class CurrentMembers extends React.Component {
             onCall = true;
             navigator.getUserMedia({ video: true, audio: true }, function (stream) {
                 call.answer(stream);
+                console.log("answered call")
                 call.on('stream', function (remoteStream) {
+                    console.log(remoteStream)
                     document.querySelector('#other-a').srcObject = remoteStream;
                     document.querySelector('#other-v').srcObject = remoteStream;
                 });
