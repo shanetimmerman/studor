@@ -32,9 +32,6 @@ class EditTutorForm extends React.Component {
     }
 
     render() {
-        // console.log('user info')
-        // console.log(this.props.user.user_info)
-        // console.log(this.props)
         let info = this.props.user.user_info;
 
         if (this.state.edit) {
@@ -44,9 +41,20 @@ class EditTutorForm extends React.Component {
                     onSubmit={(values) => {
                         this.toggleEdit();
                         this.props.onSubmit(values)
+                    }}
+                    validate={(values) => {
+                        let errors = {};
+                        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                            errors.email = 'Email addresses must include a . before a domain name.';
+                        }
+
+                        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.paypal_email)) {
+                            errors.paypal_email = 'Email addresses must include a . before a domain name.';
+                        }
+                        return errors;
                     }}>
 
-                    {({ values, handleChange, handleSubmit, setValues }) => (
+                    {({ values, handleChange, handleSubmit, errors, touched, setValues }) => (
                         <form onSubmit={handleSubmit}>
                             {console.log("values")}
                             {console.log(values)}
@@ -75,6 +83,7 @@ class EditTutorForm extends React.Component {
                                         value={values.email}
                                         required
                                     />
+                                    {errors.email && touched.email && <p className="text-danger"> {errors.email} </p>}
 
                                     <label htmlFor="tutor_bio">Bio:</label>
                                     <textarea
@@ -120,9 +129,11 @@ class EditTutorForm extends React.Component {
                                         value={values.paypal_email}
                                         required
                                     />
+                                    {errors.paypal_email && touched.paypal_email && <p className="text-danger"> {errors.paypal_email} </p>}
 
-                                <button type="submit" className="btn btn-sm btn-success"> Save changes </button>
-                                <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+
+                                    <button type="submit" className="btn btn-sm btn-success"> Save changes </button>
+                                    <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
 
                                 </div>
                             </div>
