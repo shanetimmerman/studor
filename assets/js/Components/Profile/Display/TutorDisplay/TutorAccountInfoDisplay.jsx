@@ -42,7 +42,7 @@ function TutorAccountInfoDisplay(props) {
                 </div>
 
                 <div className="p-2">
-                    <button onClick={props.onEditButton} className="btn-sm btn-primary">Edit profile</button>
+                    <button onClick={props.onEditButton} className="btn btn-primary">Edit profile</button>
                 </div>
             </div>
         </div>

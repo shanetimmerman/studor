@@ -34,7 +34,9 @@ class Root extends React.Component {
     return <div>
       <Router>
         <div>
-          <HeaderContainer />
+          <div className="shadow mb-5 bg-light rounded">
+            <HeaderContainer className="shadow" />
+          </div>
           <div className="row">
             <div className="col-12">
               <Route path="/" exact={true} render={() =>

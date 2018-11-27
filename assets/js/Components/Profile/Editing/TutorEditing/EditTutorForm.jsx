@@ -131,9 +131,13 @@ class EditTutorForm extends React.Component {
                                     />
                                     {errors.paypal_email && touched.paypal_email && <p className="text-danger"> {errors.paypal_email} </p>}
 
-                                    <div className="p-2">
-                                        <button type="submit" className="btn btn-sm btn-success"> Save changes </button>
-                                        <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+                                    <div className="row">
+                                        <div className="p-1">
+                                            <button type="submit" className="btn btn-sm btn-primary"> Save changes </button>
+                                        </div>
+                                        <div className="p-1">
+                                            <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

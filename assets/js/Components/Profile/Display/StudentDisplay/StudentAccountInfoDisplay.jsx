@@ -24,7 +24,7 @@ function StudentAccountInfoDisplay(props) {
                 </div>
 
                 <div className="mt-2 p-2">
-                    <button onClick={props.onEditButton} className="btn-sm btn-primary">Edit profile</button>
+                    <button onClick={props.onEditButton} className="btn btn-primary">Edit profile</button>
                 </div>
             </div>
         </div>

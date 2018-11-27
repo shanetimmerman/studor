@@ -54,7 +54,7 @@ class AddAvailabilityForm extends React.Component {
 
                                 <div className="row">
                                     <div className="p-1">
-                                        <button type="submit" className="btn-primary btn-sm"> Add Availability </button>
+                                        <button type="submit" className="btn btn-primary btn-sm"> Add Availability </button>
                                     </div>
                                     <div className="p-1">
                                         <button onClick={this.toggleOpen} className="btn-danger btn-sm"> Cancel </button>

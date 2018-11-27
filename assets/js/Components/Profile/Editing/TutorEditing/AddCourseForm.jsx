@@ -60,7 +60,15 @@ class AddCourseForm extends React.Component {
                                 }}
                                 options={this.formatCourseOptions(this.props.user.user_info.university.id)}
                             />
-                            <button type="submit" className="btn-primary btn-small"> add course </button>
+
+                            <div className="row">
+                                <div className="p-1">
+                                    <button type="submit" className="btn btn-primary btn-sm"> Add Course </button>
+                                </div>
+                                <div className="p-1">
+                                    <button onClick={this.toggleOpen} className="btn-danger btn-sm"> Cancel </button>
+                                </div>
+                            </div>
                         </form>
                     )}
                 </Formik>

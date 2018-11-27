@@ -14,11 +14,11 @@ function Header(props) {
                         </div>
 
                         <div className="col-2 pt-2">
-                              <p><Link to={"/sessions"} className="text-white">My Sessions</Link></p>
+                              <p><Link to={"/sessions"} className="text-white font-weight-bold text-lg-left">My Sessions</Link></p>
                         </div>
 
                         <div className="col-2 pt-2">
-                              <p><Link to={"/profile"} className="text-white">My Profile</Link></p>
+                              <p><Link to={"/profile"} className="text-white font-weight-bold text-lg-left">My Profile</Link></p>
                         </div>
 
                         <div className="col-1 pt-1">

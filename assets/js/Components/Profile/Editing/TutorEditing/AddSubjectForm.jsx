@@ -53,8 +53,14 @@ class AddSubjectForm extends React.Component {
                                     if (selected[0]) { setValues(_.assign(values, { subject_area_id: selected[0].id })); }
                                 }}
                                 options={this.formatSubjectOptions()} />
-
-                            <button type="submit"> add subject area </button>
+                            <div className="row">
+                                <div className="p-1">
+                                    <button type="submit" className="btn btn-primary btn-sm"> Add Subject Area </button>
+                                </div>
+                                <div className="p-1">
+                                    <button onClick={this.toggleOpen} className="btn-danger btn-sm"> Cancel </button>
+                                </div>
+                            </div>
                         </form>
                     )}
                 </Formik>
