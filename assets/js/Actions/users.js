@@ -240,16 +240,16 @@ export function addTutorSubjectArea(values) {
             }
 
         }
-        );
+    );
 
-        request.fail(
-            (resp) => store.dispatch(
-                {
-                    type: ADD_TUTOR_SUBJECT_AREA_FAILED,
-                    payload: resp.responseText
-                }
-            )
-        );
+    request.fail(
+        (resp) => store.dispatch(
+            {
+                type: ADD_TUTOR_SUBJECT_AREA_FAILED,
+                payload: resp.responseText
+            }
+        )
+    );
 
 }
 
@@ -266,9 +266,13 @@ export function addTutorAvailability(values) {
 
     postAjax('/api/v1/time_blocks/', { time_block: values },
         (resp) => {
+            console.log("timeblock")
+            console.log(resp)
             let time_id = resp.data.id;
             postAjax('/api/v1/tutor_availabilities/', { tutor_availability: { time_block_id: time_id, tutor_id: id } },
                 (resp) => {
+                    console.log("tavailabilty")
+                    console.log(resp)
                     fetchTutorInfo(id);
                 });
         });

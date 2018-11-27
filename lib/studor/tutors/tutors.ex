@@ -179,7 +179,7 @@ defmodule Studor.Tutors do
     query = from timeblock in Studor.TimeBlocks.TimeBlock,
     join: tutor_avail in Studor.TutorAvailabilities.TutorAvailability,
     where: tutor_avail.tutor_id == ^tutor_id and tutor_avail.time_block_id == timeblock.id,
-    select: %{:end => timeblock.end_time, :start => timeblock.start_time, :tutor_availability_id => tutor_avail.id, :timeblock_id => timeblock.id}
+    select: %{:end => timeblock.end_time, :start => timeblock.start_time, :tutor_availability_id => tutor_avail.id, :time_block_id => timeblock.id}
 
     Repo.all(query)
   end

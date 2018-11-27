@@ -18,16 +18,19 @@ class SessionRequestForm extends React.Component {
     render() {
         if (this.state.isOpen) {
             let info = this.props.tutorInfo;
+            console.log("info")
             console.log(info)
 
             let availability = _.map(info.availabilities,
                 (availability) => {
                     let start = new Date(availability.start).toLocaleString();
                     let end = new Date(availability.end).toLocaleTimeString();
-                    return (<option key={availability.tutor_availability_id} value={availability.tutor_availability_id}>
+                    return (<option key={availability.tutor_availability_id} value={availability.time_block_id}>
                         {start + " to " + end}
                     </option>);
                 });
+
+
 
             return (
                 <ReactModal
@@ -59,7 +62,7 @@ class SessionRequestForm extends React.Component {
                             bottom: '0px',
                         }
                     }}>
-                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: null, time_block_id: info.availabilities[0].tutor_availability_id, session_files: [] }}
+                    <Formik initialValues={{ tutor_id: info.id, student_id: this.props.currentUser.user_id, description: null, time_block_id: info.availabilities[0].time_block_id, session_files: [] }}
                         onSubmit={(values, { setSubmitting }) => {
                             let session = { tutor_id: values.tutor_id, student_id: values.student_id, description: values.description, time_block_id: values.time_block_id, approved: false }
                             console.log(session)
@@ -75,6 +78,7 @@ class SessionRequestForm extends React.Component {
                         }}>
                         {({ values, errors, touched, handleChange, handleSubmit, setValues }) => (
                             <form onSubmit={handleSubmit}>
+                                {console.log(values)}
                                 <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
                                     <div className="card-body">
                                         <div className="d-flex ">

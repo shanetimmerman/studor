@@ -37,7 +37,7 @@ defmodule StudorWeb.TutoringSessionController do
     tutor = Tutors.get_tutor!(tutoring_session_params["tutor_id"])
     tutor_paypal_email = tutor.paypal_email
     time_block = TimeBlocks.get_time_block!(tutoring_session_params["time_block_id"])
-    price = Time.diff(time_block.end_time, time_block.start_time, :second) / 180
+    price = Kernel.round(Time.diff(time_block.end_time, time_block.start_time, :second) / 180)
     confirm_url = "http://stutor.raquel-webdev.com/from_paypal?#{URI.encode_query(tutoring_session_params)}"
     cancel_url = "http://stutor.raquel-webdev.com"
     with {:ok, resp} = Paypal.pay(token["access_token"], tutor_paypal_email, price, confirm_url, cancel_url) do
