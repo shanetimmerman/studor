@@ -5,7 +5,7 @@
 }
 
 .img-fluid {
-    height: 100%;
+    height: auto;
 }
 
 .full-height {
@@ -16,6 +16,10 @@
     overflow: hidden;
 }
 
+html {
+    min-height: 100% !important;
+}
+
 body {
-    background-color: #F8F9FA
+    background-color: #F8F9FA;
 }

@@ -50,10 +50,13 @@ defmodule Studor.Students do
 
   """
   def create_student(attrs \\ %{}) do
+    attrs = Map.put(attrs, "password_hash", Argon2.hash_pwd_salt(attrs["password_hash"]))
+
     %Student{}
     |> Student.changeset(attrs)
     |> Repo.insert()
   end
+
 
   @doc """
   Updates a student.
