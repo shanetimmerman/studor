@@ -6,12 +6,40 @@ import SessionRequestFormContainer from '../../Containers/TutorSearch/SessionReq
 class TutorList extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            mode: "rating",
+        }
+    }
+
+    sort_rating(tutors) {
+        let sorted_tutors = _.orderBy(tutors, ['average_rating'], ['desc'])
+        return sorted_tutors;
+    }
+
+    sort_gpa(tutors) {
+        let sorted_tutors = _.orderBy(tutors, ['gpa'], ['desc'])
+        return sorted_tutors;
+    }
+
+    rating_sort() {
+        this.setState({ mode: "rating" });
+    }
+
+    gpa_sort() {
+        this.setState({ mode: "gpa" });
     }
 
     render() {
-        console.log("search results")
-        console.log(this.props.searchResults)
-        let tutors1 = _.map(this.props.searchResults, (tutor) => <TutorInfo tutorInfo={tutor} key={tutor.id} />);
+        let sorted = this.props.searchResults;
+
+        if(this.state.mode == "rating") {
+            sorted = this.sort_rating(sorted);
+        } else {
+            sorted = this.sort_gpa(sorted);
+        }
+
+        let tutors1 = _.map(sorted, (tutor) => <TutorInfo tutorInfo={tutor} key={tutor.id} />);
 
         return <div>
             <div className="row mb-3">
@@ -28,13 +56,12 @@ class TutorList extends React.Component {
                             <label>sort by:</label>
                             <div className="dropdown">
                                 <a className="btn dropdown-toggle text-primary" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    popularity
+                                    {this.state.mode}
                                     </a>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <a className="dropdown-item" onClick={() => { alert("Show best match") }}>best match</a>
-                                    <a className="dropdown-item" onClick={() => { alert("Show most popular") }}>rating</a>
-                                    <a className="dropdown-item" onClick={() => { alert("Show highest gpa") }}>gpa</a>
+                                    <a className="dropdown-item" onClick={this.rating_sort.bind(this)}>rating</a>
+                                    <a className="dropdown-item" onClick={this.gpa_sort.bind(this)}>gpa</a>
                                 </div>
                             </div>
                         </div>
