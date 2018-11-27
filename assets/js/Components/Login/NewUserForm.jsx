@@ -24,7 +24,7 @@ class NewUserForm extends React.Component {
         return (_.map(this.props.universities, (university) => { return (<option key={university.id} value={university.id}> {university.name} </option>) }));
     }
 
-    renderAccountInfo(values, errors, touched, handleChange, setValues) {
+    renderAccountInfo(values, handleChange, setValues, errors, touched) {
         return (
             <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
                 <div className="card-body">
@@ -91,7 +91,7 @@ class NewUserForm extends React.Component {
         )
     }
 
-    renderTutorInfo(values, handleChange) {
+    renderTutorInfo(values, handleChange, errors, touched) {
         return (
             <div>
                 <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
@@ -174,7 +174,7 @@ class NewUserForm extends React.Component {
                     }
                     return errors;
                 }}>
-                {({ values, handleSubmit, handleChange, setValues }) => (
+                {({ values, errors, handleSubmit, touched, handleChange, setValues }) => (
                     < form onSubmit={handleSubmit}>
                         {console.log(values)}
                         {this.renderAccountInfo(values, handleChange, setValues, errors, touched)}
