@@ -69,11 +69,12 @@ class TutorSearchBar extends React.Component {
         );
     }
 
-    renderSubjectSearch(values, handleChange, handleSubmit, resetForm) {
+    renderSubjectSearch(values, handleChange, handleSubmit, setValues, resetForm) {
         let subjectOptions = _.map(this.props.subjects, (subject) => { return (<option key={subject.id} value={subject.id} > {subject.subject} </option >) });
         let topicOptions = [];
         _.each(this.props.subjectAreas, (area) => { if (area.subject == values.subject_id) topicOptions.push(<option key={area.id} value={area.id} > {area.subject_area} </option >) });
-        if (topicOptions[0]) { values.topic_id = topicOptions[0].props.value }
+        // If the current topic_id isn't in the list of subjects, change it to the first of the new topic options list
+        if (topicOptions[0] && !_.find(topicOptions, (option) => values.topic_id == option.props.value)) { values.topic_id = topicOptions[0].props.value }
 
         return (
             <div className="input-group mb-3">
@@ -108,9 +109,11 @@ class TutorSearchBar extends React.Component {
                     console.log(values)
                     this.state.searchMode == COURSE_MODE ? this.props.fetchCourseSearch(values.university, values.name_query) : this.props.fetchSubjectSearch(values.topic_id)
                 }}>
-                {({ values, handleChange, handleSubmit, resetForm, }) => (
+                {({ values, handleChange, handleSubmit, setValues, resetForm, }) => (
                     <form onSubmit={handleSubmit}>
-                        {this.state.searchMode == COURSE_MODE ? this.renderCourseBar(values, handleChange, handleSubmit, resetForm) : this.renderSubjectSearch(values, handleChange, handleSubmit, resetForm)}
+                        {console.log(this.state.searchMode)}
+                        {console.log(values)}
+                        {this.state.searchMode == COURSE_MODE ? this.renderCourseBar(values, handleChange, handleSubmit, resetForm) : this.renderSubjectSearch(values, handleChange, handleSubmit, setValues, resetForm)}
                     </form>
                 )}
             </Formik>);

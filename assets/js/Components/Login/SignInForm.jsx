@@ -13,7 +13,6 @@ class SignInForm extends React.Component {
 
   render() {
     let error = this.props.user.error;
-    console.log(error)
     return (
       <div>
         <Formik
