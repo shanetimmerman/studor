@@ -8,7 +8,7 @@ class LoginRegisterPage extends React.Component {
     }
 
     render() {
-        return (<div className="row padding mb-3 bg-light">
+        return (<div className="row p-0 mb-3 bg-light">
             <div className="col-md-6 p-5">
                 <div className="mt-2 mb-5">
                     <h1 className="text-primary">Hi there, welcome to Stutor</h1>
@@ -17,7 +17,8 @@ class LoginRegisterPage extends React.Component {
                 <SignInFormContainer />
             </div>
             <div className="col-md-6">
-                <img src="http://myivyexperience.com/fabivy/wp-content/uploads/2017/04/my-ivy-experience-online-tutoring.jpg" className="img-fluid" alt="Responsive image" />
+                {/* Attribution: https://dribbble.com/shots/3832528-Hello-DRIBBBLE */}
+                <img className="img-fluid" src="https://cdn.dribbble.com/users/1973532/screenshots/5059462/attachments/1124110/illustration_students.png" alt="Responsive image" />
             </div>
         </div>);
     }

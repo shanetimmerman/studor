@@ -38,8 +38,8 @@ defmodule StudorWeb.TutoringSessionController do
     tutor_paypal_email = tutor.paypal_email
     time_block = TimeBlocks.get_time_block!(tutoring_session_params["time_block_id"])
     price = Time.diff(time_block.end_time, time_block.start_time, :second) / 180
-    confirm_url = "http://localhost:4000/from_paypal?#{URI.encode_query(tutoring_session_params)}"
-    cancel_url = "http://localhost:4000"
+    confirm_url = "http://stutor.raquel-webdev.com/from_paypal?#{URI.encode_query(tutoring_session_params)}"
+    cancel_url = "http://stutor.raquel-webdev.com"
     with {:ok, resp} = Paypal.pay(token["access_token"], tutor_paypal_email, price, confirm_url, cancel_url) do
       path = Enum.find(resp["links"], fn(element) ->
         match?(%{"method" => "REDIRECT"}, element) end)["href"]
