@@ -47,7 +47,7 @@ class EditStudentForm extends React.Component {
                                             id="accountname"
                                             className="form-control bg-light mb-3 border-0"
                                             onChange={handleChange}
-                                            value={values.name} />
+                                            value={values.name} required />
 
                                         <label htmlFor="accountemail">Email:</label>
                                         <input
@@ -57,6 +57,7 @@ class EditStudentForm extends React.Component {
                                             className="form-control bg-light mb-3 border-0"
                                             onChange={handleChange}
                                             value={values.email}
+                                            required
                                         />
 
                                         <button type="submit" className="btn btn-sm btn-success">Save changes</button>
