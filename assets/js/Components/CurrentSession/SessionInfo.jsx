@@ -63,10 +63,10 @@ class CurrentMembers extends React.Component {
         let other_id = null;
 
         if (user.user_type == "TUTOR") {
-            peer = new Peer(tid, { key: 'lwjd5qra8257b9', port: 443 });
+            peer = new Peer(tid, { key: 'lwjd5qra8257b9', port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] } });
             other_id = sid;
         } else {
-            peer = new Peer(sid, { key: 'lwjd5qra8257b9', port: 443 });
+            peer = new Peer(sid, { key: 'lwjd5qra8257b9', port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] } });
             other_id = tid;
         }
 
