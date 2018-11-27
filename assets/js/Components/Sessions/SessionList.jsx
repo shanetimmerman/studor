@@ -181,7 +181,7 @@ class SessionInfo extends React.Component {
                         </div>
 
                     </div>
-                    <h6 className="card-subtitle mb-2 text-primary"> {"date: " + start.toLocaleDateString() + "time: " + start.toLocaleTimeString() + " - " + end.toLocaleTimeString()}</h6>
+                    <h6 className="card-subtitle mb-2 text-primary"> {start.toLocaleDateString() + " from " + start.toLocaleTimeString() + " to " + end.toLocaleTimeString()}</h6>
                     <p className="card-subtitle mb-2 text-secondary"> {info.approved ? "approved" : "pending"}</p>
                     <p className="card-text">{info.description}</p>
                 </div>

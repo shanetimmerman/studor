@@ -11,18 +11,35 @@ function TutorAccountInfoDisplay(props) {
         <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
             <div className="card-body">
                 <h3 className="card-title text-primary">Account Information</h3>
-                <h4> Name: </h4>
-                <p>{info.name}</p>
-                <h4> Email: </h4>
-                <p>{info.email}</p>
-                <h4> Bio: </h4>
-                <p>{info.bio}</p>
-                <h4> University: </h4>
-                <p>{info.university.name}</p>
-                <h4> GPA: </h4>
-                <p>{info.gpa}</p>
-                <h4> Paypal Email: </h4>
-                <p>{info.paypal_email}</p>
+                <div className="p-2">
+                    <h5 className="d-inline"> Name: </h5>
+                    <p className="d-inline">{info.name}</p>
+                </div>
+
+                <div className="p-2">
+                    <h5 className="d-inline"> Email: </h5>
+                    <p className="d-inline">{info.email}</p>
+                </div>
+
+                <div className="p-2">
+                    <h5 className="d-inline"> Bio: </h5>
+                    <p className="d-inline">{info.bio}</p>
+                </div>
+
+                <div className="p-2">
+                    <h5 className="d-inline"> University: </h5>
+                    <p className="d-inline">{info.university.name}</p>
+                </div>
+
+                <div className="p-2">
+                    <h5 className="d-inline"> GPA: </h5>
+                    <p className="d-inline">{info.gpa}</p>
+                </div>
+
+                <div className="p-2">
+                    <h5 className="d-inline"> Paypal Email: </h5>
+                    <p className="d-inline">{info.paypal_email}</p>
+                </div>
             </div>
         </div>
     )

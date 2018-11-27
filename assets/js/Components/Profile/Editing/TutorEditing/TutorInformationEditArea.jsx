@@ -41,19 +41,24 @@ class TutorInformationEditArea extends React.Component {
             <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
                 <div className="card-body">
                     <h3 className="card-title text-primary">Tutoring Information</h3>
-                    <div className="col">
-
-                        <h2> Courses: </h2>
+                    <div className="row">
+                    <div className="col-md-3">
+                        <h5 className="mt-2"> Courses: </h5>
                         <CourseList removeItem={this.removeCourse} values={info.courses} />
                         <AddCourseFormContainer />
+                    </div>
 
-                        <h2> Subjects: </h2>
+                    <div className="col-md-3">
+                        <h5 className="mt-2"> Subjects: </h5>
                         <SubjectList removeItem={this.removeSubjectArea} values={info.subject_areas} />
-                        <AddSubjectFormContainer />
+                        <AddSubjectFormContainer />                    
+                    </div>
 
-                        <h2> Availability: </h2>
+                    <div className="col-md-6">
+                        <h5 className="mt-2"> Availability: </h5>
                         <AvailabilityList removeItem={this.removeTutorAvailability} values={info.availabilities} />
                         <AddAvailabilityFormContainer />
+                    </div>
                     </div>
                 </div>
             </div>
@@ -83,9 +88,9 @@ class CourseList extends React.Component {
 
 function Course(props) {
     return (
-        <div className="row">
-            <p> {props.item.name} </p>
-            <button type="button" onClick={() => { props.removeItem(props.item) }} className="btn btn-danger"> Remove {props.label} </button>
+        <div>
+            <p className="d-inline"> {props.item.name} </p>
+            <button onClick={() => { props.removeItem(props.item) }} className="btn btn-link text-danger d-inline"> x </button>
         </div>
     )
 }
@@ -114,9 +119,9 @@ class SubjectList extends React.Component {
 
 function Subject(props) {
     return (
-        <div className="row">
-            <p> {props.item.name} </p>
-            <button type="button" onClick={() => { props.removeItem(props.item) }} className="btn btn-danger"> Remove {props.label} </button>
+        <div >
+            <p className="d-inline"> {props.item.name} </p>
+            <button type="button" onClick={() => { props.removeItem(props.item) }} className="btn btn-link text-danger d-inline"> x </button>
         </div>
     )
 }
@@ -143,10 +148,10 @@ class AvailabilityList extends React.Component {
 
 function Availability(props) {
     return (
-        <div className="row">
-            <p> Start: {props.item.start.toLocaleString()}</p>
-            <p> End: {props.item.end.toLocaleString()}</p>
-            <button type="button" onClick={() => { props.removeItem(props.item) }} className="btn btn-danger"> Remove {props.label} </button>
+        <div>
+            <p className="d-inline"> {props.item.start.toLocaleString()}</p>
+            <p className="d-inline"> to {props.item.end.toLocaleString()}</p>
+            <button type="button" onClick={() => { props.removeItem(props.item) }} className="btn btn-link text-danger d-inline"> x </button>
         </div>
     )
 }
