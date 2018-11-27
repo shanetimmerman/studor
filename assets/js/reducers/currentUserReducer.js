@@ -27,8 +27,9 @@ export default function (state = INITIAL_STATE, action) {
         case LOGOUT_USER:
             return Object.assign({}, state, INITIAL_STATE);
         case LOGIN_USER_SUCCESS:
-            return Object.assign({}, state, { user_id: action.payload.user_id, token: action.payload.token, user_type: action.payload.user_type, logged_in: true })
+            return Object.assign({}, state, { error: null, user_id: action.payload.user_id, token: action.payload.token, user_type: action.payload.user_type, logged_in: true })
         case LOGIN_USER_FAILED:
+            console.log(action.payload)
             return Object.assign({}, state, { user_id: null, token: null, user_type: null, error: action.payload, logged_in: false });
         default:
             return state;

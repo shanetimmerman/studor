@@ -31,15 +31,25 @@ class TutorList extends React.Component {
     }
 
     render() {
+        console.log("search results")
+        console.log(this.props.searchResults)
+
         let sorted = this.props.searchResults;
 
-        if(this.state.mode == "rating") {
+        if (this.state.mode == "rating") {
             sorted = this.sort_rating(sorted);
         } else {
             sorted = this.sort_gpa(sorted);
         }
 
-        let tutors1 = _.map(sorted, (tutor) => <TutorInfo tutorInfo={tutor} key={tutor.id} />);
+        let tutors1 = [];
+
+        _.each(sorted,
+            (tutor) => {
+                if (tutor.availabilities.length != 0) {
+                    tutors1.push(<TutorInfo tutorInfo={tutor} key={tutor.id} />)
+                }
+            });
 
         return <div>
             <div className="row mb-3">
@@ -57,7 +67,7 @@ class TutorList extends React.Component {
                             <div className="dropdown">
                                 <a className="btn dropdown-toggle text-primary" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     {this.state.mode}
-                                    </a>
+                                </a>
 
                                 <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                     <a className="dropdown-item" onClick={this.rating_sort.bind(this)}>rating</a>
@@ -82,15 +92,13 @@ class TutorInfo extends React.Component {
 
     render() {
         let info = this.props.tutorInfo;
-        console.log(info)
-
         return (
             <div>
                 <div className="card shadow p-3 mb-4 bg-white rounded padding border-0">
                     <div className="card-body">
                         <h3 className="d-inline card-title">{info.name}</h3>
                         <div className="d-inline ml-3 pt-3">
-                            <StarRatingComponent className="align-bottom" name="rating_stars" starCount={5} value={info.average_rating}/>
+                            <StarRatingComponent className="align-bottom" name="rating_stars" starCount={5} value={info.average_rating} />
                         </div>
                         <div className="d-inline mb-3">{"( " + info.num_ratings + " ratings )"}</div>
                         <h5 className="card-subtitle mt-2 mb-2 text-secondary">{info.gpa + " GPA | " + info.university.name}</h5>

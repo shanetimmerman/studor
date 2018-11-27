@@ -4,7 +4,7 @@ import { loginUser } from '../../Actions/users'
 
 function mapStateToProps(state) {
     return {
-
+        user: state.currentUser
     }
 }
 
