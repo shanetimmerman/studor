@@ -12,7 +12,7 @@ class LoginRegisterPage extends React.Component {
             <div className="col-md-6 p-5">
                 <div className="mt-2 mb-5">
                     <h1 className="text-primary">Hi there, welcome to Stutor</h1>
-                    <h5 className="text-secondary"> This is a short description of the app</h5>
+                    <h5 className="text-secondary"> Find students to tutor you, or tutor others.</h5>
                 </div>
                 <SignInFormContainer />
             </div>

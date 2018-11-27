@@ -60,7 +60,7 @@ class EditTutorForm extends React.Component {
                                         type="text"
                                         name="name"
                                         id="accountname"
-                                        className="form-control bg-light border-0"
+                                        className="form-control bg-light mb-3 border-0"
                                         onChange={handleChange}
                                         value={values.name} />
 
@@ -69,7 +69,7 @@ class EditTutorForm extends React.Component {
                                         type="email"
                                         name="email"
                                         id="accountemail"
-                                        className="form-control bg-light border-0"
+                                        className="form-control bg-light mb-3 border-0"
                                         onChange={handleChange}
                                         value={values.email}
                                     />
@@ -78,7 +78,7 @@ class EditTutorForm extends React.Component {
                                     <textarea
                                         name="bio"
                                         id="tutor_bio"
-                                        className="form-control bg-light border-0"
+                                        className="form-control bg-light mb-3 border-0"
                                         onChange={handleChange}
                                         value={values.bio}
                                     />
@@ -89,7 +89,7 @@ class EditTutorForm extends React.Component {
                                         name="university_id"
                                         onChange={handleChange}
                                         value={values.university_id}
-                                        className="form-control border-0 bg-light">
+                                        className="form-control border-0 mb-3 bg-light">
                                         {this.renderUniversityOptions()}
                                     </select>
 
@@ -102,7 +102,7 @@ class EditTutorForm extends React.Component {
                                             min="0"
                                             max="5"
                                             step='.1'
-                                            className="form-control bg-light border-0"
+                                            className="form-control bg-light mb-3 border-0"
                                             onChange={handleChange}
                                             value={values.gpa} />
                                     </div>
@@ -112,7 +112,7 @@ class EditTutorForm extends React.Component {
                                         type="email"
                                         name="paypal_email"
                                         id="paypalemail"
-                                        className="form-control bg-light border-0"
+                                        className="form-control bg-light mb-3 border-0"
                                         onChange={handleChange}
                                         value={values.paypal_email}
                                     />

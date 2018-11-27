@@ -39,13 +39,13 @@ class EditStudentForm extends React.Component {
                                 {/* Account stuff */}
                                 <div className="card shadow p-3 mb-5 bg-white rounded padding border-0">
                                     <div className="card-body">
-                                        <h3 className="card-title text-primary">Account Information</h3>
+                                        <h3 className="card-title text-primary mb-3">Account Information</h3>
                                         <label htmlFor="accountname">Name:</label>
                                         <input
                                             type="text"
                                             name="name"
                                             id="accountname"
-                                            className="form-control bg-light border-0"
+                                            className="form-control bg-light mb-3 border-0"
                                             onChange={handleChange}
                                             value={values.name} />
 
@@ -54,7 +54,7 @@ class EditStudentForm extends React.Component {
                                             type="email"
                                             name="email"
                                             id="accountemail"
-                                            className="form-control bg-light border-0"
+                                            className="form-control bg-light mb-3 border-0"
                                             onChange={handleChange}
                                             value={values.email}
                                         />

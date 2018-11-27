@@ -44,13 +44,13 @@ class TutorList extends React.Component {
         return <div>
             <div className="row mb-3">
                 <div className="col-md-3">
-                    {this.props.searchResults.length + " results"}
+                    {this.props.searchResults.length + " result(s)"}
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-7">
 
                 </div>
 
-                <div className="col-md-3">
+                <div className="col-md-2">
                     <form className="form-inline">
                         <div className="text-right form-group">
                             <label>sort by:</label>
