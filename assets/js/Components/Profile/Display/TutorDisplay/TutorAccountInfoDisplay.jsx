@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
- * @param {*} props 
+ * @param {*} props
  */
 function TutorAccountInfoDisplay(props) {
     let info = props.user.user_info;
@@ -39,6 +39,10 @@ function TutorAccountInfoDisplay(props) {
                 <div className="p-2">
                     <h5 className="d-inline"> Paypal Email: </h5>
                     <p className="d-inline">{info.paypal_email}</p>
+                </div>
+
+                <div className="p-2">
+                    <button onClick={props.onEditButton} className="btn-sm btn-primary">Edit profile</button>
                 </div>
             </div>
         </div>
