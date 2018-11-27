@@ -3,6 +3,7 @@ import _ from 'lodash';
 import Peer from 'peerjs';
 import store from '../../store';
 import RatingForm from '../CurrentSession/RatingForm'
+import $ from 'jquery'
 
 class SessionInfo extends React.Component {
     constructor(props) {
@@ -78,11 +79,14 @@ class CurrentMembers extends React.Component {
                     call.on('stream', function (remoteStream) {
                         console.log(remoteStream);
 
-                        console.log(document.querySelector('#other-a'))
-                        console.log(document.querySelector('#other-v'))
+                        $('#other-a').prop('src', URL.createObjectURL(remoteStream))
+                        $('#other-v').prop('src', URL.createObjectURL(remoteStream))
 
-                        document.querySelector('#other-a').srcObject = remoteStream;
-                        document.querySelector('#other-v').srcObject = remoteStream;
+                        console.log($('#other-a'));
+                        console.log($('#other-v'));
+
+                        // document.querySelector('#other-a').srcObject = remoteStream;
+                        // document.querySelector('#other-v').srcObject = remoteStream;
                     });
                 }, function (err) {
                     console.log('Failed to get local stream', err);
@@ -97,8 +101,11 @@ class CurrentMembers extends React.Component {
                 console.log("answered call")
                 call.on('stream', function (remoteStream) {
                     console.log(remoteStream)
-                    document.querySelector('#other-a').srcObject = remoteStream;
-                    document.querySelector('#other-v').srcObject = remoteStream;
+                    $('#other-a').prop('src', URL.createObjectURL(remoteStream))
+                    $('#other-v').prop('src', URL.createObjectURL(remoteStream))
+
+                    console.log($('#other-a'));
+                    console.log($('#other-v'));
                 });
             }, function (err) {
                 console.log('Failed to get local stream', err);
