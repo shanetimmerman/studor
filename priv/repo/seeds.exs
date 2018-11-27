@@ -265,6 +265,9 @@ tb29e = DateTime.from_naive!(~N[2018-11-22T12:00:00], "Etc/UTC")
 tb30s = DateTime.from_naive!(~N[2018-11-22T07:00:00], "Etc/UTC")
 tb30e = DateTime.from_naive!(~N[2018-11-22T09:00:00], "Etc/UTC")
 
+tb31s = DateTime.from_naive!(~N[2018-11-26T07:00:00], "Etc/UTC")
+tb31e = DateTime.from_naive!(~N[2018-11-30T09:00:00], "Etc/UTC")
+
 #Time Blocks
 Repo.insert!(%TimeBlock{start_time: tb1s, end_time: tb1e})
 Repo.insert!(%TimeBlock{start_time: tb2s, end_time: tb2e})
@@ -296,6 +299,8 @@ Repo.insert!(%TimeBlock{start_time: tb27s, end_time: tb27e})
 Repo.insert!(%TimeBlock{start_time: tb28s, end_time: tb28e})
 Repo.insert!(%TimeBlock{start_time: tb29s, end_time: tb29e})
 Repo.insert!(%TimeBlock{start_time: tb30s, end_time: tb30e})
+Repo.insert!(%TimeBlock{start_time: tb31s, end_time: tb31e})
+
 
 #Tutors
 Repo.insert!(%Tutor{email: "raquel@gmail.com", name: "Raquel Levy", bio: "I am a 3rd year CS student at NEU. My strengths are in fundamental CS courses, algorithms and data structures.", password_hash: pwhash, paypal_email: "shanetimmerman-facilitator@gmail.com", profile_pic_url: "https://goo.gl/KsfyN4", gpa: 3.8, university_id: 1})
@@ -610,6 +615,7 @@ Repo.insert!(%TutoringSession{description: "I would like some advice on my paper
 Repo.insert!(%TutoringSession{description: "I would like to review my orgo homework answers", approved: true, tutor_id: 3, student_id: 1, time_block_id: 23, course_id: 6, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
 Repo.insert!(%TutoringSession{description: "I would like general help with course concepts", approved: true, tutor_id: 3, student_id: 2, time_block_id: 23, course_id: 1, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
 Repo.insert!(%TutoringSession{description: "I would like general help with course concepts", approved: true, tutor_id: 1, student_id: 1, time_block_id: 24, course_id: 1, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
+Repo.insert!(%TutoringSession{description: "Active session", approved: true, tutor_id: 3, student_id: 1, time_block_id: 31, course_id: 1, subject_area_id: nil, payment_id: "PAY-07T809093E659313JLP5WJCQ", payer_id: "NZ6KY8PX5VBTA"})
 
 
 
