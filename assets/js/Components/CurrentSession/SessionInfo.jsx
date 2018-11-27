@@ -63,10 +63,14 @@ class CurrentMembers extends React.Component {
         let other_id = null;
 
         if (user.user_type == "TUTOR") {
-            peer = new Peer(tid, { key: 'lwjd5qra8257b9', port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] } });
+            // peer = new Peer(tid, { key: 'lwjd5qra8257b9', port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] }, debug: 3 });
+            peer = new Peer(tid, { host: 'my-peer.herokuapp.com', path: "/", secure: true, port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] }, debug: 3 });
+
             other_id = sid;
         } else {
-            peer = new Peer(sid, { key: 'lwjd5qra8257b9', port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] } });
+            peer = new Peer(sid, { host: 'my-peer.herokuapp.com', path: "/", secure: true, port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] }, debug: 3 });
+
+            // peer = new Peer(sid, { key: 'lwjd5qra8257b9', port: 443, config: { 'iceServers': [{ 'url': 'stun:stun.l.google.com:19302' }] } });
             other_id = tid;
         }
 
@@ -77,6 +81,7 @@ class CurrentMembers extends React.Component {
                     let call = peer.call(other_id, stream);
                     call.on('stream', function (remoteStream) {
                         console.log(remoteStream);
+                        console.log(document.querySelector('#other-a'))
                         document.querySelector('#other-a').srcObject = remoteStream;
                         document.querySelector('#other-v').srcObject = remoteStream;
                     });
