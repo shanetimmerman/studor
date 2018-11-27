@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
- * @param {*} props 
+ * @param {*} props
  */
 function TutorAccountInfoDisplay(props) {
     let info = props.user.user_info;
@@ -21,6 +21,7 @@ function TutorAccountInfoDisplay(props) {
                 <p>{info.gpa}</p>
                 <h4> Paypal Email: </h4>
                 <p>{info.paypal_email}</p>
+                <button onClick={props.onEditButton} className="btn-sm btn-primary">Edit profile</button>
             </div>
         </div>
     )

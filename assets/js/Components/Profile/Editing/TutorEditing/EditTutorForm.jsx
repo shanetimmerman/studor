@@ -5,7 +5,7 @@ import TutorAccountInfoDisplayContainer from '../../../../Containers/Profile/Dis
 
 /**
  * TEMPORARY ABSTRACTION-LESS WORKAROUND, TODO: ABSTRACT FROM USERINFORMATIONFORM
- * @param {*} props 
+ * @param {*} props
  */
 class EditTutorForm extends React.Component {
     constructor(props) {
@@ -107,11 +107,13 @@ class EditTutorForm extends React.Component {
                                         value={values.paypal_email}
                                     />
 
+                                <button type="submit" className="btn btn-sm btn-success"> Save changes </button>
+                                <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-success"> Save changes </button>
-                            <button onClick={this.toggleEdit}>cancel</button>
+
 
                         </form>
                     )}
@@ -120,8 +122,7 @@ class EditTutorForm extends React.Component {
         } else {
             return (
                 <div>
-                    <button onClick={this.toggleEdit}>Edit profile</button>
-                    <TutorAccountInfoDisplayContainer />
+                    <TutorAccountInfoDisplayContainer onEditButton={this.toggleEdit} />
                 </div>)
         }
     }
