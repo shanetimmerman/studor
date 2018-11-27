@@ -27,7 +27,10 @@ class AddAvailabilityForm extends React.Component {
         if (this.state.isOpen) {
             return (
                 <Formik initialValues={{ start_time: new Date(), end_time: new Date() }}
-                    onSubmit={(values) => { this.props.addAvailability(values) }}>
+                    onSubmit={(values) => {
+                        this.props.addAvailability(values);
+                        this.setState({isOpen: false});
+                }}>
                     {({ values, setValues, handleSubmit }) => (
                         <form onSubmit={handleSubmit}>
 

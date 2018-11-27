@@ -15,5 +15,6 @@ defmodule Studor.TutorCourses.TutorCourse do
     tutor_course
     |> cast(attrs, [:course_id, :tutor_id])
     |> validate_required([])
+    |> unique_constraint(:course_id_tutor_id)
   end
 end

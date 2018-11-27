@@ -59,9 +59,10 @@ class EditStudentForm extends React.Component {
                                             value={values.email}
                                             required
                                         />
-
-                                        <button type="submit" className="btn btn-sm btn-success">Save changes</button>
-                                        <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+                                        <div className="p-2">
+                                            <button type="submit" className="btn btn-sm btn-success">Save changes</button>
+                                            <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+                                        </div>
                                     </div>
                                 </div>
 
