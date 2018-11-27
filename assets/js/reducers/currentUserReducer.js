@@ -36,14 +36,12 @@ export default function (state = INITIAL_STATE, action) {
         case ADD_TUTOR_COURSE_FAILED:
             let error = action.payload;
             console.log('error', error)
-            let message = error["errors"]
             return Object.assign({}, state, { error: error } )
 
         case ADD_TUTOR_SUBJECT_AREA_FAILED:
-            let error = action.payload;
-            console.log('error', error)
-            let message = error["errors"]
-            return Object.assign({}, state, { error: error } )
+            let error0 = action.payload;
+            console.log('error', error0)
+            return Object.assign({}, state, { error: error0 } )
 
         default:
             return state;

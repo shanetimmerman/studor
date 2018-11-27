@@ -60,8 +60,7 @@ class AddCourseForm extends React.Component {
                                 }}
                                 options={this.formatCourseOptions(this.props.user.user_info.university.id)}
                             />
-
-                            <button type="submit"> add course </button>
+                            <button type="submit" className="btn-primary btn-small"> add course </button>
                         </form>
                     )}
                 </Formik>
