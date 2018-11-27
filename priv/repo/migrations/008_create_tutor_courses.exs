@@ -11,5 +11,7 @@ defmodule Studor.Repo.Migrations.CreateTutorCourses do
 
     create index(:tutor_courses, [:course_id])
     create index(:tutor_courses, [:tutor_id])
+
+    create index(:tutor_courses, [:course_id, :tutor_id], unique: True)
   end
 end

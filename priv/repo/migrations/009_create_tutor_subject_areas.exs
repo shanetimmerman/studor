@@ -11,5 +11,7 @@ defmodule Studor.Repo.Migrations.CreateTutorSubjectAreas do
 
     create index(:tutor_subject_areas, [:subject_area_id])
     create index(:tutor_subject_areas, [:tutor_id])
+
+    create index(:tutor_subject_areas, [:tutor_id, :subject_area_id], unique: True)
   end
 end
