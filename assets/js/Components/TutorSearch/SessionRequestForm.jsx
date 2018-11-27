@@ -84,7 +84,7 @@ class SessionRequestForm extends React.Component {
                                             </div>
 
                                             <div className="col pr-0 d-flex justify-content-end">
-                                                <button onClick={this.toggleModal} className="btn-sm  btn-outline-danger"> X </button>
+                                                <button onClick={this.toggleModal} className="close" aria-label="Close"> X </button>
                                             </div>
 
                                         </div>
