@@ -43,7 +43,10 @@ class AddCourseForm extends React.Component {
             return (
                 <Formik
                     initialValues={{ tutor_id: this.props.user.user_id, course_id: 1 }}
-                    onSubmit={(values) => { this.props.addCourse(values) }}>
+                    onSubmit={(values) => {
+                        this.props.addCourse(values)
+                        this.setState({isOpen: false})
+                }}>
                     {({ values, handleSubmit, setValues }) => (
                         <form onSubmit={handleSubmit}>
                             <Typeahead
@@ -53,13 +56,11 @@ class AddCourseForm extends React.Component {
                                 selectHintOnEnter={true}
                                 labelKey="name"
                                 onChange={(selected) => {
-                                    console.log(selected)
                                     if (selected[0]) { setValues(_.assign(values, { course_id: selected[0].id })); }
                                 }}
                                 options={this.formatCourseOptions(this.props.user.user_info.university.id)}
                             />
-
-                            <button type="submit"> add course </button>
+                            <button type="submit" className="btn-primary btn-small"> add course </button>
                         </form>
                     )}
                 </Formik>

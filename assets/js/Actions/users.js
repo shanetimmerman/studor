@@ -27,6 +27,9 @@ export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 export const FETCH_USER_INFO_SUCCESS = 'FETCH_USER_INFO_SUCCESS';
 export const FETCH_USER_INFO_FAILED = 'FETCH_USER_INFO_FAILED';
 
+export const ADD_TUTOR_COURSE_FAILED = 'ADD_TUTOR_COURSE_FAILED';
+
+export const ADD_TUTOR_SUBJECT_AREA_FAILED = 'ADD_TUTOR_SUBJECT_AREA_FAILED';
 
 export const LOGOUT_USER = 'DELETE_SESSION';
 
@@ -147,7 +150,7 @@ export function createTutor(values) {
 /**
  * Edits the currently signed in student, updating the account information
  * such as name and email.
- * 
+ *
  * @param {Object} values, an object including information about the student's account information.
  */
 export function updateStudentProfile(values) {
@@ -164,7 +167,7 @@ export function updateStudentProfile(values) {
 /**
  * Edits the currently signed in tutor, updating the account information such as
  * Name, Email, GPA, University, and Paypal Email.
- * 
+ *
  * @param {Object} values, an object including information about the tutor's account information.
  */
 export function udpateTutorProfile(values) {
@@ -187,11 +190,30 @@ export function deleteTutorCourse(id) {
 }
 
 export function addTutorCourse(values) {
-    postAjax('/api/v1/tutor_courses/', { tutor_course: values },
-        (resp) => {
-            let id = store.getState().currentUser.user_id;
-            fetchTutorInfo(id);
-        });
+    console.log("adding tutor course");
+    console.log(values)
+
+    let request = $.ajax(
+        '/api/v1/tutor_courses/', {
+            method: "post",
+            data: JSON.stringify({ tutor_course: values }),
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: (resp) => {
+                let id = store.getState().currentUser.user_id;
+                fetchTutorInfo(id);
+            }
+        }
+    );
+
+    request.fail(
+        (resp) => store.dispatch(
+            {
+                type: ADD_TUTOR_COURSE_FAILED,
+                payload: resp.responseText,
+            }
+        )
+    );
 }
 
 export function deleteTutorSubjectArea(id) {
@@ -203,11 +225,32 @@ export function deleteTutorSubjectArea(id) {
 }
 
 export function addTutorSubjectArea(values) {
-    postAjax('/api/v1/tutor_subject_areas/', { tutor_subject_area: values },
-        (resp) => {
-            let id = store.getState().currentUser.user_id;
-            fetchTutorInfo(id);
-        });
+    console.log("adding tutor area");
+    console.log(values)
+
+    let request = $.ajax(
+        '/api/v1/tutor_subject_areas/', {
+            method: "post",
+            data: JSON.stringify({ tutor_subject_area: values }),
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: (resp) => {
+                let id = store.getState().currentUser.user_id;
+                fetchTutorInfo(id);
+            }
+
+        }
+        );
+
+        request.fail(
+            (resp) => store.dispatch(
+                {
+                    type: ADD_TUTOR_SUBJECT_AREA_FAILED,
+                    payload: resp.responseText
+                }
+            )
+        );
+
 }
 
 export function deleteTutorAvailability(id) {

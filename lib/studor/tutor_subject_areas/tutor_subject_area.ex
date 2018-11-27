@@ -15,5 +15,6 @@ defmodule Studor.TutorSubjectAreas.TutorSubjectArea do
     tutor_subject_area
     |> cast(attrs, [:tutor_id, :subject_area_id])
     |> validate_required([])
+    |> unique_constraint(:subject_area_id_tutor_id)
   end
 end

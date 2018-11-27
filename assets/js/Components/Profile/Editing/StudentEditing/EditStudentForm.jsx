@@ -32,8 +32,16 @@ class EditStudentForm extends React.Component {
                         onSubmit={(values) => {
                             this.toggleEdit();
                             this.props.onSubmit(values)
+                        }}
+                        validate={values => {
+                            let errors = {};
+                            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+                                errors.email = 'Email addresses must include a . before a domain name.';
+                            }
+                            return errors;
                         }}>
-                        {({ values, handleChange, handleSubmit, setValues }) => (
+
+                        {({ values, handleChange, handleSubmit, errors, touched, setValues }) => (
                             <form onSubmit={handleSubmit}>
 
                                 {/* Account stuff */}
@@ -59,9 +67,12 @@ class EditStudentForm extends React.Component {
                                             value={values.email}
                                             required
                                         />
+                                        {errors.email && touched.email && <p className="text-danger"> {errors.email} </p>}
 
-                                        <button type="submit" className="btn btn-sm btn-success">Save changes</button>
-                                        <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+                                        <div className="p-2">
+                                            <button type="submit" className="btn btn-sm btn-success">Save changes</button>
+                                            <button onClick={this.toggleEdit} className="btn btn-sm btn-danger">Cancel</button>
+                                        </div>
                                     </div>
                                 </div>
 
