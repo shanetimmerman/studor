@@ -1,20 +1,9 @@
 # Studor
 
-To start your Phoenix server:
+A web applicaton for students and student tutors to connect and work with one another.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+This application is still in development, but you can visit the prod-ish version of it at:
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+https://stutor.raquel-webdev.com/
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+Please contact annis.jo@husky.neu.edu for any questions you may have.
